@@ -3,16 +3,21 @@ layout: post
 comments: true
 title:  "Sum Reduce Implementation in OpenCL"
 excerpt: "I can't believe I lasted this long on Wordpress. I am switching permanently to Jekyll for hosting my blog, and so should you :) Details inside."
-date:   2014-07-01 20:00:00
+date:   2017-10-04 20:00:00
 ---
 
-*"So what's wrong with Wordpress?"* You may ask. Let's see, everything:
+Reduce operation combines elements of an array into a single value.
+It has two input parameters:
+1) Set of elements
+2) Reduction operator (+, ||, &, min, max).
 
+Reduction operator should be binary (perform operation on two values) and associative (a op b op c == c op b op a).
 
-> Wordpress is a bloated, clunky, slow, vulnerable, closed mess.
-
-#### Example workflow
-To give a flavor for the workflow, to add a new blog post I proceed as follows:
+Parallel implementation can be viewed as followed:
+a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10. 
+Each work-item in the first half of WorkGroup re-calculate their values as value[id] = value[id] + value[id + offset]
+where offset = num_elements/2. Each iteration reduces the number of values by 2.
+Parallel reduce has step step complexity logn and work complexity n. 
 
 ```C
 __kernel void sum_reduce_kernel(__global int *input, __global int * output, __local int *sdata)
