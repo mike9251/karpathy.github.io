@@ -7,7 +7,7 @@ date:   2017-10-04 20:00:00
 ---
 
 Reduce operation combines elements of an array into a single value.
-It has two input parameters:  
+It has two input parameters:
 1. Set of elements
 2. Reduction operator (+, ||, &, min, max)
 
