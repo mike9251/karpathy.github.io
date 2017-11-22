@@ -85,7 +85,7 @@ We can't get a weak_ptr from unique_ptr (because weak_ptr doesn't inform that it
 One possible use case:
 ```C++
 int main(){
-	MyClass* obj = new MyChild();
+    MyClass* obj = new MyChild();
     std::shared_ptr<MyClass> p(obj1);
     return 0;
 }
