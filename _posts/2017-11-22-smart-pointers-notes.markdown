@@ -6,7 +6,7 @@ excerpt: "I scraped Hacker News Front Page and New Page every minute for 50 days
 date:   2017-11-22 20:00:00
 ---
 
-###shared_ptr
+### shared_ptr
 Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances.
 ```C
 std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>();
@@ -56,7 +56,7 @@ to do something with it will cause a program crush.
 
 
 
-###weak_ptr
+### weak_ptr
 Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances and it doesn't increment reference
 counter.
 ```C
@@ -69,7 +69,7 @@ To get acces to the object weak_ptr should be transformed into shared_ptr:
 std::shared_ptr<MyClass> ptr2 = wptr1.lock() or auto ptr2 = wptr1.lock()
 ```
 
-###unique_ptr
+### unique_ptr
 Smart pointer implementation, which solely holds a raw pointer of an object!
 ```C
 std::unique_ptr<int> uptr1(new int(13));
