@@ -11,6 +11,8 @@ github_username:  mike9251
 markdown: kramdown
 permalink: pretty
 
+scope: '.highlight'
+
 highlighter: rouge
 kramdown:
   input: GFM
