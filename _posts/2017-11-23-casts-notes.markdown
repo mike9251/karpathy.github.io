@@ -23,7 +23,7 @@ Converts any pointer type to any other pointer type, even of unrelated classes. 
 Intended for low-level casts that yield implementation-dependent and it would not be portable.  
 Let's consider an example:
 
-```C++
+{% highlight c++ %}
 struct Data {
     char a;
     char b;
@@ -32,7 +32,7 @@ struct Data {
 int value = 261;
 Data* pdata = reinterpret_cast<Data*> (&value);
 cout << "a = " << pdata->a << ", b = " << pdata->b << endl;   //returns a = 5, b = 1
-```
+{% endhighlight %}
 ```
 value = 261 = 0000 0000 0000 0000 0000 0001 0000 0101 = 4bytes (int)
 a = 5 = 0000 0101 = 1byte (char)
@@ -42,7 +42,7 @@ So `reinterpret_cast` just read 1st and 2nd bytes of `value` and wrote it into `
 
 Another way of using `reinterpret_cast` is to compare pointers.
 Here is an example:
-```C++
+{% highlight c++ %}
 class A {};
 class B {};
 class C : public A, public B {};
@@ -60,7 +60,7 @@ bool bool4 = reinterpret_cast<char*>(a) == reinterpret_cast<char*>(b);
 
 std::cout << bool0 << bool1 << bool2 << bool3 << bool4 << std::endl; // 11100
 cout << "Adress of c = " << &c << '\n' << "a = " << a << '\n' << "b = " << b << endl;
-```
+{% endhighlight %}
 `a == &c == true` - base pointer `a` points at `c`.  
 `reinterpret_cast<char*>(a) == reinterpret_cast<char*>(&c) == true` - treats `a` and `&c` as pointers to `char`, the 1st byte is the same in both pointers.  
 `b == &c == true` - base pointer `b` is also pointing at the `c` object.  
@@ -74,7 +74,7 @@ b = 000000E77974F665
 ### static_cast
 Valid only if type_name can be converted implicitly to the same type that expression has, or vise versa. Otherwise, the type cast is an error. It can be used to force implicit conversions such as `non-const` object to `const`, `int` to `double`. It can be also be used to perform the reverse of many conversions such as `void*` pointers to typed pointers, base pointers to derived pointers. But it cannot cast from `const` to `non-const` object.
 
-```C++
+{% highlight c++ %}
 class Base { 
 public: 
 	int a;
@@ -107,12 +107,12 @@ int main(){
     //UnrelatedClass *pUnrelated= static_cast<UnrelatedClass *> (&derived);
     return 0;
 }
-```
+{% endhighlight %}
 ### dynamic_cast
 This kind of cast is used to perform safe downcasting, i.e., to determine whether an object is of a particular type in an inheritance hierarchy. It is the only cast that may have a significant runtime cost.
 `dynamic_cast` involves a run-time type check. If the object bound to the pointer is not an object of the target type, it fails and the value is 0. If it's a reference type when it fails, then an exception of type `bad_cast` is thrown. So, if we want dynamic_cast to throw an exception (bad_cast) instead of returning 0, cast to a reference instead of to a pointer. Note also that the dynamic_cast is the only cast that relies on run-time checking.
 
-```C++
+{% highlight c++ %}
 class Base { 
     virtual void vf(){}
 };
@@ -135,11 +135,10 @@ int main()
 
     return 0;
 }
-```
+{% endhighlight %}
 
 A use case example:
-```C++
-
+{% highlight c++ %}
 #include <iostream>
 #include <string>
 using namespace std;
@@ -185,7 +184,7 @@ int main()
 
 	return 0;
 }
-```
+{% endhighlight %}
 `DoSomething(Window* w)` is passed down `Window` pointer. It calls `scroll()` method which is only available from `Scroll` object. So, in this case, we need to check if the object is the `Scroll` type or not before the call to the `scroll()` method.
 
 [More info of type casts](http://www.bogotobogo.com/cplusplus/typecast.php)
