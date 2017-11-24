@@ -61,11 +61,11 @@ bool bool4 = reinterpret_cast<char*>(a) == reinterpret_cast<char*>(b);
 std::cout << bool0 << bool1 << bool2 << bool3 << bool4 << std::endl; // 11100
 cout << "Adress of c = " << &c << '\n' << "a = " << a << '\n' << "b = " << b << endl;
 {% endhighlight %}
-`a == &c == true` - base pointer `a` points at `c`.  
+`a == &c == true` - `c` is implicitly casted to `A` class, so `a` and casted `c` are identical.  
 `reinterpret_cast<char*>(a) == reinterpret_cast<char*>(&c) == true` - treats `a` and `&c` as pointers to `char`, the 1st byte is the same in both pointers.  
-`b == &c == true` - base pointer `b` is also pointing at the `c` object.  
-`reinterpret_cast<char*>(b) == reinterpret_cast<char*>(&c) == false` - after upcasting `b` kind of points at part of `c` and not at the beginning of it.  
-`reinterpret_cast<char*>(a) == reinterpret_cast<char*>(b) == false` - after upcasting `a` points at one part of the `c` and `b` at the other.  
+`b == &c == true` - `c` is implicitly casted to `B` class, so `b` and casted `c` are identical. 
+`reinterpret_cast<char*>(b) == reinterpret_cast<char*>(&c) == false` - after upcasting `b` kind of points at part of `c` which has offset of `sizeof(A)`.  
+`reinterpret_cast<char*>(a) == reinterpret_cast<char*>(b) == false` - after upcasting `a` points at the beginning of the `c` and `b` at part of `c` which has offset of `sizeof(A)`.  
 Output of the last string is:  
 Adress of c = 000000E77974F664  
 a = 000000E77974F664  
@@ -186,5 +186,47 @@ int main()
 }
 {% endhighlight %}
 `DoSomething(Window* w)` is passed down `Window` pointer. It calls `scroll()` method which is only available from `Scroll` object. So, in this case, we need to check if the object is the `Scroll` type or not before the call to the `scroll()` method.
+
+Example (static_cast/dynamic_cast):
+{% highlight c++ %}
+class Dog {
+public:
+    virtual ~Dog() {};
+};
+
+class YellowDog : public Dog {
+public:
+    int a;
+    void bark() { std::cout << "Woof\n"; }
+};
+
+Dog *dog = new Dog();
+
+YellowDog *sydog = dynamic_cast<YellowDog*>(dog);
+YellowDog *dydog = static_cast<YellowDog*>(dog);
+sydog->bark();
+dydog->bark();
+{% endhighlight %}
+
+In both cases result is `Woof`, because bark() is treated as static function.
+Change `bark()` to `void bark() { std::cout << "Woof\n" << a; }`then `bark()` won't be static anymore and `sydog->bark()` prints `Woof + some garbage` because `Dog` doesn't have the field `int a` and `dydog->bark()` will trow an exception because of access through `nullptr`.
+It's better not to use `static_cast` here and instead use `dynamic_cast` but first check that upcasting performed correctly:
+{% highlight c++ %}
+YellowDog *dydog = static_cast<YellowDog*>(dog);
+if(dydog)
+    dydog->bark();
+{% endhighlight %}
+
+A better way is to use dynamic polymorphism:
+{% highlight c++ %}
+class Dog {
+public:
+    virtual void bark() {}
+    virtual ~Dog() {}
+};
+
+Dog *dog = new YellowDog();
+dog->bark();
+{% endhighlight %}
 
 [More info of type casts](http://www.bogotobogo.com/cplusplus/typecast.php)
