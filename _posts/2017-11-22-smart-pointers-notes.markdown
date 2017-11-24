@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title:  "Smart Pointers Notes "
-excerpt: "I scraped Hacker News Front Page and New Page every minute for 50 days and analyzed the results. How do stories rise and fall on Hacker News? What makes a successful post? Find out in this post :)"
+excerpt: "Short overview of Smart Pointers in C++11: shared_ptr, weak_ptr and unique_ptr."
 date:   2017-11-22 20:00:00
 ---
 
