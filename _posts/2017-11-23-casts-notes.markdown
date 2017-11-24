@@ -66,11 +66,10 @@ cout << "Adress of c = " << &c << '\n' << "a = " << a << '\n' << "b = " << b << 
 `b == &c == true` - base pointer `b` is also pointing at the `c` object.  
 `reinterpret_cast<char*>(b) == reinterpret_cast<char*>(&c) == false` - after upcasting `b` kind of points at part of `c` and not at the beginning of it.  
 `reinterpret_cast<char*>(a) == reinterpret_cast<char*>(b) == false` - after upcasting `a` points at one part of the `c` and `b` at the other.  
-Output of the last string is:
-```Adress of c = 000000E77974F664
-a = 000000E77974F664
-b = 000000E77974F665
-```
+Output of the last string is:  
+Adress of c = 000000E77974F664  
+a = 000000E77974F664  
+b = 000000E77974F665  
 
 ### static_cast
 Valid only if type_name can be converted implicitly to the same type that expression has, or vise versa. Otherwise, the type cast is an error. It can be used to force implicit conversions such as `non-const` object to `const`, `int` to `double`. It can be also be used to perform the reverse of many conversions such as `void*` pointers to typed pointers, base pointers to derived pointers. But it cannot cast from `const` to `non-const` object.
