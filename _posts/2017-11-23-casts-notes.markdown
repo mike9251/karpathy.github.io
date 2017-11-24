@@ -187,3 +187,5 @@ int main()
 }
 ```
 `DoSomething(Window* w)` is passed down `Window` pointer. It calls `scroll()` method which is only available from `Scroll` object. So, in this case, we need to check if the object is the `Scroll` type or not before the call to the `scroll()` method.
+
+[More info of type casts](http://www.bogotobogo.com/cplusplus/typecast.php)
