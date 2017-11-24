@@ -137,7 +137,7 @@ int main()
 }
 ```
 
-An example of a use case:
+A use case example:
 ```C++
 
 #include <iostream>
