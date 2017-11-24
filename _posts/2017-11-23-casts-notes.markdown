@@ -8,7 +8,7 @@ date:   2017-11-23 20:00:00
 
 ### const_cast
 Typically used to cast away the constness of objects. It is the only C++ style that can do this.
-```C++
+{% highlight c++ %}
 const int *a = new int(5);
 cout << "a = " << *a << endl;   // return 5
 int *b = const_cast<int*>(a);   
@@ -16,7 +16,7 @@ cout << "b = " << *b << endl;   // return 5
 *b = 9;
 cout << "a = " << *a << endl;   // return 9
 cout << "b = " << *b << endl;   // return 9
-```
+{% endhighlight %}
 
 ### reinterpret_cast
 Converts any pointer type to any other pointer type, even of unrelated classes. The operation result is a simple binary copy of the value from one pointer to the other.  
