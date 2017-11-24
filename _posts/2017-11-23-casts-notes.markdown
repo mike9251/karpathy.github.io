@@ -72,3 +72,119 @@ a = 000000E77974F664
 b = 000000E77974F665
 ```
 
+### static_cast
+Valid only if type_name can be converted implicitly to the same type that expression has, or vise versa. Otherwise, the type cast is an error. It can be used to force implicit conversions such as `non-const` object to `const`, `int` to `double`. It can be also be used to perform the reverse of many conversions such as `void*` pointers to typed pointers, base pointers to derived pointers. But it cannot cast from `const` to `non-const` object.
+
+```C++
+class Base { 
+public: 
+	int a;
+	Base() { a = 7; }
+};
+
+class Derived : public Base {
+public:
+	int b;
+	Derived() :Base() { b = 8; }
+};
+
+class UnrelatedClass {};
+
+int main(){
+    Base base;
+    Derived derived;
+
+    // valid upcast
+    Base *pBase = static_cast<Base *>(&derived);
+    cout << "pBase->a = " << pBase->a << endl;
+    //cout << "pBase->b = " << pBase->b << endl;
+
+    // valid downcast
+    Derived *pDerived = static_cast<Derived *> (&base);
+    cout << "pDerived->a = " << pDerived->a << endl; // output 7
+    cout << "pDerived->b = " << pDerived->b << endl; // output some garbage, Base doesn't contain b
+
+    // invalid, between unrelated classes
+    //UnrelatedClass *pUnrelated= static_cast<UnrelatedClass *> (&derived);
+    return 0;
+}
+```
+### dynamic_cast
+This kind of cast is used to perform safe downcasting, i.e., to determine whether an object is of a particular type in an inheritance hierarchy. It is the only cast that may have a significant runtime cost.
+`dynamic_cast` involves a run-time type check. If the object bound to the pointer is not an object of the target type, it fails and the value is 0. If it's a reference type when it fails, then an exception of type `bad_cast` is thrown. So, if we want dynamic_cast to throw an exception (bad_cast) instead of returning 0, cast to a reference instead of to a pointer. Note also that the dynamic_cast is the only cast that relies on run-time checking.
+
+```C++
+class Base { 
+    virtual void vf(){}
+};
+
+class Derived : public Base { };
+
+int main() 
+{
+    Base *pbd = new Derived;
+    Base *pb = new Base;
+    Derived *pd;
+
+    pd = dynamic_cast<Derived*>(pbd);	// correct, pbd points at an object of type Derived
+    pd = dynamic_cast<Derived*>(pb);	// invalid, return nullptr
+    
+    Base b;
+    Derived d;
+    Base *pb = dynamic_cast<Base*>(&d);		// correct upcasting
+    Derived *pd = dynamic_cast<Derived*>(&b);  // invalid downcasting, return nullptr
+
+    return 0;
+}
+```
+
+An example of a use case:
+```C++
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Window
+{
+public:
+	Window(){}
+	Window(const string s):name(s) {};
+	virtual ~Window() {};
+	void getName() { cout << name << endl;};
+private:
+	string name;
+};
+
+class ScrollWindow : public Window
+{
+public:
+	ScrollWindow(string s) : Window(s) {};
+	~ScrollWindow() {};
+	void scroll() { cout << "scroll()" << endl;};
+};
+
+void DoSomething(Window *w)
+{
+	w->getName();
+	// w->scroll();  // class "Window" has no member scroll
+
+	// check if the pointer is pointing to a scroll window
+	ScrollWindow *sw = dynamic_cast<ScrollWindow*>(w);
+
+	// if not null, it's a scroll window object
+	if(sw) sw->scroll();
+}
+
+int main()
+{
+	Window *w = new Window("plain window");
+	ScrollWindow *sw = new ScrollWindow("scroll window");
+
+	DoSomething(w);
+	DoSomething(sw);
+
+	return 0;
+}
+```
+`DoSomething(Window* w)` is passed down `Window` pointer. It calls `scroll()` method which is only available from `Scroll` object. So, in this case, we need to check if the object is the `Scroll` type or not before the call to the `scroll()` method.
