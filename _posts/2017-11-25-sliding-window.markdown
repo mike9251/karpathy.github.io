@@ -65,5 +65,6 @@ Set threshold value, usually 0.5 (or higher). So if IoU >= 0.5 then we consider 
 **Non-maximum Suppression**  
 The algorithm is used to get rid of redundant BBs.  
 1) Discard boxes with pc < 0.6  
+For each box with pc > 0:  
 2) Pick a box with the highest pc  
 3) Discard remaining boxes for which the IoU >= 0.5 with one from the step 2.
