@@ -11,8 +11,8 @@ mathjax: true
 Assume that an image has only one object. Try to classify an object and find a box around it.
 
 Pipeline:  
-``Image -> ConvNet -> Out (Features from the last layer)
-Out -> Softmax(Number of classes) - Classify
+``Image -> ConvNet -> Out (Features from the last layer)  
+Out -> Softmax(Number of classes) - Classify  
 Out -> Linear Regression(bx, by, bh,bw) - Bounding Box``  
 Upper-left Image corner = (0, 0)  
 Bottom-right Image corner = (1, 1)
@@ -43,8 +43,8 @@ Box confidence `pc = 0` and the other components doen't matter.
 
 ***Loss function***
 
-``L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2``   *`if y_1 == 1 (pc == 1)`*
-  L(y_hat, y) = (y_hat_1 - y_1)^2                             *if y_1 == 0 (pc == 0)*``
+`L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2`   **`if y_1 == 1 (pc == 1)`**  
+`L(y_hat, y) = (y_hat_1 - y_1)^2` **`if y_1 == 0 (pc == 0)`**
 
 In practise `L2` loss isn't used. Instead for `pc` component `(y_1)` use Logistic Regression,
 for BB components `(y_2, y_3, y_4, y_5)` use `L2 loss` and for `c1, c2, c3` components
