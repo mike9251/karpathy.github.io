@@ -1,8 +1,8 @@
 ---
 layout: post
 comments: true
-title:  "Sliding Window Object Detection"
-excerpt: "Some key moments of Sliding Window Detector."
+title:  "Notes for Object Detection"
+excerpt: "Some key moments of Sliding Window Detector, YOLO inference step."
 date:   2017-11-26 20:00:00
 ---
 **Sliding Window Object Detector**  
