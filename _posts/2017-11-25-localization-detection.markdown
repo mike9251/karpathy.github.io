@@ -7,29 +7,16 @@ date:   2017-11-25 11:00:00
 mathjax: true
 ---
 
-<!-- 
-<svg width="800" height="200">
-	<rect width="800" height="200" style="fill:rgb(98,51,20)" />
-	<rect width="20" height="50" x="20" y="100" style="fill:rgb(189,106,53)" />
-	<rect width="20" height="50" x="760" y="30" style="fill:rgb(77,175,75)" />
-	<rect width="10" height="10" x="400" y="60" style="fill:rgb(225,229,224)" />
-</svg>
- -->
-
 **Object Classification + Localization**  
 Assume that an image has only one object. Try to classify an object and find a box around it.
 
 Pipeline:  
 ``Image -> ConvNet -> (Features from the last layer) -> Softmax(Number of classes)
-                                                     -> Linear Regression(bx, by, bh,bw) - Bounding Box``
+						     -> Linear Regression(bx, by, bh,bw) - Bounding Box``
 
 Upper-left Image corner = (0, 0)  
 Bottom-right Image corner = (1, 1)
-
-bx = 0.5  
-by = 0.7  
-bh = 0.3  
-bw = 0.4
+bx = 0.5, by = 0.7, bh = 0.3, bw = 0.4
 
 <div class="imgcap">
 <img src="/assets/break/bb-example.JPG">
@@ -51,7 +38,7 @@ For an image with an object, say `a car` vector `y` is:
 `y = [1 bx by bh bw 0 1 0] `
 
 If there is no object in the image then:
-`y = [0 x x x x x x x]`
+`y = [0 x x x x x x x]`  
 Box confidence `pc = 0` and the other components doen't matter.
 
 ***Loss function***
