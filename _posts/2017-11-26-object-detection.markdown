@@ -3,7 +3,7 @@ layout: post
 comments: true
 title:  "Sliding Window Object Detection"
 excerpt: "Some key moments of Sliding Window Detector."
-date:   2017-11-25 20:00:00
+date:   2017-11-26 20:00:00
 ---
 **Sliding Window Object Detector**  
 Assume we have a training set `X` which consists of two types of images: with cars and without.
