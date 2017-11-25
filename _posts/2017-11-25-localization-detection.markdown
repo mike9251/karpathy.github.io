@@ -15,8 +15,8 @@ Pipeline:
 `Out -> Softmax(Number of classes) - Classify`  
 `Out -> Linear Regression(bx, by, bh,bw) - Bounding Box`  
 Upper-left Image corner = (0, 0)  
-Bottom-right Image corner = (1, 1)
-bx = 0.5, by = 0.7, bh = 0.3, bw = 0.4
+Bottom-right Image corner = (1, 1)  
+bx = 0.5, by = 0.7 - center of BB wrt image size, bh = 0.3, bw = 0.4 - BB's height and width wrt image size.
 
 <div class="imgcap">
 <img src="/assets/break/bb-example.JPG">
