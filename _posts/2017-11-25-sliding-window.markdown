@@ -6,16 +6,14 @@ excerpt: "Some key moments of Sliding Window Detector."
 date:   2017-11-25 20:00:00
 ---
 **Sliding Window Object Detector**  
-Assume we have a training set `X` which consists of car images and without cars.  
+Assume we have a training set `X` which consists of two types of images: with cars and without.
 Giving target label vector is: `y = [1 1 1 0 0]`, where 1 indicates car object in the image.
-
 <div class="imgcap">
 <img src="/assets/break/cars.JPG">
 <div class="thecap">
  Training dataset example.
 </div>
 </div>
-
 *Training process:*  
 `X -> ConvNet -> y_hat (Is there a car?)`  
 is a classification problem.
