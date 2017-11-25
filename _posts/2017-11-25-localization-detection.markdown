@@ -13,10 +13,10 @@ Assume that an image has only one object. Try to classify an object and find a b
 Pipeline:  
 `Image -> ConvNet -> Out (Features from the last layer)`  
 `Out -> Softmax(Number of classes) - Classify`  
-`Out -> Linear Regression(bx, by, bh,bw) - Bounding Box`  
+`Out -> Linear Regression(\\(b_x\\), \\(b_y\\), \\(b_h\\), \\(b_w\\)) - Bounding Box`  
 Upper-left Image corner = (0, 0)  
 Bottom-right Image corner = (1, 1)  
-\\(b_x\\) = 0.5, by = 0.7 - center of BB wrt image size, bh = 0.3, bw = 0.4 - BB's height and width wrt image size.
+\\(b_x\\) = 0.5, \\(b_y\\) = 0.7 - center of BB wrt image size, \\(b_h\\) = 0.3, \\(b_w\\) = 0.4 - BB's height and width wrt image size.
 
 <div class="imgcap">
 <img src="/assets/break/bb-example.JPG">
@@ -28,11 +28,11 @@ Assume we have three classes for objects + one class for background (there's no 
 1 - pedestrian; 2 - car; 3 - tree.
 
 Target vector:  
-`y = [pc, bx, by, bh, bw, c1, c2, c3]`  
+`y = [\\(p_c\\), \\(b_x\\), \\(b_y\\), \\(b_h\\), \\(b_w\\), \\(c_1\\), \\(c_2\\), \\(c_2\\)]`  
 where  
-`pc` - probabality that there is an object, box confidence;
-`bx, by, bh, bw` - bounding box;
-`c1, c2, c3` - probabality which tells us what class of object is more probable.
+`\\(p_c\\)` - probabality that there is an object, box confidence;
+`\\(b_x\\), \\(b_y\\), \\(b_h\\), \\(b_w\\)` - bounding box;
+`\\(c_1\\), \\(c_2\\), \\(c_2\\)` - probabality which tells us what class of object is more probable.
 
 For an image with an object, say `a car` vector `y` is:
 `y = [1 bx by bh bw 0 1 0] `
