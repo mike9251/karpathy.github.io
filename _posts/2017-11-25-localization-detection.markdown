@@ -13,7 +13,7 @@ Assume that an image has only one object. Try to classify an object and find a b
 Pipeline:  
 `Image -> ConvNet -> Out (Features from the last layer)`  
 `Out -> Softmax(Number of classes) - Classify`  
-`Out -> Linear Regression(\\(b_x\\), \\(b_y\\), \\(b_h\\), \\(b_w\\)) - Bounding Box`  
+`Out -> Linear Regression(b_x, b_y, b_h, b_w) - Bounding Box`  
 Upper-left Image corner = (0, 0)  
 Bottom-right Image corner = (1, 1)  
 \\(b_x\\) = 0.5, \\(b_y\\) = 0.7 - center of BB wrt image size, \\(b_h\\) = 0.3, \\(b_w\\) = 0.4 - BB's height and width wrt image size.
@@ -28,11 +28,11 @@ Assume we have three classes for objects + one class for background (there's no 
 1 - pedestrian; 2 - car; 3 - tree.
 
 Target vector:  
-`y = [\\(p_c\\), \\(b_x\\), \\(b_y\\), \\(b_h\\), \\(b_w\\), \\(c_1\\), \\(c_2\\), \\(c_2\\)]`  
+`y = [p_c, b_x, b_y, b_h, b_w, c_1, c_2, c_2]`  
 where  
-`\\(p_c\\)` - probabality that there is an object, box confidence;
-`\\(b_x\\), \\(b_y\\), \\(b_h\\), \\(b_w\\)` - bounding box;
-`\\(c_1\\), \\(c_2\\), \\(c_2\\)` - probabality which tells us what class of object is more probable.
+`p_c` - probabality that there is an object, box confidence;
+`b_x, b_y, b_h, b_w` - bounding box;
+`c_1, c_2, c_2` - probabality which tells us what class of object is more probable.
 
 For an image with an object, say `a car` vector `y` is:
 `y = [1 bx by bh bw 0 1 0] `
@@ -41,8 +41,7 @@ If there is no object in the image then:
 `y = [0 x x x x x x x]`  
 Box confidence `pc = 0` and the other components doen't matter.
 
-***Loss function***
-
+**Loss function**
 `L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2`   **`if y_1 == 1 (pc == 1)`**  
 `L(y_hat, y) = (y_hat_1 - y_1)^2`   **`if y_1 == 0 (pc == 0)`**
 
@@ -51,7 +50,7 @@ for BB components `(y_2, y_3, y_4, y_5)` use `L2 loss` and for `c1, c2, c3` comp
 use `Softmax loss`.
 
 
-***Landmark detection***
+**Landmark detection**
 <div class="imgcap">
 <img src="/assets/break/landmarks-exampleJPG.JPG">
 <div class="thecap">Example of face landmark detection.</div>
