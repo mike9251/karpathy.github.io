@@ -56,6 +56,7 @@ Metric which is used to evaluate an object detection algorithm (map localization
 </div>
 </div>
 `IoU(graund truth box, predicted box) = area of Union / area of Intersection`  
+
 Set threshold value, usually 0.5 (or higher). So if IoU >= 0.5 then we consider the detection is "correct".
 <div class="imgcap">
 <img src="/assets/break/IoU-example.JPG">
