@@ -21,10 +21,10 @@ is a classification problem.
 In test time we can have a bigger image, so we slide across the image with a box (Sliding Window), take a crop, resize it to the size the ConvNet is expected and feed it to the ConvNet. Then we can change the size of the sliding window and repeat. 
 A huge disadvantage of this method is computational cost. In order to get hight accuracy we need to slide across images with small stride (s = 1). Using bigger stride reduces the number of candidate crops but it increases possibility that the object will be partly missed (resulting Bounding Box will be shifted, not accurately placed around an object).
 
-If `FC nets` are used then to classify all crops we need `#crops` forward passes. Not optimal because there are lots of overlapped computations.
+If `FC layers` are used then to classify all crops we need `#crops` forward passes. Not optimal because there are lots of overlapped computations.
 There is a better way - turn each `FC layer` into `Conv layer`. It will allow to classify all crops in one forward pass.
 
-Example:  
+Example (with 4 classes):  
 `X {14x14x3} -> Conv {5x5x3x16} -> {10x10x16} -> MaxPool {2x2} -> {5x5x16} -> FC {400} -> FC {400} -> Softmax {4}`  
 
 ``X {14x14x3} -> Conv {5x5x3x16} -> {10x10x16} -> MaxPool {2x2} -> {5x5x16} -> Conv {5x5x16x400} -> {1x1x400} -> Conv {1x1x400x400} -> {1x1x400} -> Conv {1x1x400x4}``
@@ -45,7 +45,7 @@ For bigger image we get:
  Evaluating eight crops in one pass.
 </div>
 </div>
-The output of the network is kind of 2-d array where each cell represents a particular crop of the input image with predicted probability (box confidence).
+The output of the network is a 3-d array in which the 3rd dimmension represents class scores (box confidence) for a particular crop of the input image.
 
 **Intersection over Union (IoU)**  
 Metric which is used to evaluate an object detection algorithm (map localization to accuracy). IoU is a measure of the overlap between two BBs.
