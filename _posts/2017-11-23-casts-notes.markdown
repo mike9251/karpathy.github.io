@@ -16,6 +16,9 @@ cout << "b = " << *b << endl;   // return 5
 *b = 9;
 cout << "a = " << *a << endl;   // return 9
 cout << "b = " << *b << endl;   // return 9
+
+const int c = 10;
+const_cast<int&>(c) = 11;
 {% endhighlight %}
 
 ### reinterpret_cast
