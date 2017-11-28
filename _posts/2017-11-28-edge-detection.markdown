@@ -15,9 +15,10 @@ The gradient of an image:  \\(\nabla_{x,y}{f} = [G_{x}, G_{y}]\\) where \\(G_{x}
 The gradient direction is given by: \\(\theta = \tan^{-1} \left(\frac{G_{y}}{G_{x}}\right)\\).
 
 The amount of change is given by the gradient magnitude (how rapidly the fanction is changing):  
-\\(\left| \nabla_{x,y}{f} \right| = \sqrt {(G^2_{x} + G^2_{y})}\\)
+\\(| \nabla_{x,y}{f} | = \sqrt {(G^2_{x} + G^2_{y})}\\)
 
-For discrete data the dirivitive is (finite defference): \\(\frac{\partial{f(x,y)}\partial{x} ~ \frac{f(x+1, y) - f(x,y)}{} = f(x+1, y) - f(x,y)\\)
+\\( R\_t = \sum\_{k=0}^{\infty} \gamma^k r\_{t+k} \\)
+For discrete data the dirivitive is (finite defference): \\(\frac{\partial{f(x,y)}\partial{x} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)}\\)
 
 Magnitude of the gradient looks like edge!
 
