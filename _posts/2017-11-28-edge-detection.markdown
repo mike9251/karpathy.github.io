@@ -28,7 +28,7 @@ For discrete data the dirivative is (finite defference): \\(\frac{\partial{f(x,y
 
 Magnitude of the gradient looks like edge!
 
-Sobel operator
+**Sobel Operator**
 
 $$G_{x} = \frac{1}{8}
     \begin{bmatrix}
@@ -36,34 +36,32 @@ $$G_{x} = \frac{1}{8}
     -2 & 0 & 2 \\
     -1 & 0 & 1 \\
     \end{bmatrix}
-$$
+$$ 
 $$G_{y} = \frac{1}{8}
     \begin{bmatrix}
     1 & 2 & 1 \\
     0 & 0 & 0 \\
     -1 & -2 & -1 \\
     \end{bmatrix}
-$$
-
+$$ and 
 \\(\nabla_{x,y}{I} = [G_{x}, G_{y}]\\)
 
 Real images have some noise and computing gradient won't help finding eges.
-So first of all we need to use a low-pass filter h to get rid of the noise and after that calculate the gradient.
+So first of all we need to use a low-pass filter `h` to get rid of the noise and after that calculate the gradient.
 h * f - filtered image
 d(h * f)/dx = (dh/dx) * f
-We can precompute the derivitive of h and apply it to the original image (with noise). This save us one operation.
+We can precompute the derivitive of `h` and convole it with the original image (with noise). This save us one operation.
+
+**Canny Edge Operator**
+
+Primary edge detection steps:  
+1. Smooth derivatives to suppress noise and compute gradient (take a 2nd derivatives of low-pass filter g and convolve the result with the image).  
+2. Threshold the result to fing regions of "significant" gradient.  
+3. "Thin" to get localized edge pixel (`NMS`) - look at a thick edge and pick only one pixel with max intensity along the gradient direction.  
+
+
 
 With bigger sigma more small variations are smoothed away. So small value of sigma allows to detect fine features, big value suitable for detecting large scale edges.
-
-Canny Edge Operator
-
-Primary edge detection steps:
-1. Smooth derivatives to suppress noise and compute gradient (take a 2nd derivatives of low-pass filter g and convolve the result with the image).
-2. Threshold the result to fing regions of "significant" gradient.
-3. "Thin" to get localized edge pixel (NMS) - look at a thick edge and pick only one pixel with max intensity along the gradient direction.
-4. Linking
-  4.1 Define two thresholds: low and high
-  4.2 Use the high threshold to start edge curves and then low threshold to continue them
 
 
 Laplasian
