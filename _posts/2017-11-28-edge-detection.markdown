@@ -37,15 +37,15 @@ $$G_{x} = \frac{1}{8}
     -1 & 0 & 1 \\
     \end{bmatrix}
 $$
+$$G_{y} = \frac{1}{8}
+    \begin{bmatrix}
+    1 & 2 & 1 \\
+    0 & 0 & 0 \\
+    -1 & -2 & -1 \\
+    \end{bmatrix}
+$$
 
-1/8 * [-1 0 1]
-      [-2 0 2]
-      [-1 0 1]
-
-1/8 * [1 2 1]
-      [0 0 0]
-      [-1 -2 -1]
-nabla I = [Gx, Gy]^T
+\\(\nabla_{x,y}{I} = [G_{x}, G_{y}]\\)
 
 Real images have some noise and computing gradient won't help finding eges.
 So first of all we need to use a low-pass filter h to get rid of the noise and after that calculate the gradient.
