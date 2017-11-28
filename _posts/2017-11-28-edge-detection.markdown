@@ -30,7 +30,7 @@ Magnitude of the gradient looks like edge!
 
 Sobel operator
 
-$$\frac{1}{8}
+$$G_{x} = \frac{1}{8}
     \begin{bmatrix}
     -1 & 0 & 1 \\
     -2 & 0 & 2 \\
