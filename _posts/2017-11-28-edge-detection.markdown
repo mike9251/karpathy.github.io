@@ -4,12 +4,13 @@ comments: true
 title:  "Edge Detection"
 excerpt: "Overview of image gradients and key edge detectors."
 date:   2017-11-28 22:54:00
+mathjax: true
 ---
 
 An edge is a place of rapid change in the image intensity `f` function.  
 The gradient points in the direction of most rapid increase in intensity `f`.
 
-The gradient of an image :\\(nabla_{\f}\\) = [Gx, Gy]
+The gradient of an image :\\(nabla_{\f} = [Gx, Gy]\\)
 where Gx = df/dx, Gy = df/dy - partial derivitives of f wrt x and y
 
 The gradient direction is given by: Q = (tan(Gy/Gx))^-1
