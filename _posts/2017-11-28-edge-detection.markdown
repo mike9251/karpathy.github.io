@@ -29,6 +29,13 @@ For discrete data the dirivative is (finite defference): \\(\frac{\partial{f(x,y
 Magnitude of the gradient looks like edge!
 
 Sobel operator
+$$\frac{1}{8}
+    \begin{matrix}
+    -1 & 0 & 1 \\
+    -2 & 0 & 2 \\
+    -1 & 0 & 1 \\
+    \end{matrix}
+$$
 
 1/8 * [-1 0 1]
       [-2 0 2]
