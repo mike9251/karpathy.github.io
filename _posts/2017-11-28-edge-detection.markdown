@@ -9,9 +9,9 @@ mathjax: true
 
 An edge is a place of rapid change in the image intensity `f` function.  
 The gradient points in the direction of most rapid increase in intensity `f`.
-\\( \nabla\_{\theta} \log p(x;\theta) \\)
-The gradient of an image :\\(\nabla_{\f} = [Gx, Gy]\\)
-where Gx = df/dx, Gy = df/dy - partial derivitives of f wrt x and y
+
+The gradient of an image :\\(\nabla_{f} = [Gx, Gy]\\)
+where Gx = df/dx, Gy = df/dy - partial derivitives of `f` wrt `x` and `y`.
 
 The gradient direction is given by: Q = (tan(Gy/Gx))^-1
 
