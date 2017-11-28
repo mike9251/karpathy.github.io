@@ -11,13 +11,20 @@ An edge is a place of rapid change in the image intensity `f` function.
 The gradient points in the direction of most rapid increase in intensity `f`.
 
 The gradient of an image:  \\(\nabla_{x,y}{f} = [G_{x}, G_{y}]\\) where \\(G_{x} = \frac{\partial{f}}{\partial{x}}, G_{y} = \frac{\partial{f}}{\partial{y}}\\) - partial derivitives of `f` wrt `x` and `y`.
+<div class="imgcap">
+<img src="/assets/cv/image-gradient.JPG">
+</div>
+<div class="imgcap">
+<img src="/assets/cv/imageJPG.JPG"><img src="/assets/cv/intensity.JPG"><img src="/assets/cv/1st-derivitive-peaks.JPG">
+<div class="thecap">Image, intensity, 1st derivative of intensity.</div>
+</div>
 
 The gradient direction is given by: \\(\theta = \tan^{-1} \left(\frac{G_{y}}{G_{x}}\right)\\).
 
 The amount of change is given by the gradient magnitude (how rapidly the fanction is changing): 
 \\(\mid \nabla_{x,y}{f} \mid = \sqrt {(G\_{x}^{2} + G\_{y}^{2})}\\)
 
-For discrete data the dirivitive is (finite defference): \\(\frac{\partial{f(x,y)}}{\partial{x}} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)\\)
+For discrete data the dirivative is (finite defference): \\(\frac{\partial{f(x,y)}}{\partial{x}} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)\\)
 
 Magnitude of the gradient looks like edge!
 
