@@ -10,12 +10,12 @@ mathjax: true
 An edge is a place of rapid change in the image intensity `f` function.  
 The gradient points in the direction of most rapid increase in intensity `f`.
 
-The gradient of an image:  \\(\nabla_{x,y}{f} = [Gx, Gy]\\) where \\(Gx = \franc{\partial{f}{\partial{x}}, Gy = \frac{\partial{f}}{\partial{y}}\\) - partial derivitives of `f` wrt `x` and `y`.
+The gradient of an image:  \\(\nabla_{x,y}{f} = [G_{x}, G_{y}]\\) where \\(G_{x} = \franc{\partial{f}{\partial{x}}, G_{y} = \frac{\partial{f}}{\partial{y}}\\) - partial derivitives of `f` wrt `x` and `y`.
 
-The gradient direction is given by: \\(\theta = \tan^{-1} \left(\frac{Gy}{Gx}\right)\\).
+The gradient direction is given by: \\(\theta = \tan^{-1} \left(\frac{G_{y}}{G_{x}}\right)\\).
 
 The amount of change is given by the gradient magnitude (how rapidly the fanction is changing):  
-\\(\left| \nabla_{x,y}{f} \right| = \sqrt {(Gx^2 + Gy^2)}\\)
+\\(\left| \nabla_{x,y}{f} \right| = \sqrt {(G^2_{x} + G^2_{y})}\\)
 
 For discrete data the dirivitive is (finite defference): \\(\frac{\partial{f(x,y)}\partial{x} ~ \frac{f(x+1, y) - f(x,y)}{} = f(x+1, y) - f(x,y)\\)
 
