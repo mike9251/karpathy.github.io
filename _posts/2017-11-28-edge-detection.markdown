@@ -10,7 +10,7 @@ mathjax: true
 An edge is a place of rapid change in the image intensity `f` function.  
 The gradient points in the direction of most rapid increase in intensity `f`.
 
-The gradient of an image:  \\(\nabla_{x,y}{f} = [G_{x}, G_{y}]\\) where \\(G_{x} = \franc{\partial{f}{\partial{x}}, G_{y} = \frac{\partial{f}}{\partial{y}}\\) - partial derivitives of `f` wrt `x` and `y`.
+The gradient of an image:  \\(\nabla_{x,y}{f} = [G_{x}, G_{y}]\\) where \\(G_{x} = \franc{\partial{f}{\partial{x}}}, G_{y} = \frac{\partial{f}}{\partial{y}}\\) - partial derivitives of `f` wrt `x` and `y`.
 
 The gradient direction is given by: \\(\theta = \tan^{-1} \left(\frac{G_{y}}{G_{x}}\right)\\).
 
@@ -18,7 +18,7 @@ The amount of change is given by the gradient magnitude (how rapidly the fanctio
 \\(| \nabla_{x,y}{f} | = \sqrt {(G^2_{x} + G^2_{y})}\\)
 
 \\( R\_t = \sum\_{k=0}^{\infty} \gamma^k r\_{t+k} \\)
-For discrete data the dirivitive is (finite defference): \\(\frac{\partial{f(x,y)}\partial{x} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)}\\)
+For discrete data the dirivitive is (finite defference): \\(\frac{\partial{f(x,y)}}{\partial{x}} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)}\\)
 
 Magnitude of the gradient looks like edge!
 
