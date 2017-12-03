@@ -28,22 +28,22 @@ For example we have some measurements x1...x100.
 </div>
 
 We want to smooth this plot. So we can take:  
-``v0 = 0  
+```v0 = 0  
 v1 = 0.9 * v0 + 0.1 * x1  
 v2 = 0.9 * v1 + 0.1 * x2  
 ...  
-v_t = 0.9 * v_(t-1) + 0.1 * x_t``
+v_t = 0.9 * v_(t-1) + 0.1 * x_t```
 
 <div class="imgcap">
 <img src="/assets/dl/ewa-2.JPG">
 </div>
 
 General formula:  
-``v_t = B * v_(t-1) + (1 - B) * x_t  
+```v_t = B * v_(t-1) + (1 - B) * x_t  
 v_t is approximately average over 1/(1-B) measurements.  
 if B = 0.9 then v_t is an average over ~ 10 measurements.  
 if B = 0.98 then it averages over ~ 50 measurements.  
-if B = 0.5 ~ 2 measurements. Each measurement makes a big impact on the result. That's why it is so noisy.``
+if B = 0.5 ~ 2 measurements. Each measurement makes a big impact on the result. That's why it is so noisy.```
 <div class="imgcap">
 <img src="/assets/dl/ewa-green-098-red-09.JPG">
 <div class="thecap">Red - B = 0.9 Green - B = 0.98.</div>
