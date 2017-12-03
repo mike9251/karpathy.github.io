@@ -1,0 +1,82 @@
+---
+layout: post
+comments: true
+title:  "Line fitting / Hough Algorithm"
+excerpt: "Overview of the Hough transformation. Algorithm for finding lines."
+date:   2017-12-03 22:54:00
+mathjax: true
+---
+
+**Hough Transform / Line fitting**
+
+Use `Voting`, a general technique where we let the features vote for all models that are compatible with it.
+
+1. Cycle through features (`edge points)`, each casting votes for model parameters.
+2. Look for model parameters that receive a lot of votes.
+
+Noise also will vote, but its votes typically are inconsistent with majority of `good` features.
+
+Even if some parts of a line are missing (after thresholding edge pixels) we still be able to fit the line.
+
+**Hough Transform**
+<div class="imgcap">
+<img src="/assets/cv/hough1.JPG">
+<div class="thecap">Left - Image Space Right - Hough Space.</div>
+</div>
+The line `y = m0 * x + b0` is parameterized by `m0`, `b0`.
+*A line in the image corresponds to a point in Hough space (m0, b0).*
+
+Suppose we have a point `(x0, y0)` in the image. Then a line that goes through this point is: `y0 = m * x0 + b`, where `m,b` - some parameters.
+Then in Hough space this point will correspond to a line: `b = -x0 * m + y0`
+
+<div class="imgcap">
+<img src="/assets/cv/hough3.JPG">
+<div class="thecap">Left - Points in the Image Space Right - Corresponding lines in the Hough Space.</div>
+</div>
+
+*A point in the image corresponds to a line in Hough space.*
+
+A line that fits both points will be parameterized by `m` and `b` where corresponding lines in Hough space intersect.
+
+**Hough Algorithm**
+
+Devide Hough space in bins (`d` and `Q` will take values in some range, say d = [-100, 100], Q = [0, 180])
+For each edge point get a line in Hough space, their intersections will vote for line parameters `m`, `b`.
+Accumulate votes in discrete set of bins; parameters with the most votes indicate line in image space.
+
+There is an issue with vertical lines - it's slope (`m`) is inf. Use Polar representation of lines.
+A line in polar coordinates is defined by two parameters: `d` and `Q`.
+Point in image space is a sinusoid segment in Hough space.
+<div class="imgcap">
+<img src="/assets/cv/hough-transform-for-line.JPG">
+</div>
+
+So use the polar parameterization and a Hough accumulator array `H(Q,d)`. We can choose size of bins (1degree then number of bins = 180 of 10degree then number of bins = 18).
+
+**Basic Alg:**
+```
+1. Initialize H[d; Q] = 0
+2. For each edge point E(x, y) in the image
+    for Q = 0 to 180 // here we can set Step
+        d = xcosQ - ysinQ
+        H[d, Q] += 1
+3. Find the values of (d, Q) where H[d, Q] is maximum
+4. The detected line in the image is given by d=xcosQ - ysinQ
+```
+`d` is index corresponding to some bin.
+
+Space complexity
+k^n - number of bins ,where n - dimension (or number of parameters, in case of line it's 2) k - bins each.
+For lines k^2
+
+Time complexity (in terms of number of voting elements): number of edge points
+
+Noise in real images affect result in Houph space - the peack is not so precise, and if very fine bins are used, the we may even lost it. In this case one approach can be used: blur Hough space, so we can find a pick (maybe a litle shifted).
+
+Extensions
+1. Use the gradient for Q - reduce the number of bins Q, just one value
+2. Give more votes for stronger edges
+3. Change the sampling of(d, Q) to give more/less resolution. Big bins make the alg fast, but similar lines can land in the same bin. Too fine bins make the alg to be easy affected by noise.
+  3.1 First, start with corse bins
+  3.2 Find peaks
+  3.3 Use more fine bins for some area around the peak to improve the model
