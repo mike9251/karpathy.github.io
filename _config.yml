@@ -1,10 +1,10 @@
 # Site settings
 title: IT notes
 email: 
-description: "Learning and practice new technologies."
+description: "Learn and practice new technologies."
 baseurl: ""
 url: "http://mike9251.github.io"
-twitter_username: mike92p
+#twitter_username: mike92p
 github_username:  mike9251
 
 # Build settings
