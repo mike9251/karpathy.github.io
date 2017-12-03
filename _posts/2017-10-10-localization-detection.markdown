@@ -3,7 +3,7 @@ layout: post
 comments: true
 title:  "Object Localization"
 excerpt: "Brief notes on Object Classification + Localization problem."
-date:   2017-11-25 11:00:00
+date:   2017-10-10 11:00:00
 mathjax: true
 ---
 
