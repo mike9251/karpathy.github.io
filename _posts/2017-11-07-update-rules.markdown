@@ -27,7 +27,7 @@ For example we have some measurements x1...x100.
 <img src="/assets/dl/ewa-data.JPG">
 </div>
 
-We want to smooth this plot. So we can take:
+We want to smooth this plot. So we can take:  
 ``v0 = 0  
 v1 = 0.9 * v0 + 0.1 * x1  
 v2 = 0.9 * v1 + 0.1 * x2  
