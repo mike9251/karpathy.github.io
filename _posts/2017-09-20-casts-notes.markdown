@@ -3,7 +3,7 @@ layout: post
 comments: true
 title:  "Type Casts Notes "
 excerpt: "Brief summary of existing type cast methods in C++11: const_cast, static_cast, dynamic_cast and reinterpret_cast."
-date:   2017-11-23 20:00:00
+date:   2017-09-20 20:00:00
 ---
 
 ### const_cast
