@@ -3,7 +3,7 @@ layout: post
 comments: true
 title:  "Smart Pointers Notes "
 excerpt: "Short overview of Smart Pointers in C++11: shared_ptr, weak_ptr and unique_ptr."
-date:   2017-11-22 20:00:00
+date:   2017-09-14 20:00:00
 ---
 
 ### shared_ptr
