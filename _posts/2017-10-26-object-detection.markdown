@@ -25,10 +25,11 @@ If `FC layers` are used then to classify all crops we need `#crops` forward pass
 There is a better way - turn each `FC layer` into `Conv layer`. It will allow to classify all crops in one forward pass.
 
 Example (with 4 classes):  
-`X {14x14x3} -> Conv {5x5x3x16} -> {10x10x16} -> MaxPool {2x2} -> {5x5x16} -> FC {400} -> FC {400} -> Softmax {4}`  
+```
+X {14x14x3} -> Conv {5x5x3x16} -> {10x10x16} -> MaxPool {2x2} -> {5x5x16} -> FC {400} -> FC {400} -> Softmax {4}  
 
-``X {14x14x3} -> Conv {5x5x3x16} -> {10x10x16} -> MaxPool {2x2} -> {5x5x16} -> Conv {5x5x16x400} -> {1x1x400} -> Conv {1x1x400x400} -> {1x1x400} -> Conv {1x1x400x4}``
-
+X {14x14x3} -> Conv {5x5x3x16} -> {10x10x16} -> MaxPool {2x2} -> {5x5x16} -> Conv {5x5x16x400} -> {1x1x400} -> Conv {1x1x400x400} -> {1x1x400} -> Conv {1x1x400x4}
+```
 `OverFeat` architecture uses convolutional implementation of sliding windows.
 
 Assume that we use a sliding window of size `14x14` which is sliding with a `stride = 2`. To evaluate our detector we pass an image 16x16x3. Then in one forward pass we get predictions for all 4 crops:  
