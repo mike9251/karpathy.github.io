@@ -11,9 +11,10 @@ mathjax: true
 Assume that an image has only one object. Try to classify an object and find a box around it.
 
 Pipeline:  
-`Image -> ConvNet -> Out (Features from the last layer)`  
-`Out -> Softmax(Number of classes) - Classify`  
-`Out -> Linear Regression(b_x, b_y, b_h, b_w) - Bounding Box`  
+```
+Image -> ConvNet -> Out (Features from the last layer) -> Softmax(Number of classes) - Classify
+                                                       -> Linear Regression(b_x, b_y, b_h, b_w) - Bounding Box
+```
 Upper-left Image corner = (0, 0)  
 Bottom-right Image corner = (1, 1)  
 \\(b_x\\) = 0.5, \\(b_y\\) = 0.7 - center of BB wrt image size, \\(b_h\\) = 0.3, \\(b_w\\) = 0.4 - BB's height and width wrt image size.
@@ -43,8 +44,8 @@ Box confidence `pc = 0` and the other components doen't matter.
 
 **Loss function**
 ```
-L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2   **if y_1 == 1 (pc == 1)**  
-L(y_hat, y) = (y_hat_1 - y_1)^2                             **if y_1 == 0 (pc == 0)**
+L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2   if y_1 == 1 (pc == 1)  
+L(y_hat, y) = (y_hat_1 - y_1)^2                             if y_1 == 0 (pc == 0)
 ```
 
 In practise `L2` loss isn't used. Instead for `pc` component `(y_1)` use Logistic Regression,
@@ -58,9 +59,8 @@ use `Softmax loss`.
 <div class="thecap">Example of face landmark detection.</div>
 </div>
 
-```Image -> ConvNet -> Out 
-Out -> Classification (Is it a face?)
-Out -> Linear Regression (Predict coordinates of interesting points)
+```Image -> ConvNet -> Classification (Is it a face?)
+                    -> Linear Regression (Predict coordinates of interesting points)
 ```
 where `l1x, l1y, ..., lnx, lny` - coordinates of `1st, ..., n-th` landmark point.
 
