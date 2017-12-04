@@ -42,8 +42,10 @@ If there is no object in the image then:
 Box confidence `pc = 0` and the other components doen't matter.
 
 **Loss function**
-`L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2`   **`if y_1 == 1 (pc == 1)`**  
-`L(y_hat, y) = (y_hat_1 - y_1)^2`   **`if y_1 == 0 (pc == 0)`**
+```
+L(y_hat, y) = (y_hat_1 - y_1)^2 + ... + (y_hat_8 - y_8)^2   **if y_1 == 1 (pc == 1)**  
+L(y_hat, y) = (y_hat_1 - y_1)^2                             **if y_1 == 0 (pc == 0)**
+```
 
 In practise `L2` loss isn't used. Instead for `pc` component `(y_1)` use Logistic Regression,
 for BB components `(y_2, y_3, y_4, y_5)` use `L2 loss` and for `c1, c2, c3` components
@@ -56,9 +58,10 @@ use `Softmax loss`.
 <div class="thecap">Example of face landmark detection.</div>
 </div>
 
-`Image -> ConvNet -> Out`  
-`Out -> Classification (Is it a face?)`  
-`Out -> Linear Regression (Predict coordinates of interesting points)`  
+```Image -> ConvNet -> Out 
+Out -> Classification (Is it a face?)
+Out -> Linear Regression (Predict coordinates of interesting points)
+```
 where `l1x, l1y, ..., lnx, lny` - coordinates of `1st, ..., n-th` landmark point.
 
 One important thing is that labels `l1x, l1y` and so on should be **consistent** across all images
