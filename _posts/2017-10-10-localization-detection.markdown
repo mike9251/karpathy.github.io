@@ -59,8 +59,9 @@ use `Softmax loss`.
 <div class="thecap">Example of face landmark detection.</div>
 </div>
 
-```Image -> ConvNet -> Classification (Is it a face?)
-                    -> Linear Regression (Predict coordinates of interesting points)
+```
+Image -> ConvNet -> Classification (Is it a face?)
+                 -> Linear Regression (Predict coordinates of interesting points)
 ```
 where `l1x, l1y, ..., lnx, lny` - coordinates of `1st, ..., n-th` landmark point.
 
