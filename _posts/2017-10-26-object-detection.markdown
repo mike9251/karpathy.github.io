@@ -90,4 +90,4 @@ Then choose one class and take scores across all BBs, set score value = 0 for BB
 
 Select boxes to draw by class score value: take the first box, find the max score value across all classes and draw it (the box color will represent particular class). If all scores are zero for some boxes, these boxes just don't get drawn.
 
-Great explanation is here [video](https://www.youtube.com/watch?v=L0tzmv--CGY) [slides](https://docs.google.com/presentation/d/1aeRvtKG21KHdD5lg6Hgyhx5rPq_ZOsGjG5rJ1HP7BbA/pub?start=false&loop=false&delayms=3000&slide=id.g137784ab86_4_1258)
+Great explanation is here [video](https://www.youtube.com/watch?v=L0tzmv--CGY) [slides](https://docs.google.com/presentation/d/1aeRvtKG21KHdD5lg6Hgyhx5rPq_ZOsGjG5rJ1HP7BbA/pub?start=false&loop=false&delayms=3000&slide=id.g137784ab86_4_1258) and one more [video](https://www.youtube.com/watch?v=NM6lrxy0bxs)
