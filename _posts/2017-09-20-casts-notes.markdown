@@ -203,19 +203,19 @@ public:
     void bark() { std::cout << "Woof\n"; }
 };
 
-Dog *dog = new Dog();
+Dog *dog = new YellowDog();
 
-YellowDog *sydog = dynamic_cast<YellowDog*>(dog);
-YellowDog *dydog = static_cast<YellowDog*>(dog);
-sydog->bark();
+YellowDog *dydog = dynamic_cast<YellowDog*>(dog);
+YellowDog *sydog = static_cast<YellowDog*>(dog);
 dydog->bark();
+sydog->bark();
 {% endhighlight %}
 
 In both cases the result is `Woof`, because bark() is treated as a static function.
 Change `bark()` to `void bark() { std::cout << "Woof\n" << a; }`then `bark()` won't be static anymore and `sydog->bark()` prints `Woof + some garbage` because `Dog` doesn't have the field `int a` and `dydog->bark()` will trow an exception because of the access through `nullptr`.
 It's better not to use `static_cast` here and instead use `dynamic_cast` but first check that upcasting performed correctly:
 {% highlight c++ %}
-YellowDog *dydog = static_cast<YellowDog*>(dog);
+YellowDog *dydog = dynamic_cast<YellowDog*>(dog);
 if(dydog)
     dydog->bark();
 {% endhighlight %}
