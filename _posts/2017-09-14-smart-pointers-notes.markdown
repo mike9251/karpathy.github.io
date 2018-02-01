@@ -84,7 +84,7 @@ One possible use case:
 {% highlight c++ %}
 int main(){
     MyClass* obj = new MyChild();
-    std::shared_ptr<MyClass> p(obj1);
+    std::shared_ptr<MyClass> p(obj);
     return 0;
 }
 {% endhighlight %}
