@@ -8,6 +8,8 @@ When we drive, we use our eyes to decide where to go.  The lines on the road tha
 In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.
 
 
+Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-LaneLines-P1-master">here</a>.
+
 
 Writeup
 ---
@@ -39,7 +41,7 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  
  Combine extracted images:
  <div class="imgcap">
- <img src="/assets/self-driving-cars/yellow_mask.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/y_w_mask.JPG" width="480" alt="Combined Image" />
  <div class="thecap">Yellow + White mask</div>
  </div>
  
@@ -71,7 +73,7 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  - find lines from the edge points with the Hough algorithm
  
  
- Hough algorithms returns an array of points: `x1 y1 x2 y2`. In my case I get 9 lines:
+ Hough algorithm returns an array of points: `x1 y1 x2 y2`. In my case I get 9 lines:
  
  ```
  [[[227 513 424 359]]
