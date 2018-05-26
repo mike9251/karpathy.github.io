@@ -7,12 +7,19 @@ When we drive, we use our eyes to decide where to go.  The lines on the road tha
 
 In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HTFzZqnNu0k?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
+Final result on the Challenge video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LT7xTa_E2bQ?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+First attempt without preprocessing in HSL color space and without taking into account previously detected lines:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HTFzZqnNu0k?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Added preprocessing in HSL CS:
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dA2_WR17HXQ?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+According to the results the preprocessing stage is very important for more accurate lane line detection.
 
 **Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-LaneLines-P1-master">here</a>.**
 
