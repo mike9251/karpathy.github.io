@@ -14,7 +14,9 @@ Writeup
 The first task of the Self-Driving Car course is to create a simple lane line detector. The implemented script works with video only
 
 *1. Pipeline*
+
  - load an image
+ 
  <img src="/assets/self-driving-cars/input_img.JPG" width="480" alt="Combined Image" />
  
  - preprocessing in HSL color space - IMPORTANT - really helps in the 'challenge' video case
