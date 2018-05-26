@@ -15,7 +15,7 @@ The first task of the Self-Driving Car course is to create a simple lane line de
 
 *1. Pipeline*
  - load an image
- <img src="result/input_img.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/input_img.JPG" width="480" alt="Combined Image" />
  
  - preprocessing in HSL color space - IMPORTANT - really helps in the 'challenge' video case
  <div class="imgcap">
@@ -43,18 +43,23 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  
  
  Apply this mask to the input image to extract parts of it:
+ 
  <img src="/assets/self-driving-cars/extract_y_w.JPG" width="480" alt="Combined Image" />
  
  - convert the result of the previous stage into a gray scale
+ 
  <img src="/assets/self-driving-cars/gray.JPG" width="480" alt="Combined Image" />
  
  - perform filtering with the Gaussian filter
+ 
  <img src="/assets/self-driving-cars/blured.JPG" width="480" alt="Combined Image" />
  
  - find edges with the Canny edge detector
+ 
  <img src="/assets/self-driving-cars/edges.JPG" width="480" alt="Combined Image" />
  
  - define a region of interest (a region where we'll look for lane lines)
+ 
  <img src="/assets/self-driving-cars/roi.JPG" width="480" alt="Combined Image" />
  
  - find lines from the edge points with the Hough algorithm
@@ -86,6 +91,7 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  ```left line:  ((186, 540), (466, 324)) right_line:  ((874, 540), (506, 324))```
  
  - draw lane lines
+ 
  <img src="/assets/self-driving-cars/lane_line.JPG" width="480" alt="Combined Image" />
  
  *Usage:* python pipeline.py test_videos\solidYellowLeft.mp4
@@ -96,7 +102,7 @@ Current implementation suffers to accurately identify curved lane lines.
 
 *3. Suggest possible improvements*
 
--One possible way to improve accuracy of lane line detection is to apply extraction masks (white, yellow) to the input image - Done.
+- One possible way to improve accuracy of lane line detection is to apply extraction masks (white, yellow) to the input image - Done.
 This method really helps, detector more accurately finds lines.
 
 - To increase accuracy of curved line detection try to apply some different methods for outlier lane line rejection.
