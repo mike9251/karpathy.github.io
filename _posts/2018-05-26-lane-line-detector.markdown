@@ -19,43 +19,43 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  
  - preprocessing in HSL color space - IMPORTANT - really helps in the 'challenge' video case
  <div class="imgcap">
- <img src="SDC/CarND-LaneLines-P1-master/result/input_img_hls.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/input_img_hls.JPG" width="480" alt="Combined Image" />
  <div class="thecap">Input image in HSL color space</div>
  </div>
  
  
  Extract white and yellow lines with corresponding masks:
  <div class="imgcap">
- <img src="SDC/CarND-LaneLines-P1-master/result/white_mask.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/white_mask.JPG" width="480" alt="Combined Image" />
  <div class="thecap">Mask for white color</div>
  </div>
  <div class="imgcap">
- <img src="SDC/CarND-LaneLines-P1-master/result/yellow_mask.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/yellow_mask.JPG" width="480" alt="Combined Image" />
  <div class="thecap">Mask for yellow color</div>
  </div>
  
  
  Combine extracted images:
  <div class="imgcap">
- <img src="SDC/CarND-LaneLines-P1-master/result/yellow_mask.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/yellow_mask.JPG" width="480" alt="Combined Image" />
  <div class="thecap">Yellow + White mask</div>
  </div>
  
  
  Apply this mask to the input image to extract parts of it:
- <img src="SDC/CarND-LaneLines-P1-master/result/extract_y_w.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/extract_y_w.JPG" width="480" alt="Combined Image" />
  
  - convert the result of the previous stage into a gray scale
- <img src="SDC/CarND-LaneLines-P1-master/result/gray.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/gray.JPG" width="480" alt="Combined Image" />
  
  - perform filtering with the Gaussian filter
- <img src="SDC/CarND-LaneLines-P1-master/result/blured.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/blured.JPG" width="480" alt="Combined Image" />
  
  - find edges with the Canny edge detector
- <img src="SDC/CarND-LaneLines-P1-master/result/edges.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/edges.JPG" width="480" alt="Combined Image" />
  
  - define a region of interest (a region where we'll look for lane lines)
- <img src="SDC/CarND-LaneLines-P1-master/result/roi.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/roi.JPG" width="480" alt="Combined Image" />
  
  - find lines from the edge points with the Hough algorithm
  
@@ -86,7 +86,7 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  ```left line:  ((186, 540), (466, 324)) right_line:  ((874, 540), (506, 324))```
  
  - draw lane lines
- <img src="SDC/CarND-LaneLines-P1-master/result/lane_line.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/lane_line.JPG" width="480" alt="Combined Image" />
  
  *Usage:* python pipeline.py test_videos\solidYellowLeft.mp4
 
