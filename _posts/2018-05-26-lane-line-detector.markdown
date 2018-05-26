@@ -25,7 +25,6 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  <div class="thecap">Input image in HSL color space</div>
  </div>
  
- 
  Extract white and yellow lines with corresponding masks:
  <div class="imgcap">
  <img src="/assets/self-driving-cars/white_mask.JPG" width="480" alt="Combined Image" />
@@ -36,36 +35,28 @@ The first task of the Self-Driving Car course is to create a simple lane line de
  <div class="thecap">Mask for yellow color</div>
  </div>
  
- 
  Combine extracted images:
  <div class="imgcap">
  <img src="/assets/self-driving-cars/yellow_mask.JPG" width="480" alt="Combined Image" />
  <div class="thecap">Yellow + White mask</div>
  </div>
  
- 
- Apply this mask to the input image to extract parts of it:
- 
+ Apply this mask to the input image to extract parts of it:   
  <img src="/assets/self-driving-cars/extract_y_w.JPG" width="480" alt="Combined Image" />
  
- - convert the result of the previous stage into a gray scale
- 
+ - convert the result of the previous stage into a gray scale   
  <img src="/assets/self-driving-cars/gray.JPG" width="480" alt="Combined Image" />
  
- - perform filtering with the Gaussian filter
- 
+ - perform filtering with the Gaussian filter   
  <img src="/assets/self-driving-cars/blured.JPG" width="480" alt="Combined Image" />
  
- - find edges with the Canny edge detector
- 
+ - find edges with the Canny edge detector   
  <img src="/assets/self-driving-cars/edges.JPG" width="480" alt="Combined Image" />
  
- - define a region of interest (a region where we'll look for lane lines)
- 
+ - define a region of interest (a region where we'll look for lane lines)   
  <img src="/assets/self-driving-cars/roi.JPG" width="480" alt="Combined Image" />
  
- - find lines from the edge points with the Hough algorithm
- 
+ - find lines from the edge points with the Hough algorithm   
  Hough algorithms returns an array of points: `x1 y1 x2 y2`. In my case I get 9 lines:
  ```
  [[[227 513 424 359]]
@@ -86,14 +77,12 @@ The first task of the Self-Driving Car course is to create a simple lane line de
 
  [[529 340 746 465]]]
  ```
- - separate found lines on left and right lines, calculate an average left/right lines
- 
- To do so calculate slope of every line, if a slope is negative - it is a left line, if positive - right.
- Average left/right lines:
+ - separate found lines on left and right lines, calculate an average left/right lines   
+ To do so calculate slope of every line, if a slope is negative - it is a left line, if positive - right.  
+ Average left/right lines:  
  ```left line:  ((186, 540), (466, 324)) right_line:  ((874, 540), (506, 324))```
  
- - draw lane lines
- 
+ - draw lane lines   
  <img src="/assets/self-driving-cars/lane_line.JPG" width="480" alt="Combined Image" />
  
  *Usage:* python pipeline.py test_videos\solidYellowLeft.mp4
