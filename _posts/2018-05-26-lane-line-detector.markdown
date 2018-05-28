@@ -11,10 +11,10 @@ Final result on the Challenge video:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LT7xTa_E2bQ?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 First attempt without preprocessing in HSL color space and without taking into account previously detected lines:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HTFzZqnNu0k?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dA2_WR17HXQ?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Added preprocessing in HSL CS:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dA2_WR17HXQ?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HTFzZqnNu0k?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 According to the results the preprocessing stage is very important for more accurate lane line detection.
 
