@@ -100,12 +100,12 @@ def preprocess(X, hist=False, normalize=False):
 ```
 A preproccessed example looks like:
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/preproccessed_example.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/preproccessed_example.JPG" width="240" alt="Combined Image" />
 </div>
 
 After 50 epoches of training I obtained accuracy on the training data set = 0.995 and on the validation data set = 0.983.
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/accuracy_tr_val.JPG.JPG" width="640" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/accuracy_tr_val.JPG" width="640" alt="Combined Image" />
 </div>
 Final result on the Challenge video:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LT7xTa_E2bQ?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
