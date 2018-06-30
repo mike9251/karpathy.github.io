@@ -206,13 +206,13 @@ End of speed limit (80km/h)  =  1.328 %
 
 <br><br><br><br><br>
 
-**Code is <a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb">here</a>.**
+**<a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb">Jupyter Notebook</a> for this project.**
 
 The result is 5 correct predictions out of 9 images.
 Wrong predictions were made for 4 images:  
-Pedestrians - the used image is not a German Traffic Sign  
-Beware of ice/snow - 5 best predictions don't include the right one
-Speed limit (20km/h) and (60km/h) - the right predictions are in 5 most confident predictions.  
+- `Pedestrians` - the used image is not a German Traffic Sign.  
+- `Beware of ice/snow` - 5 best predictions don't include the right one.
+- `Speed limit (20km/h) and (60km/h)` - the right predictions are in 5 most confident predictions.  
 
 *Possible improvements*
 
