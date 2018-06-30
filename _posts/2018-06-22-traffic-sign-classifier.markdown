@@ -1,4 +1,4 @@
-# *Classify Traffic Signs On Roads* 
+# Classify Traffic Signs On Roads 
 
 Overview
 ---
@@ -143,7 +143,7 @@ Print 5 best predictions for each image:
  <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="480" alt="Combined Image" />
 </div>
 
-**Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-LaneLines-P1-master">here</a>.**
+**Code is <a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb">here</a>.**
 
 
 
