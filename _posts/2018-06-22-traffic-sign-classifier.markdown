@@ -124,28 +124,28 @@ Turn right ahead  =  0.0116099086881 %
 Right-of-way at the next intersection  =  0.00920008678804 %
 ```
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_3.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_3.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_4.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_4.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_5.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_5.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_6.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_6.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_7.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_7.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_8.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_8.JPG" width="240" alt="Combined Image" />
 </div>
 <div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="240" alt="Combined Image" />
 </div>
 
 **Code is <a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb">here</a>.**
