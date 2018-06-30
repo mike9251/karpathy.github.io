@@ -123,7 +123,7 @@ Go straight or right  =  0.016 %
 Turn right ahead  =  0.012 %
 Right-of-way at the next intersection  =  0.009 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -133,7 +133,7 @@ No passing for vehicles over 3.5 metric tons  =  0.280 %
 Vehicles over 3.5 metric tons prohibited  =  0.015 %
 Ahead only  =  0.003 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_3.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -143,7 +143,7 @@ Roundabout mandatory  =  7.325 %
 No passing for vehicles over 3.5 metric tons  =  3.273 %
 Priority road  =  2.949 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_4.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -153,7 +153,7 @@ Beware of ice/snow  =  18.668 %
 Road work  =  10.364 %
 Children crossing  =  9.702 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_5.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -163,7 +163,7 @@ Speed limit (60km/h)  =  9.236 %
 Road work  =  6.42005354166 %
 Speed limit (80km/h)  =  4.657 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_6.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -173,7 +173,7 @@ Ahead only  =  0.0006 %
 Priority road  =  0.0001 %
 Road narrows on the right  =  0.0001 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_7.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -183,7 +183,7 @@ Priority road  =  2.406 %
 Speed limit (60km/h)  =  0.203 %
 Speed limit (80km/h)  =  0.132 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_8.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
@@ -193,7 +193,7 @@ Vehicles over 3.5 metric tons prohibited  =  11.443 %
 Speed limit (20km/h)  =  4.322 %
 Right-of-way at the next intersection  =  3.761 %
 ```
-<br><br><br><br>
+<br><br><br><br><br>
 
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
