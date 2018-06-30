@@ -123,6 +123,7 @@ Go straight or right  =  0.0158331880812 %
 Turn right ahead  =  0.0116099086881 %
 Right-of-way at the next intersection  =  0.00920008678804 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 No passing  =  90.1623606682 %
@@ -131,6 +132,7 @@ No passing for vehicles over 3.5 metric tons  =  0.2798672067 %
 Vehicles over 3.5 metric tons prohibited  =  0.0154292632942 %
 Ahead only  =  0.00280636395473 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_3.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Speed limit (60km/h)  =  49.5362013578 %
@@ -139,6 +141,7 @@ Roundabout mandatory  =  7.32517167926 %
 No passing for vehicles over 3.5 metric tons  =  3.27312983572 %
 Priority road  =  2.9486656189 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_4.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Right-of-way at the next intersection  =  27.180147171 %
@@ -147,6 +150,7 @@ Beware of ice/snow  =  18.668320775 %
 Road work  =  10.3640198708 %
 Children crossing  =  9.70191508532 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_5.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Children crossing  =  42.5620228052 %
@@ -155,6 +159,7 @@ Speed limit (60km/h)  =  9.23648476601 %
 Road work  =  6.42005354166 %
 Speed limit (80km/h)  =  4.65737767518 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_6.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Turn left ahead  =  99.4883298874 %
@@ -163,6 +168,7 @@ Ahead only  =  0.000675602359479 %
 Priority road  =  0.00011536059219 %
 Road narrows on the right  =  0.000111861345431 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_7.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Roundabout mandatory  =  77.8989195824 %
@@ -171,6 +177,7 @@ Priority road  =  2.40641180426 %
 Speed limit (60km/h)  =  0.203468510881 %
 Speed limit (80km/h)  =  0.131761864759 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_8.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Speed limit (100km/h)  =  55.3968071938 %
@@ -179,6 +186,7 @@ Vehicles over 3.5 metric tons prohibited  =  11.4429272711 %
 Speed limit (20km/h)  =  4.32166904211 %
 Right-of-way at the next intersection  =  3.76123525202 %
 ```
+
 <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Speed limit (50km/h)  =  47.6036190987 %
