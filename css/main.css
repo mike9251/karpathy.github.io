@@ -279,8 +279,8 @@ a:visited { color: #205caa; }
 
 .img_container {
   font-size: 14px;
-  text-align: left;
-  color: white;
+  text-align: right;
+  color: #555;
 }
 /* Syntax highlighting styles */
 /* ----------------------------------------------------------*/
