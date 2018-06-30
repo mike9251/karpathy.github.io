@@ -216,6 +216,6 @@ Wrong predictions were made for 4 images:
 
 *Possible improvements*
 
-- One possible way to improve accuracy of traffic sign classification is to apply data augmentation techniques so the training dataset contains more diverse examples.
+- One possible way to improve accuracy of traffic sign classification is to apply data augmentation techniques so the training dataset contains more diverse examples (I didn't use this method because training the model on CPU takes too much time).
 - Create a trainig data set with the same number of examples for each class (wrong predictions for classes 0 and 30 probably were made because of small amount of examples. As a result the model didn't learn to generalize well for the unseen images of these classes).
 
