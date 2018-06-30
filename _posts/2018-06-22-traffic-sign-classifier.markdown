@@ -115,7 +115,7 @@ Now I'm going to use the model to predict classes of the images from the Interne
  <img src="/assets/self-driving-cars/traffic-sign-classifier/new_imgs.JPG" width="480" alt="Combined Image" />
 </div>
 Print 5 best predictions for each image:  
-<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_1.JPG" width="480" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" /><p>
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_1.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
 ```
 Ahead only  =  99.9324202538 %
 Dangerous curve to the left  =  0.0289083487587 %
@@ -123,31 +123,70 @@ Go straight or right  =  0.0158331880812 %
 Turn right ahead  =  0.0116099086881 %
 Right-of-way at the next intersection  =  0.00920008678804 %
 ```
-</p>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_3.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_4.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_5.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_6.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_7.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_8.JPG" width="240" alt="Combined Image" />
-</div>
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="240" alt="Combined Image" />
-</div>
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+No passing  =  90.1623606682 %
+End of no passing  =  9.53091531992 %
+No passing for vehicles over 3.5 metric tons  =  0.2798672067 %
+Vehicles over 3.5 metric tons prohibited  =  0.0154292632942 %
+Ahead only  =  0.00280636395473 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_3.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Speed limit (60km/h)  =  49.5362013578 %
+Speed limit (20km/h)  =  23.5199466348 %
+Roundabout mandatory  =  7.32517167926 %
+No passing for vehicles over 3.5 metric tons  =  3.27312983572 %
+Priority road  =  2.9486656189 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_4.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Right-of-way at the next intersection  =  27.180147171 %
+Road narrows on the right  =  24.9597206712 %
+Beware of ice/snow  =  18.668320775 %
+Road work  =  10.3640198708 %
+Children crossing  =  9.70191508532 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_5.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Children crossing  =  42.5620228052 %
+Speed limit (50km/h)  =  15.2649283409 %
+Speed limit (60km/h)  =  9.23648476601 %
+Road work  =  6.42005354166 %
+Speed limit (80km/h)  =  4.65737767518 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_6.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Turn left ahead  =  99.4883298874 %
+Keep right  =  0.510348984972 %
+Ahead only  =  0.000675602359479 %
+Priority road  =  0.00011536059219 %
+Road narrows on the right  =  0.000111861345431 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_7.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Roundabout mandatory  =  77.8989195824 %
+Speed limit (100km/h)  =  19.31617558 %
+Priority road  =  2.40641180426 %
+Speed limit (60km/h)  =  0.203468510881 %
+Speed limit (80km/h)  =  0.131761864759 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_8.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Speed limit (100km/h)  =  55.3968071938 %
+Speed limit (120km/h)  =  13.7195780873 %
+Vehicles over 3.5 metric tons prohibited  =  11.4429272711 %
+Speed limit (20km/h)  =  4.32166904211 %
+Right-of-way at the next intersection  =  3.76123525202 %
+```
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_9.JPG" width="240" align="left" style="border: 8px solid #ffffff;" alt="Combined Image" />
+```
+Speed limit (50km/h)  =  47.6036190987 %
+Speed limit (30km/h)  =  27.4452835321 %
+Speed limit (60km/h)  =  17.6492810249 %
+Speed limit (80km/h)  =  5.68129532039 %
+End of speed limit (80km/h)  =  1.32790394127 %
+```
 
 **Code is <a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb">here</a>.**
 
