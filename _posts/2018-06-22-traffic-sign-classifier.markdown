@@ -115,9 +115,12 @@ Now I'm going to use the model to predict classes of the images from the Interne
  <img src="/assets/self-driving-cars/traffic-sign-classifier/new_imgs.JPG" width="480" alt="Combined Image" />
 </div>
 Print 5 best predictions for each image:
-<div class="imgcap">
- <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_1.JPG" width="480" alt="Combined Image" />
-</div>
+<img src="/assets/self-driving-cars/traffic-sign-classifier/pred_1.JPG" width="480" alt="Combined Image" />
+Ahead only  =  99.9324202538 %
+Dangerous curve to the left  =  0.0289083487587 %
+Go straight or right  =  0.0158331880812 %
+Turn right ahead  =  0.0116099086881 %
+Right-of-way at the next intersection  =  0.00920008678804 %
 <div class="imgcap">
  <img src="/assets/self-driving-cars/traffic-sign-classifier/pred_2.JPG" width="480" alt="Combined Image" />
 </div>
