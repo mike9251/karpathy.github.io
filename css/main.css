@@ -276,6 +276,12 @@ a:visited { color: #205caa; }
   width: 100%;
   text-align: center;
 }
+
+.img_container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
 /* Syntax highlighting styles */
 /* ----------------------------------------------------------*/
 
