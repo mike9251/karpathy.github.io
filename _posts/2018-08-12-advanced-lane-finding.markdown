@@ -131,3 +131,7 @@ The curvature calculation method is described <a href="http://www.intmath.com/ap
  <div class="thecap">Result image</div>
  </div>
 
+
+**Summary**
+
+The most important part of the task is to create a binarized image as accurate as possible. Because the next processing steps (and the final results) entirely depend on the input image.
