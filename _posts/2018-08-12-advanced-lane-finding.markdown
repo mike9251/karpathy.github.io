@@ -33,23 +33,23 @@ Pinhole cameras produce distorted images. With camera calibration we can determi
 First of all we detect chessboard pattern in the calibrated images with `cv2.findChessboardCorners`.  Then using obtained 3d points in real world space and 2d points in image plane calculate the camera matrix and distortion matrix with `cv2.calibrateCamera` function. Finally, to undistort the image we use distortion matrix with `cv2.undistort` function.
  
 <div class="imgcap">
- <img src="assets/self-driving-cars/advanced_lane/camera_calib_input.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/camera_calib_input.png" width="480" alt="Combined Image" />
  <div class="thecap">Distorted chessboard image</div>
 </div>
 <div class="imgcap">
- <img src="assets/self-driving-cars/advanced_lane/camera_calib_input1.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/camera_calib_input1.png" width="480" alt="Combined Image" />
  <div class="thecap">Chessboard pattern</div>
 </div>
 <div class="imgcap">
- <img src="assets/self-driving-cars/advanced_lane/camera_calib_output.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/camera_calib_output.png" width="480" alt="Combined Image" />
  <div class="thecap">Undistorted chessboard image</div>
 </div>
 <div class="imgcap">
- <img src="assets/self-driving-cars/advanced_lane/input.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/input.png" width="480" alt="Combined Image" />
  <div class="thecap">Original input image</div>
 </div>
 <div class="imgcap">
- <img src="assets/self-driving-cars/advanced_lane/input_undist.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/input_undist.png" width="480" alt="Combined Image" />
  <div class="thecap">Undistorted input image</div>
 </div>
  
