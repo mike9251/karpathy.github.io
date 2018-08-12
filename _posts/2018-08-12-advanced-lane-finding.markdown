@@ -14,6 +14,8 @@ The goals of this project is to write a software pipeline to identify the lane b
 Final video:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Qm8VF2G83gU?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+**Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-Advanced-Lane-Lines">here</a>.**
+
 Steps are the following:
 
 * Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
