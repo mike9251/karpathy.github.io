@@ -1,4 +1,11 @@
-## **Advanced Lane Lines Finding**
+---
+layout: post
+comments: true
+title:  "Advanced Lane Lines Finding"
+excerpt: "Finding Lane Lines on the Road (Advanced algorithms)"
+date:   2017-11-28 22:54:00
+mathjax: true
+---
 
 Overview
 ---
