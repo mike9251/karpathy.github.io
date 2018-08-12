@@ -1,4 +1,11 @@
-# Classify Traffic Signs On Roads 
+---
+layout: post
+comments: true
+title:  "Classify Traffic Signs On Roads"
+excerpt: "Traffic Signs Classification"
+date:   2018-06-30 14:00:00
+mathjax: true
+--- 
 
 Overview
 ---
