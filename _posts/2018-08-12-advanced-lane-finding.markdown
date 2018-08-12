@@ -58,28 +58,28 @@ First of all we detect chessboard pattern in the calibrated images with `cv2.fin
 
 To create a binary representation of an image we will use several methods: extract yellow and white color masks, perform Sobel operator on the image and threshold the result. Then combined the results and perform morphological closing operation to highlight the lane lines. 
  <div class="imgcap">
- <img src="output_images/yw_img.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/yw_img.png" width="480" alt="Combined Image" />
  <div class="thecap">Yellow/White color extract image</div>
  </div>
  <div class="imgcap">
- <img src="output_images/yw_img_thresh.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/yw_img_thresh.png" width="480" alt="Combined Image" />
  <div class="thecap">Yellow/White color extract image binarized</div>
  </div>
  <div class="imgcap">
- <img src="output_images/sobel_mag.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/sobel_mag.png" width="480" alt="Combined Image" />
  <div class="thecap">Sobel magnitude</div>
  </div>
  <div class="imgcap">
- <img src="output_images/sobel_mag_thresh.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/sobel_mag_thresh.png" width="480" alt="Combined Image" />
  <div class="thecap">Binarized Sobel magnitude</div>
  </div>
  <div class="imgcap">
- <img src="output_images/bin_comb.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/bin_comb.png" width="480" alt="Combined Image" />
  <div class="thecap">Binarized image</div>
  </div>
  
  <div class="imgcap">
- <img src="output_images/preprocessed_roi.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/preprocessed_roi.png" width="480" alt="Combined Image" />
  <div class="thecap">Preprocessed ROI</div>
  </div>
  
@@ -87,11 +87,11 @@ To create a binary representation of an image we will use several methods: extra
  **Applying perspective transform**
  
  <div class="imgcap">
- <img src="output_images/transform_input.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/transform_input.png" width="480" alt="Combined Image" />
  <div class="thecap">Input image</div>
  </div>
  <div class="imgcap">
- <img src="output_images/transform_output.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/transform_output.png" width="480" alt="Combined Image" />
  <div class="thecap">"birds-eye view" image</div>
  </div>
  
@@ -99,15 +99,15 @@ To create a binary representation of an image we will use several methods: extra
  **Detect the lane boundaries**
  
  <div class="imgcap">
- <img src="output_images/transformed_roi.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/transformed_roi.png" width="480" alt="Combined Image" />
  <div class="thecap">"birds-eye view" image</div>
  </div>
  <div class="imgcap">
- <img src="output_images/boxes.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/boxes.png" width="480" alt="Combined Image" />
  <div class="thecap">Detecting the lane lines</div>
  </div>
  <div class="imgcap">
- <img src="output_images/lane_warp.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/lane_warp.png" width="480" alt="Combined Image" />
  <div class="thecap">Detected lane</div>
  </div>
 
@@ -120,11 +120,11 @@ The curvature calculation method is described <a href="http://www.intmath.com/ap
 **Warp the detected lane boundaries back onto the original image. Final result.**
 
 <div class="imgcap">
-<img src="output_images/lane.png" width="480" alt="Combined Image" />
+<img src="/assets/self-driving-cars/advanced_lane/lane.png" width="480" alt="Combined Image" />
 <div class="thecap">Unwarped Detected lane</div>
 </div>
  <div class="imgcap">
- <img src="output_images/result.png" width="480" alt="Combined Image" />
+ <img src="/assets/self-driving-cars/advanced_lane/result.png" width="480" alt="Combined Image" />
  <div class="thecap">Result image</div>
  </div>
 
