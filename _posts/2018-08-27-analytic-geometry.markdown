@@ -1,9 +1,9 @@
 ---
-layout: posts
+layout: post
 comments: true
 title:  "Analytic geometry notes"
 excerpt: "Scalar, dot, complex products, line/plane equations..."
-date:   2018-08-27 14:00:00
+date:   2017-08-27 14:00:00
 mathjax: true
 ---
 
