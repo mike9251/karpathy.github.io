@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title:  "Classify Traffic Signs On Roads"
+title:  "Udacity Self-Driving Car Project #2: Traffic sign classification"
 excerpt: "Traffic Signs Classification"
 date:   2018-06-30 14:00:00
 mathjax: true
