@@ -11,7 +11,7 @@ Overview
 ---
 
 1. Scalar product
-\(a, b) = \lvert a\rvert\lvert b\rvert cos\alpha \\
+(a, b) = \lvert a\rvert\ lvert b\rvert cos\alpha
 **Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-Advanced-Lane-Lines">here</a>.**<br>
 **Usage:** *python preprocess.py project_video.mp4*
 
