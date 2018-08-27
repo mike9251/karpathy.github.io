@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title:  "Advanced Lane Lines Finding"
+title:  "Udacity Self-Driving Car Project #4: Advanced Lane Lines Finding"
 excerpt: "Finding Lane Lines on the Road (Advanced algorithms)"
 date:   2018-08-12 14:00:00
 mathjax: true
