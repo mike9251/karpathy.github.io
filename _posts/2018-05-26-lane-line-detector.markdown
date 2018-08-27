@@ -1,4 +1,11 @@
-# Udacity Self-Driving Car Project #1: Finding Lane Lines on the Road 
+---
+layout: post
+comments: true
+title:  "Udacity Self-Driving Car Project #1: Finding Lane Lines on the Road"
+excerpt: "Traffic Signs Classification"
+date:   2018-05-26 14:00:00
+mathjax: true
+--- 
 
 Overview
 ---
