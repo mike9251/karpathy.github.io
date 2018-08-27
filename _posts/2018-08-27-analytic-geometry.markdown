@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: posts
 comments: true
 title:  "Analytic geometry notes"
 excerpt: "Scalar, dot, complex products, line/plane equations..."
