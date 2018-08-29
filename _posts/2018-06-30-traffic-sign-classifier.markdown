@@ -213,7 +213,7 @@ End of speed limit (80km/h)  =  1.328 %
 
 <br><br><br><br><br>
 
-**<a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb">Jupyter Notebook</a> for this project.**
+**<a href="https://github.com/mike9251/SDC/blob/master/CarND-Traffic-Sign-Classifier-P2/Traffic_Sign_Classifier.ipynb">Jupyter Notebook</a> for this project.**
 
 The result is 5 correct predictions out of 9 images.
 Wrong predictions were made for 4 images:  
