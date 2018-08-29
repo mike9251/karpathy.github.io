@@ -25,7 +25,7 @@ Added preprocessing in HSL CS:
 
 According to the results the preprocessing stage is very important for more accurate lane line detection.
 
-**Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-LaneLines-P1-master">here</a>.**
+**Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-LaneLines-P1">here</a>.**
 
 
 Writeup
