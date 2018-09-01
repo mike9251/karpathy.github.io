@@ -50,7 +50,7 @@ our `pixels_per_cell` as 4x4, we would thus have 32 x 32 = 1024 cells.
 </div>
 <div class="imgcap">
 <img src="/assets/self-driving-cars/car-detector/hog.PNG" width="480" alt="Combined Image" />
-<div class="thecap">Gradient of the cell, its magnitute and orientations</div>
+<div class="thecap">Gradient of the cell (Gx, Gy), its magnitute and orientations</div>
 </div>  
 
 Then calculated histograms are normalized. For this step `cells` are grouped into `blocks`.	For each of the cells in the 
