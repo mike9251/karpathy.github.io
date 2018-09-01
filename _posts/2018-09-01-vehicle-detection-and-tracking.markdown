@@ -17,7 +17,7 @@ The goals of this project is to write a software pipeline to detect vehicles on 
 Create robust descriptors for vehicle and non-vehicle objects and train SVM classifier to be able to separate images of those two classes. 
 
 Steps to follow:  
-1. Loading data  
+1.Loading data  
 Loading data for training SVM classifier is implemented in `load_data.py` in `def load_data(bShuffle=False, cs='YCrCb')` function. It loads images both classes (vehicles, non-vehicles) and converts color space to `cs`. Also data augmentation is performed - each image is horizontally flipped, so the result data set is doubled. Finally the dataset gets shuffled and splitted into train/val sets (90%/10%).  
 Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip">Vehicle</a> and <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip">Non-vehicle</a>.  
 <div class="imgcap">
@@ -25,7 +25,7 @@ Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicle
  <div class="thecap">Non-vehicle and Vehicle examples</div>
 </div>
 
-2. Descriptor  
+2.Descriptor  
 
     2.1 Histogtram  
     Calculate histograms for each channel of the crop image (Window) and concatenate them into one vector. Use 256 bins,
@@ -69,13 +69,13 @@ Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicle
     features that correspond to the current Sliding Window. This approach improves performance.  
     HOG explanations <a href="https://gurus.pyimagesearch.com/lesson-sample-histogram-of-oriented-gradients-and-car-logo-recognition/">1</a> and <a href="https://www.learnopencv.com/histogram-of-oriented-gradients/">2</a>.  
 
-3. Support Vector Machine (SVM)  
+3.Support Vector Machine (SVM)  
 Training SVM procedure is implemented in `svm.py`. First we normalize the image descriptors wiht `StandardScaler` from `sklearn.preprocessing` package. Then train a classifier `LinearSVC` from `sklearn.svm`. If a validation set is passed to the `train_svm` function the trained model gets evaluated on val set. Finally the model and the feature scaler are saved as `pkl` files.  
 
-4. Sliding window  
+4.Sliding window  
 Perform Sliding Window technique to look at multiple parts of the image and predict weather there is a car present. Define window parameters (size, stride) in terms of `cells`. (Implementation <a href="https://www.pyimagesearch.com/2015/03/23/sliding-windows-for-object-detection-with-python-and-opencv/">details</a>)  
 
-5. Non-Maximum Suppression (NMS)  
+5.Non-Maximum Suppression (NMS)  
 The algorithm reduces the number of predicted bounding boxes. Pick a box, calculate IoU for this box and the rest of the boxes, discard boxes with IoU > thresh. Repeat. (Great NMS tutorial is <a href="https://www.pyimagesearch.com/2015/02/16/faster-non-maximum-suppression-python/">here</a>) As a result we have smaller amount of boxes which are stored in a queue to take into acount detections in the previous frames (3 frames).  
 <div class="imgcap">
  <img src="/assets/self-driving-cars/car-detector/16boxes.PNG" width="480" alt="Combined Image" />
@@ -86,7 +86,7 @@ The algorithm reduces the number of predicted bounding boxes. Pick a box, calcul
  <div class="thecap">Detections after NMS</div>
 </div>
 
-6. Heat map  
+6.Heat map  
 Calculate heat map to combine the detected bounding boxes into several regions which will represent final detections. First we create matrix of zeros with shape as input image. Then we increase the pixel intensity level by 1 at areas corresponding to detected boxes. For example, a pixel at some position of the heat map has value 5. It means that 5 boxes overlap at this position. At the end we binarize the obtained heat map by comparing its values with a threshold. Threshold value allows to choose how many boxes to consider for final detection. With `scipy.ndimage.measurements.label` function we obtain the segmented heat map (groups of boxes combined into several rectangular areas) and the number of segments. Each segment has different value, we use this knowledge in `draw_segment` function.  
 <div class="imgcap">
  <img src="/assets/self-driving-cars/car-detector/heat_map.PNG" width="480" alt="Combined Image" />
