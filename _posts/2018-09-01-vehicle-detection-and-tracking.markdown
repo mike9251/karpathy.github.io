@@ -31,9 +31,9 @@ Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicle
     Calculate histograms for each channel of the crop image (Window) and concatenate them into one vector. Use 256 bins,
     smaller number of bins affects SVM's classification.  
     <div class="imgcap">
- 	<img src="/assets/self-driving-cars/car-detector/hist.PNG" width="480" alt="Combined Image" />
- 	<div class="thecap">Histogram for one vehicle example</div>
-	</div>
+    <img src="/assets/self-driving-cars/car-detector/hist.PNG" width="480" alt="Combined Image" />
+    <div class="thecap">Histogram for one vehicle example</div>
+    </div>  
     
     2.2 Spatial Binning  
     To add some usefull information to the descriptor resize the crop (Window) to `32x32` pixels and unravel it into a vector.  
@@ -51,11 +51,11 @@ Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicle
 	<div class="imgcap">
  	<img src="/assets/self-driving-cars/car-detector/hog.PNG" width="480" alt="Combined Image" />
  	<div class="thecap">Gradient of the cell, its magnitute and orientations</div>
-	</div>
-     
+	</div>  
+	
     Then calculated histograms are normalized. For this step `cells` are grouped into `blocks`.	For each of the cells in the 
     current block we concatenate their corresponding gradient histograms and perfomr either L1 or L2 normalization of the entire 
-    concatenated feature vector. Normalization of HOGs increases performance of the descriptor.
+    concatenated feature vector. Normalization of HOGs increases performance of the descriptor.  
     
     Parameters of the HOG descriptor extractor:  
     `orientations=9` - define the number of bins in the gradient histogram;  
@@ -84,20 +84,20 @@ The algorithm reduces the number of predicted bounding boxes. Pick a box, calcul
 <div class="imgcap">
  <img src="/assets/self-driving-cars/car-detector/7boxes.PNG" width="480" alt="Combined Image" />
  <div class="thecap">Detections after NMS</div>
-</div>
+</div>  
 
 6.Heat map  
 Calculate heat map to combine the detected bounding boxes into several regions which will represent final detections. First we create matrix of zeros with shape as input image. Then we increase the pixel intensity level by 1 at areas corresponding to detected boxes. For example, a pixel at some position of the heat map has value 5. It means that 5 boxes overlap at this position. At the end we binarize the obtained heat map by comparing its values with a threshold. Threshold value allows to choose how many boxes to consider for final detection. With `scipy.ndimage.measurements.label` function we obtain the segmented heat map (groups of boxes combined into several rectangular areas) and the number of segments. Each segment has different value, we use this knowledge in `draw_segment` function.  
 <div class="imgcap">
  <img src="/assets/self-driving-cars/car-detector/heat_map.PNG" width="480" alt="Combined Image" />
  <div class="thecap">Heat map for detections remained after NMS</div>
-</div>
+</div>  
 
 In function `draw_segment` we interpret the heat map and draw the final detections.
 <div class="imgcap">
  <img src="/assets/self-driving-cars/car-detector/result.PNG" width="480" alt="Combined Image" />
  <div class="thecap">Detections obtained from the heat map</div>
-</div>
+</div>  
 
 Final video (Classical Approach):
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TrMAK6ckAqc?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
