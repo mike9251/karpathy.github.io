@@ -100,8 +100,9 @@ In function `draw_segment` we interpret the heat map and draw the final detectio
 </div>  
 
 Final video (Classical Approach):
+<div class="imgcap">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TrMAK6ckAqc?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
+</div>
 
 **Deep Learning approach**  
 
@@ -109,8 +110,9 @@ Use object detectors based on deep neural nets. For this step I've implemented Y
 Code is available <a href="https://github.com/mike9251/yolov3">here</a>.  
 
 Final video (YOLOv3):
+<div class="imgcap">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jo234ZH5_po?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
+</div>  
 
 **Summary**
 
