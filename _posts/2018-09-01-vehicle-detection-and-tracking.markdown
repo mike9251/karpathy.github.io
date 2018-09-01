@@ -17,7 +17,8 @@ The goals of this project is to write a software pipeline to detect vehicles on 
 Create robust descriptors for vehicle and non-vehicle objects and train SVM classifier to be able to separate images of those two classes. 
 
 Steps to follow:  
-1.Loading data  
+
+1. Loading data  
 Loading data for training SVM classifier is implemented in `load_data.py` in `def load_data(bShuffle=False, cs='YCrCb')` function. It loads images both classes (vehicles, non-vehicles) and converts color space to `cs`. Also data augmentation is performed - each image is horizontally flipped, so the result data set is doubled. Finally the dataset gets shuffled and splitted into train/val sets (90%/10%).  
 Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip">Vehicle</a> and <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip">Non-vehicle</a>.  
 <div class="imgcap">
@@ -25,8 +26,7 @@ Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicle
  <div class="thecap">Non-vehicle and Vehicle examples</div>
 </div>
 
-2.Descriptor  
-
+2. Descriptor  
     2.1 Histogtram  
     Calculate histograms for each channel of the crop image (Window) and concatenate them into one vector. Use 256 bins,
     smaller number of bins affects SVM's classification.  
