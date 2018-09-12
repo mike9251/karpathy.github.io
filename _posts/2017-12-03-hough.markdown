@@ -85,7 +85,7 @@ Noise in real images affect result in Houph space - the peack is not so precise,
 **Extensions to the basic algorithm:**
 1. Use the gradient for Q - reduce the number of bins Q, just one value
 2. Give more votes for stronger edges
-3. Change the sampling of(d, Q) to give more/less resolution. Big bins make the alg faster, but similar lines can land in the same bin. Too fine bins make the alg to be easy affected by noise.
-  3.1 First, start with corse bins
-  3.2 Find peaks
+3. Change the sampling of(d, Q) to give more/less resolution. Big bins make the alg faster, but similar lines can land in the same bin. Too fine bins make the alg to be easy affected by noise.  
+  3.1 First, start with corse bins  
+  3.2 Find peaks  
   3.3 Use more fine bins for some area around the peak to improve the model.
