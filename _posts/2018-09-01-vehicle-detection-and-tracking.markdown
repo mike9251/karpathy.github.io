@@ -116,4 +116,4 @@ Final video (YOLOv3):
 
 **Summary**
 
-Classical approach allows to detect cars but it is too slow (too far from real time processing). YOLOv3 detector shows more accurate results and much higher processing frame rate (i5-7300 ~ 0.5fps, on GPU it is said to be > 30fps, but I tried CPU only).
+Classical approach allows to detect cars but it is too slow (too far from real time processing). YOLOv3 detector shows more accurate results and much higher processing frame rate (i5-7300 ~ 0.5fps, on Nvidia 920mx ~ 3fps).
