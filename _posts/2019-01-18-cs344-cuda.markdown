@@ -37,16 +37,14 @@ kernel<<<gridSize, blockSize, number_of_elements_in_shared_mem * sizeof(int)>>>(
 4.Synchronize CUDA device before retreiving data from device buffers.  
 {% highlight c++ %}
 cudaDeviceSynchronize();
-{% endhighlight %}  
+{% endhighlight %}   
 
-The goals of this project is to write a software pipeline to detect vehicles on the road. First, we'll take a look at classical approach for this problem and after that implement in `PyTorch` the `YOLOv3` - the fastest object detector.  
-
-**Problem set #1: Color to Greyscale Conversion**  
+**Problem set #1: Color to Greyscale Conversion**
 
 RGB -> Grayscale conversion:
-
 `gray = .299f * R + .587f * G + .114f * B`
 
+Kernel implementation:
 {% highlight c++ %}
 __global__
 void rgba_to_greyscale(const uchar4* const rgbaImage, unsigned char* const greyImage, int numRows, int numCols)
@@ -71,10 +69,107 @@ void rgba_to_greyscale(const uchar4* const rgbaImage, unsigned char* const greyI
 }
 {% endhighlight %}
 
-It's interesting that (X * Y) + Z calculated on CPU doesn't equal (X * Y) + Z calculated on GPU, because GPU uses Fused Multiply-Add operation (FMA). So CPU version looks like `Round(Round(X * Y) + Z)` and GPU with FMA `Round(X * Y + Z)`. This moment may result in small difference between CPU and GPU output. In the kernel above I use explicit rounding to match the reference (CPU) result.  
+It's interesting to notice that (X * Y) + Z calculated on CPU doesn't equal (X * Y) + Z calculated on GPU, because GPU uses Fused Multiply-Add operation (FMA). So CPU version looks like `Round(Round(X * Y) + Z)` and GPU with FMA `Round(X * Y + Z)`. This moment may result in small difference between CPU and GPU output. In the kernel above I use explicit rounding to match the reference (CPU) result.  
+**Problem set #2: Image Blurring**
 
+Input image is in RGB format in which color components are interleaved (RGBRGBRGBRGB...). Working with such structure will result in ineficient memory access pattern.  
 Steps to follow:  
+1.Separate RGB channels that different color components are stored contiguously (RRRRR..., GGGGG..., BBBBB...).
+{% highlight c++ %}
+__global__
+void separateChannels(const uchar4* const inputImageRGBA,
+                      int numRows, int numCols,
+                      unsigned char* const redChannel,
+                      unsigned char* const greenChannel,
+                      unsigned char* const blueChannel)
+{
+  uint idx = blockIdx.x * blockDim.x + threadIdx.x;
+  uint idy = blockIdx.y * blockDim.y + threadIdx.y;
+  
+  if ( idx >= numCols || idy >= numRows )
+  {
+     return;
+  }
 
+  uchar4 pixel = inputImageRGBA[idy * numCols + idx];
+
+  redChannel[idy * numCols + idx] = pixel.x;
+  greenChannel[idy * numCols + idx] = pixel.y;
+  blueChannel[idy * numCols + idx] = pixel.z;
+
+}
+{% endhighlight %}
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%201">link</a>.<br>
+2.Perform bluring on each color channel (convolve each channel with a filter).
+{% highlight c++ %}
+__global__
+void gaussian_blur(const unsigned char* const inputChannel,
+                   unsigned char* const outputChannel,
+                   int numRows, int numCols,
+                   const float* const filter, const int filterWidth)
+{  
+  // NOTE: If a thread's absolute position 2D position is within the image, but some of
+  // its neighbors are outside the image, then you will need to be extra careful. Instead
+  // of trying to read such a neighbor value from GPU memory (which won't work because
+  // the value is out of bounds), you should explicitly clamp the neighbor values you read
+  // to be within the bounds of the image. If this is not clear to you, then please refer
+  // to sequential reference solution for the exact clamping semantics you should follow.
+
+  uint idx = blockIdx.x * blockDim.x + threadIdx.x;
+  uint idy = blockIdx.y * blockDim.y + threadIdx.y;
+  
+  if ( idx >= numCols || idy >= numRows )
+  {
+     return;
+  }
+
+  float sum = 0.0;
+  for (int filter_y = -filterWidth/2; filter_y <= filterWidth/2; ++filter_y) {
+      for (int filter_x = -filterWidth/2; filter_x <= filterWidth/2; ++filter_x) {
+          int image_vert_clamp = MIN(MAX(filter_y + idy, 0), static_cast<int>(numRows - 1));
+          int image_horiz_clamp = MIN(MAX(filter_x + idx, 0), static_cast<int>(numCols - 1));
+
+          float img_value = static_cast<float>(inputChannel[image_vert_clamp * numCols + image_horiz_clamp]);
+          float filter_value = filter[(filterWidth/2 + filter_y)*filterWidth + (filterWidth/2 + filter_x)];
+          sum +=  img_value * filter_value; 
+      }
+  }
+
+  outputChannel[idy * numCols + idx] = sum;
+}
+{% endhighlight %}
+3.Combine blured R, G, B channels back to RGB.
+{% highlight c++ %}
+__global__
+void recombineChannels(const unsigned char* const redChannel,
+                       const unsigned char* const greenChannel,
+                       const unsigned char* const blueChannel,
+                       uchar4* const outputImageRGBA,
+                       int numRows,
+                       int numCols)
+{
+  const int2 thread_2D_pos = make_int2( blockIdx.x * blockDim.x + threadIdx.x,
+                                        blockIdx.y * blockDim.y + threadIdx.y);
+
+  const int thread_1D_pos = thread_2D_pos.y * numCols + thread_2D_pos.x;
+
+  if (thread_2D_pos.x >= numCols || thread_2D_pos.y >= numRows)
+  {
+     return;
+  }
+
+  unsigned char red   = redChannel[thread_1D_pos];
+  unsigned char green = greenChannel[thread_1D_pos];
+  unsigned char blue  = blueChannel[thread_1D_pos];
+
+  //Alpha should be 255 for no transparency
+  uchar4 outputPixel = make_uchar4(red, green, blue, 255);
+
+  outputImageRGBA[thread_1D_pos] = outputPixel;
+}
+{% endhighlight %}
+
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%202">link</a>.<br>
 1.Loading data  
 Loading data for training SVM classifier is implemented in `load_data.py` in `def load_data(bShuffle=False, cs='YCrCb')` function. It loads images both classes (vehicles, non-vehicles) and converts color space to `cs`. Also data augmentation is performed - each image is horizontally flipped, so the result data set is doubled. Finally the dataset gets shuffled and splitted into train/val sets (90%/10%).  
 Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip">Vehicle</a> and <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip">Non-vehicle</a>.  
