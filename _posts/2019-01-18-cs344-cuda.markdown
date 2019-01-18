@@ -9,7 +9,7 @@ mathjax: true
 
 Overview of CUDA processing pipeline:
 ---
-1. Allocate host/device buffers, fill device buffers with data to process.
+1.Allocate host/device buffers, fill device buffers with data to process.
 {% highlight c++ %}
  int *h_buffer = new int[num_elements];
  memset(h_buffer, 0, num_elements * sizeof(int));
@@ -21,12 +21,12 @@ Overview of CUDA processing pipeline:
  int *d_buffer_out;
  cudaMalloc(&d_buffer_out, num_elements * sizeof(int));
 {% endhighlight %}  
-2. Set parameters for kernel execution (grid size, thread block size, number of shared memory to allocate).
+2.Set parameters for kernel execution (grid size, thread block size, number of shared memory to allocate).
 {% highlight c++ %}
  const dim3 blockSize(512, 1, 1); // specify 512 threads for a thread block 
  const dim3 gridSize(ceil(num_elements / blockSize.x), 1, 1); // will launch ceil(num_elements / blockSize.x) number of thread blocks
 {% endhighlight %}  
-3. Launch a kernel with prepared data.  
+3.Launch a kernel with prepared data.  
 {% highlight c++ %}
 kernel<<<gridSize, blockSize>>>(d_buffer_in, d_buffer_out, num_elements);
 {% endhighlight %}  
@@ -34,7 +34,7 @@ If kernel uses Shared Memory, we can specify the amount of memory to allocate dy
 {% highlight c++ %}
 kernel<<<gridSize, blockSize, number_of_elements_in_shared_mem * sizeof(int)>>>(d_buffer_in, d_buffer_out, num_elements);
 {% endhighlight %}  
-4. Synchronize CUDA device before retreiving data from device buffers.  
+4.Synchronize CUDA device before retreiving data from device buffers.  
 {% highlight c++ %}
 cudaDeviceSynchronize();
 {% endhighlight %}  
