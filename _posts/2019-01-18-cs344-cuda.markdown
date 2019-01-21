@@ -173,6 +173,24 @@ void recombineChannels(const unsigned char* const redChannel,
 {% endhighlight %}
 
 Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%202">link</a>.<br><br>  
+
+Ideas to try:  
+- Load the image patch and filter weights into the shared memory. 
+
+
+**Problem set #3: HDR Tone-mapping**  
+
+Steps to follow:  
+1. Find the minimum and maximum value in the input data (extracted from an RGB image the logLuminance = log(Luma) channel).  
+Perform min/max reduction.
+2. Subtract min and max values to find the range.
+3. Generate a histogram of all the values in the logLuminance channel using the formula: bin = (lum[i] - lumMin) / lumRange * numBins  
+- Try using shared memory for calculating a histogram for a thread block then copy the result to the global memory. 
+4. Perform an exclusive scan (prefix sum) on the histogram to get the cumulative distribution of luminance values.
+
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%203">link</a>.<br><br>  
+
+
 1.Loading data  
 Loading data for training SVM classifier is implemented in `load_data.py` in `def load_data(bShuffle=False, cs='YCrCb')` function. It loads images both classes (vehicles, non-vehicles) and converts color space to `cs`. Also data augmentation is performed - each image is horizontally flipped, so the result data set is doubled. Finally the dataset gets shuffled and splitted into train/val sets (90%/10%).  
 Datasets: <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip">Vehicle</a> and <a href="https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip">Non-vehicle</a>.  
