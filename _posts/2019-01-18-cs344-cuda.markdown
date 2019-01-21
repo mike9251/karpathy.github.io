@@ -173,13 +173,12 @@ void recombineChannels(const unsigned char* const redChannel,
 {% endhighlight %}
 
 Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%202">link</a>.<br><br>
-
 Ideas to try:  
 - Load the image patch and the filter's weights into the shared memory.
 
 
-
-**Problem set #3: HDR Tone-mapping**
+**Problem set #3: HDR Tone-mapping**  
+The main task for this assignment is to implement efficien Exclusive scan algorithm.  
 
 Steps to follow:  
 1. Find the minimum and maximum value in the input data (extracted from an RGB image the logLuminance = log(Luma) channel).
@@ -194,7 +193,7 @@ Ideas to try:
 - Use shared memory for calculating a histogram for a thread block then copy the result to the global memory.
 
 
-**Problem set #4: Red Eye Removal**
+**Problem set #4: Red Eye Removal**  
 Main task for this assignment is to implement Radix sorting algorithm.  
 
 For each bit repeat next steps:  
@@ -206,7 +205,6 @@ For each bit repeat next steps:
 Elapsed time: ~80msec.
 
 Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%204">link</a>.<br><br>
-
 Ideas to try:
 - get rid of the step #3 by changing the Exclusive-sum algorithm.
 
