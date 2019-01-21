@@ -172,13 +172,14 @@ void recombineChannels(const unsigned char* const redChannel,
 }
 {% endhighlight %}
 
-Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%202">link</a>.<br><br>  
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%202">link</a>.<br><br>
 
 Ideas to try:  
-- Load the image patch and the filter's weights into the shared memory. 
+- Load the image patch and the filter's weights into the shared memory.
 
 
-**Problem set #3: HDR Tone-mapping**  
+
+**Problem set #3: HDR Tone-mapping**
 
 Steps to follow:  
 1. Find the minimum and maximum value in the input data (extracted from an RGB image the logLuminance = log(Luma) channel).
@@ -187,14 +188,15 @@ Perform min/max reduction.
 3. Generate a histogram of all the values in the logLuminance channel using the formula: bin = (lum[i] - lumMin) / lumRange * numBins 
 4. Perform an exclusive scan (prefix sum) on the histogram to get the cumulative distribution of luminance values.
 
-Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%203">link</a>.<br><br>  
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%203">link</a>.<br><br>
 
 Ideas to try:
-- Use shared memory for calculating a histogram for a thread block then copy the result to the global memory. 
+- Use shared memory for calculating a histogram for a thread block then copy the result to the global memory.
 
-**Problem set #4: Red Eye Removal**  
-Main task of this assignment is to implement Radix sorting algorithm.  
-Steps to follow:  
+
+**Problem set #4: Red Eye Removal**
+Main task for this assignment is to implement Radix sorting algorithm.  
+
 For each bit repeat next steps:  
 1. Calculate the histogram of the number of occurrences of 0s and 1s.
 2. Calculate predicates (whether a particular bit is 0 or 1), perform Exclusive-scan on it (block based), save the last value of the prefix sum in the block to use it later to calculate the correct offset moving array's elements.
@@ -203,7 +205,7 @@ For each bit repeat next steps:
 
 Elapsed time: ~80msec.
 
-Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%204">link</a>.<br><br>  
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%204">link</a>.<br><br>
 
 Ideas to try:
 - get rid of the step #3 by changing the Exclusive-sum algorithm.
