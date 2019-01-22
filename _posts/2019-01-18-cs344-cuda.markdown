@@ -240,33 +240,3 @@ For each bit repeat next steps:
 4. Move elements in the Value and Position arrays. Output indexes for elements which predicates are 0s match with the calculated prefix sum, if predicate is 1 - add the histogram[0] value to the corresponding prefix sum value.
 
 GPU: ~50 msec (Nvidia 920MX)  
-
-<div class="imgcap">
- <img src="/assets/self-driving-cars/car-detector/heat_map.PNG" width="480" alt="Combined Image" />
- <div class="thecap">Heat map for detections remained after NMS</div>
-</div>  
-
-In function `draw_segment` we interpret the heat map and draw the final detections.
-<div class="imgcap">
- <img src="/assets/self-driving-cars/car-detector/result.PNG" width="480" alt="Combined Image" />
- <div class="thecap">Detections obtained from the heat map</div>
-</div>  
-
-Final video (Classical Approach):
-<div class="imgcap">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TrMAK6ckAqc?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
-
-**Deep Learning approach**  
-
-Use object detectors based on deep neural nets. For this step I've implemented YOLOv3 detector in PyTorch using this great <a href="https://blog.paperspace.com/tag/series-yolo/">tutorial</a>.  
-Code is available <a href="https://github.com/mike9251/yolov3">here</a>.  
-
-Final video (YOLOv3):
-<div class="imgcap">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jo234ZH5_po?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>  
-
-**Summary**
-
-Classical approach allows to detect cars but it is too slow (too far from real time processing). YOLOv3 detector shows more accurate results and much higher processing frame rate (i5-7300 ~ 0.5fps, on Nvidia 920mx ~ 3fps).
