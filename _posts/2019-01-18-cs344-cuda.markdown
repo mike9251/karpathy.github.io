@@ -68,6 +68,10 @@ void rgba_to_greyscale(const uchar4* const rgbaImage, unsigned char* const greyI
   }
 }
 {% endhighlight %}
+<div class="imgcap">
+ <img src="/assets/cuda/task1.jpg" width="480" alt="Combined Image" />
+ <div class="thecap">RGB -> Gray Scale</div>
+</div>
 
 It's interesting to notice that (X * Y) + Z calculated on CPU doesn't equal (X * Y) + Z calculated on GPU, because GPU uses Fused Multiply-Add operation (FMA). So CPU version looks like `Round(Round(X * Y) + Z)` and GPU with FMA `Round(X * Y + Z)`. This moment may result in small difference between CPU and GPU output. In the kernel above I use explicit rounding to match the reference (CPU) result.  
 CPU: ~2.25 msec (Intel i3-6006U 2GHz)  
@@ -173,6 +177,10 @@ void recombineChannels(const unsigned char* const redChannel,
   outputImageRGBA[thread_1D_pos] = outputPixel;
 }
 {% endhighlight %}
+<div class="imgcap">
+ <img src="/assets/cuda/task2.jpg" width="480" alt="Combined Image" />
+ <div class="thecap">Bluring</div>
+</div>
 
 CPU: ~1035 msec (Intel i3-6006U 2GHz)  
 GPU: ~4 msec (Nvidia 920MX)  
@@ -191,6 +199,10 @@ Perform min/max reduction.
 2. Subtract min and max values to find the range.
 3. Generate a histogram of all the values in the logLuminance channel using the formula: bin = (lum[i] - lumMin) / lumRange * numBins 
 4. Perform an exclusive scan (prefix sum) on the histogram to get the cumulative distribution of luminance values.
+<div class="imgcap">
+ <img src="/assets/cuda/task3.png" width="480" alt="Combined Image" />
+ <div class="thecap">HDR Tone-mapping</div>
+</div>
 
 CPU: ~9 msec (Intel i3-6006U 2GHz)  
 GPU: ~2-4 msec (Nvidia 920MX)  
@@ -209,6 +221,10 @@ For each bit repeat next steps:
 2. Calculate predicates (whether a particular bit is 0 or 1), perform Exclusive-scan on it (block based), save the last value of the prefix sum in the block to use it later to calculate the correct offset moving array's elements.
 3. For each thread block (as in the step 2) apply corresponding offsets to the calculated prefix sum.
 4. Move elements in the Value and Position arrays. Output indexes for elements which predicates are 0s match with the calculated prefix sum, if predicate is 1 - add the histogram[0] value to the corresponding prefix sum value.  
+<div class="imgcap">
+ <img src="/assets/cuda/task4.jpg" width="480" alt="Combined Image" />
+ <div class="thecap">Red Eye Removal</div>
+</div>
 
 CPU: ~120 msec (Intel i3-6006U 2GHz)  
 GPU: ~72 msec (Nvidia 920MX)  
