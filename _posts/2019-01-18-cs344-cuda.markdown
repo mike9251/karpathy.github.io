@@ -77,7 +77,7 @@ It's interesting to notice that (X * Y) + Z calculated on CPU doesn't equal (X *
 CPU: ~2.25 msec (Intel i3-6006U 2GHz)  
 GPU: ~0.67 msec (Nvidia 920MX)  
 
-Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%201">link</a>.<br><br>
+Github <a href="https://github.com/mike9251/cs344/tree/master/Problem%20Sets/Problem%20Set%201">link</a>.<br>
 
 **Problem set #2: Image Blurring**
 
