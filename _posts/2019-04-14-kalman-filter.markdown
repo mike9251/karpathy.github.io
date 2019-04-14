@@ -87,8 +87,7 @@ Unfortunately, state transitions and measurements are rarely linear in practice.
 <img src="/assets/self-driving-cars/kf/ekf_prediction_step_1.png">
 </div>
 
-This model strictly generalizes the linear Gaussian model underlying Kalman filters. The function \\(g\\) replaces the matrices \\(A\_{t}\\) and \\(B\_{t}\\) and \\(h\\) replaces the matrix \\(C\_{t}\\). Unfortunately, with arbitrary functions \\(g\\) and \\(h\\), the belief is no longer a Gaussian. In fact, performing the belief update exactly is usually impossi-
-ble for nonlinear functions \\(g\\) and \\(h\\), and the Bayes filter does not possess a closed-form solution.  
+This model strictly generalizes the linear Gaussian model underlying Kalman filters. The function \\(g\\) replaces the matrices \\(A\_{t}\\) and \\(B\_{t}\\) and \\(h\\) replaces the matrix \\(C\_{t}\\). Unfortunately, with arbitrary functions \\(g\\) and \\(h\\), the belief is no longer a Gaussian. In fact, performing the belief update exactly is usually impossible for nonlinear functions \\(g\\) and \\(h\\), and the Bayes filter does not possess a closed-form solution.  
 
 **Linearization Via Taylor Expansion**  
 The key idea underlying the EKF approximation is called linearization. Linearization approximates the nonlinear function \\(g\\) by a linear function that is tangent to \\(g\\) at the mean of the Gaussian. Projecting the Gaussian through this linear approximation results in a Gaussian density. The solid line in the upper left graph represents the mean and covariance of the Monte-Carlo approximation. The mismatch between these two Gaussians indicates the error caused by the linear approximation of \\(g\\).
@@ -97,7 +96,7 @@ The key idea underlying the EKF approximation is called linearization. Lineariza
 <img src="/assets/self-driving-cars/kf/ekf_unlinear_case_result.png">
 </div>
 
-The key advantage of the linearization, however, lies in its efficiency. The Monte-Carlo estimate of the Gaussian was achieved by passing 500,000 points through \\(g\\) followed by the computation of their mean and covariance. The linearization applied by the EKF, on the other hand, only requires determination of the linear approximation followed by the closed-form computation of the resulting Gaussian. In fact, once \\(g\\) is linearized, the mechanics of the EKF’s belief propagation are equivalent to those of the Kalman filter. This technique also is applied to the multiplication of Gaussians when a measurement function \\(h\\) is involved. Again, the EKF approximates \\(h\\) by a linear function tangent to \\(h\\), thereby retaining the Gaussian nature of the posterior belief. There exist many techniques for linearizing nonlinear functions. EKFs utilize a method called (first order) Taylor expansion. Taylor expansion constructs a linear approximation to a function \\(g\\) from \\(g^'s\\) value and slope. The slope is given by the partial derivative:
+The key advantage of the linearization, however, lies in its efficiency. The Monte-Carlo estimate of the Gaussian was achieved by passing 500,000 points through \\(g\\) followed by the computation of their mean and covariance. The linearization applied by the EKF, on the other hand, only requires determination of the linear approximation followed by the closed-form computation of the resulting Gaussian. In fact, once \\(g\\) is linearized, the mechanics of the EKF’s belief propagation are equivalent to those of the Kalman filter. This technique also is applied to the multiplication of Gaussians when a measurement function \\(h\\) is involved. Again, the EKF approximates \\(h\\) by a linear function tangent to \\(h\\), thereby retaining the Gaussian nature of the posterior belief. There exist many techniques for linearizing nonlinear functions. EKFs utilize a method called (first order) Taylor expansion. Taylor expansion constructs a linear approximation to a function \\(g\\) from \\(g'\\) value and slope. The slope is given by the partial derivative:
 
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/ekf_derivative.png">
@@ -165,12 +164,12 @@ The UKF deterministically extracts so-called `sigma points` from the Gaussian an
 <img src="/assets/self-driving-cars/kf/ukf_linearization_in_ut.png">
 </div>
 
-In the general case, these sigma points are located at the mean and symmetrically along the main axes of the covariance (two per dimension). For an n-dimensional Gaussian with mean \\(μ\\) and covariance \\(Σ\\), the resulting 2n + 1 sigma points \\(X^[i]\\) are chosen according to the following rule:  
+In the general case, these sigma points are located at the mean and symmetrically along the main axes of the covariance (two per dimension). For an n-dimensional Gaussian with mean \\(μ\\) and covariance \\(Σ\\), the resulting 2n + 1 sigma points \\(X^{[i]}\\) are chosen according to the following rule:  
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/ukf_sigma_points.png">
 </div>
 
-Here \\(λ = α^2*(n+κ)−n\\), with \\(α\\) and \\(κ\\) being scaling parameters that determine how far the sigma points are spread from the mean. Each sigma point \\(X^[i]\\) has two weights associated with it. One weight, \\(w\_{m}^[i]\\), is used when computing the mean, the other weight, \\(w\_{c}^[i]\\), is used when recovering the covariance of the Gaussian.
+Here \\(λ = α^2*(n+κ)−n\\), with \\(α\\) and \\(κ\\) being scaling parameters that determine how far the sigma points are spread from the mean. Each sigma point \\(X^{[i]}\\) has two weights associated with it. One weight, \\(w\_{m}^{[i]}\\), is used when computing the mean, the other weight, \\(w\_{c}^{[i]}\\), is used when recovering the covariance of the Gaussian.
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/ukf_weights.png">
 </div>
@@ -183,7 +182,7 @@ The parameter \\(β\\) can be chosen to encode additional (higher order) know le
 <img src="/assets/self-driving-cars/kf/ukf_transformed_sp.png">
 </div>
 
-The parameters \\(μ^' Σ^'\\) of the resulting Gaussian are extracted from the mapped sigma points \\(Y^[i]\\) according to
+The parameters \\(μ^' Σ^'\\) of the resulting Gaussian are extracted from the mapped sigma points \\(Y^{[i]}\\) according to
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/ukf_mean_cov_of_transformed_sp.png">
 </div>
