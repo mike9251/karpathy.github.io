@@ -59,9 +59,7 @@ These three assumptions are sufficient to ensure that the posterior \\(bel(x\_{t
 <img src="/assets/self-driving-cars/kf/kf.png">
 </div>
 
-Kalman filters represent the belief \\(bel(x\_{t})\\) at time \\(t\\) by the mean \\(μ\_{t}\\) and the covariance \\(Σ\_{t}\\). The input of the Kalman filter is the belief at time \\(t − 1\\), represented by \\(μ\_{t−1}\\) and \\(Σ\_{t−1}\\). To update these parameters, Kalman filters require the control \\(u\_{t}\\) and the measurement \\(z\_{t}\\). The output is the belief at time \\(t\\), represented by \\(μ\_{t}\\) and \\(Σ\_{t}\\). In lines 2 and 3, the predicted belief \\(μ̄\\) and \\(Σ̄\\) is calculated representing the belief \\(bel(x\_{t})\\) one time step later, but before incorporating the measurement \\(z\_{t}\\). This belief is obtained by incorporating the control \\(u\_{t}\\). The mean is updated using the deterministic version of the state transition function, with the mean \\(μ\_{t−1}\\) substituted for the state \\(x\_{t−1}\\). The update of the covariance considers the fact t
-
-states depend on previous states through the linear matrix \\(A\_{t}\\). This matrix is multiplied twice into the covariance, since the covariance is a quadratic matrix.  
+Kalman filters represent the belief \\(bel(x\_{t})\\) at time \\(t\\) by the mean \\(μ\_{t}\\) and the covariance \\(Σ\_{t}\\). The input of the Kalman filter is the belief at time \\(t − 1\\), represented by \\(μ\_{t−1}\\) and \\(Σ\_{t−1}\\). To update these parameters, Kalman filters require the control \\(u\_{t}\\) and the measurement \\(z\_{t}\\). The output is the belief at time \\(t\\), represented by \\(μ\_{t}\\) and \\(Σ\_{t}\\). In lines 2 and 3, the predicted belief \\(μ̄\\) and \\(Σ̄\\) is calculated representing the belief \\(bel(x\_{t})\\) one time step later, but before incorporating the measurement \\(z\_{t}\\). This belief is obtained by incorporating the control \\(u\_{t}\\). The mean is updated using the deterministic version of the state transition function, with the mean \\(μ\_{t−1}\\) substituted for the state \\(x\_{t−1}\\). The update of the covariance considers the fact \\(t\\) states depend on previous states through the linear matrix \\(A\_{t}\\). This matrix is multiplied twice into the covariance, since the covariance is a quadratic matrix.  
 The belief \\(bel(x\_{t})\\) is subsequently transformed into the desired belief \\(bel(x\_{t})\\) in lines 4 through 6, by incorporating the measurement \\(z\_{t}\\). The variable \\(K\_{t}\\), computed in line 4 is called `Kalman gain`. It specifies the degree to which the measurement is incorporated into the new state estimate. Line 5 manipulates the mean,
 by adjusting it in proportion to the Kalman gain \\(K\_{t}\\) and the deviation of the actual measurement, \\(z\_{t}\\), and the measurement predicted according to the measurement probability. The key concept here is the innovation, which
 is the difference between the actual measurement \\(z\_{t}\\) and the expected measurement \\(C\_{t} μ̄\_{t}\\) in line 5. Finally, the new covariance of the posterior belief is calculated in line 6, adjusting for the information gain resulting from the measurement.  
@@ -82,7 +80,6 @@ Unfortunately, state transitions and measurements are rarely linear in practice.
 </div>
 
 `The extended Kalman filter`, or `EKF`, relaxes one of these assumptions: the linearity assumption. Here the assumption is that the state transition probability and the measurement probabilities are governed by nonlinear functions \\(g\\) and \\(h\\), respectively:
-</div>
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/ekf_state_prediction.png">
 </div>
