@@ -22,25 +22,39 @@ Bayes Filter consists of two steps:
  \\(\frac{\partial{f(x,y)}}{\partial{x}} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)\\)
 
 `Kalman Filter` is an implementation of the Bayes Filter. It works under restrictions:
-1. The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1} \\) must be a linear function in its arguments with added Gaussian noise
-img state_prediction
+1. The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1}) \\) must be a linear function in its arguments with added Gaussian noise
+<div class="imgcap">
+<img src="/assets/kf/state_prediction.png">
+</div>
+
 The posterior state probability:
-img kf_poterior
+<div class="imgcap">
+<img src="/assets/kf/kf_posterior_state.png">
+</div>
 
-2. The measurement probability p(z t | x t ) must also be linear in its arguments, with added Gaussian noise
-img measurements_update
+2. The measurement probability \\(p(z\_{t} | x\_{t}) \\) must also be linear in its arguments, with added Gaussian noise
+<div class="imgcap">
+<img src="/assets/kf/measurements_updata.png">
+</div>
+
 The measurement probability:
-img kf_measurement_probability
+<div class="imgcap">
+<img src="/assets/kf/kf_measurement_probability.png">
+</div>
 
-3. the initial belief bel(x 0 ) must be normally distributed.
-img initial_belief
+3. The initial belief \\(bel(x\_{0}) \\) must be normally distributed.
+<div class="imgcap">
+<img src="/assets/kf/kf_initial_belief.png">
+</div>
 
-These three assumptions are sufficient to ensure that the posterior bel(x t ) is always a Gaussian, for any point in time t (a linear transformation of Gaussian distribution is still Gaussian).
+These three assumptions are sufficient to ensure that the posterior \\(bel(x\_{t}) \\) is always a Gaussian, for any point in time \\(t\\) (a linear transformation of Gaussian distribution is still Gaussian).
 
-The Kalman filter algorithm:
-img kf
+**The Kalman filter algorithm:**
+<div class="imgcap">
+<img src="/assets/kf/kf.png">
+</div>
 
-Kalman filters represent the belief bel(x t ) at time t by the mean μ t and the covariance Σ t . The input of the Kalman filter is the belief at time t − 1, represented by μ t−1 and Σ t−1 . To update these parameters, Kalman filters require the control u t and the measurement z t . The output is the belief at time t, represented by μ t and Σ t . In lines 2 and 3, the predicted belief μ̄ and Σ̄ is calculated representing
+Kalman filters represent the belief \\(bel(x\_{t}) \\) at time \\(t\\) by the mean \\(μ\_{t}) \\) and the covariance \\(Σ\_{t}\\). The input of the Kalman filter is the belief at time t − 1, represented by μ t−1 and Σ t−1 . To update these parameters, Kalman filters require the control u t and the measurement z t . The output is the belief at time t, represented by μ t and Σ t . In lines 2 and 3, the predicted belief μ̄ and Σ̄ is calculated representing
 the belief bel(x t ) one time step later, but before incorporating the measure-
 ment z t . This belief is obtained by incorporating the control u t . The mean
 is updated using the deterministic version of the state transition function, with the mean μ t−1 substituted for the state x t−1 . The update of the co-
