@@ -21,7 +21,7 @@ Bayes Filter consists of two steps:
  \\(\frac{\partial{f(x,y)}}{\partial{x}} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)\\)
 
 `Kalman Filter` is an implementation of the Bayes Filter. It works under restrictions:  
-1. The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1})\\) must be a linear function in its arguments with added Gaussian noise
+1.The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1})\\) must be a linear function in its arguments with added Gaussian noise
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/state_prediction.png">
 </div>
@@ -31,7 +31,7 @@ The posterior state probability:
 <img src="/assets/self-driving-cars/kf/kf_posterior_state.png">
 </div>
 
-2. The measurement probability \\(p(z\_{t} | x\_{t})\\) must also be linear in its arguments, with added Gaussian noise
+2.The measurement probability \\(p(z\_{t} | x\_{t})\\) must also be linear in its arguments, with added Gaussian noise
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/measurements_updata.png">
 </div>
@@ -41,7 +41,7 @@ The measurement probability:
 <img src="/assets/self-driving-cars/kf/kf_measurement_probability.png">
 </div>
 
-3. The initial belief \\(bel(x\_{0})\\) must be normally distributed.
+3.The initial belief \\(bel(x\_{0})\\) must be normally distributed.
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/kf_initial_belief.png">
 </div>
@@ -53,39 +53,16 @@ These three assumptions are sufficient to ensure that the posterior \\(bel(x\_{t
 <img src="/assets/self-driving-cars/kf/kf.png">
 </div>
 
-Kalman filters represent the belief \\(bel(x\_{t})\\) at time \\(t\\) by the mean \\(μ\_{t})\\) and the covariance \\(Σ\_{t}\\). The input of the Kalman filter is the belief at time t − 1, represented by μ t−1 and Σ t−1 . To update these parameters, Kalman filters require the control u t and the measurement z t . The output is the belief at time t, represented by μ t and Σ t . In lines 2 and 3, the predicted belief μ̄ and Σ̄ is calculated representing
-the belief bel(x t ) one time step later, but before incorporating the measure-
-ment z t . This belief is obtained by incorporating the control u t . The mean
-is updated using the deterministic version of the state transition function, with the mean μ t−1 substituted for the state x t−1 . The update of the co-
-variance considers the fact that states depend on previous states through the
-linear matrix A t . This matrix is multiplied twice into the covariance, since
-the covariance is a quadratic matrix.
-The belief bel(x t ) is subsequently transformed into the desired belief
-bel(x t ) in lines 4 through 6, by incorporating the measurement z t . The vari-
-able K t , computed in line 4 is called Kalman gain. It specifies the degree
-to which the measurement is incorporated into the new state estimate. Line 5 manipulates the mean,
-by adjusting it in proportion to the Kalman gain K t and the deviation of
-the actual measurement, z t , and the measurement predicted according to the
-measurement probability. The key concept here is the innovation, which
-is the difference between the actual measurement z t and the expected mea-
-surement C t μ̄ t in line 5. Finally, the new covariance of the posterior belief
-is calculated in line 6, adjusting for the information gain resulting from the
-measurement.
-The Kalman filter is computationally quite efficient. For today’s best algo-
-rithms, the complexity of matrix inversion is approximately O(d 2.4 ) for a ma-
-trix of size d × d. Each iteration of the Kalman filter algorithm, as stated here,
-is lower bounded by (approximately) O(k 2.4 ), where k is the dimension of the
-measurement vector z t . This (approximate) cubic complexity stems from the
-matrix inversion in line 4. Even for certain sparse updates discussed in fu-
-ture chapters, it is also at least in O(n 2 ), where n is the dimension of the state
-space, due to the multiplication in line 6 (the matrix K t C t may be sparse).
-In many applications—such as the robot mapping applications discussed in
-later chapters—-the measurement space is much lower dimensional than the
-state space, and the update is dominated by the O(n 2 ) operations.
+Kalman filters represent the belief \\(bel(x\_{t})\\) at time \\(t\\) by the mean \\(μ\_{t})\\) and the covariance \\(Σ\_{t}\\). The input of the Kalman filter is the belief at time \\(t − 1\\), represented by \\(μ\_{t−1}\\) and \\(Σ\_{t−1}\\). To update these parameters, Kalman filters require the control \\(u\_{t}\\) and the measurement \\(z\_{t}\\). The output is the belief at time \\(t\\), represented by \\(μ\_{t}\\) and \\(Σ\_{t}\\). In lines 2 and 3, the predicted belief \\(μ̄\_{hat}\\) and \\(Σ̄\_{hat}\\) is calculated representing the belief \\(bel(x\_{t})\\) one time step later, but before incorporating the measurement \\(z\_{t}\\). This belief is obtained by incorporating the control \\(u\_{t}\\). The mean is updated using the deterministic version of the state transition function, with the mean \\(μ\_{t−1}\\) substituted for the state \\(x\_{t−1}\\). The update of the covariance considers the fact that states depend on previous states through the linear matrix \\(A\_{t}\\). This matrix is multiplied twice into the covariance, since the covariance is a quadratic matrix.  
+The belief \\(bel(x\_{t})\\) is subsequently transformed into the desired belief \\(bel(x\_{t})\\) in lines 4 through 6, by incorporating the measurement \\(z\_{t}\\). The variable \\(K\_{t}\\), computed in line 4 is called `Kalman gain`. It specifies the degree to which the measurement is incorporated into the new state estimate. Line 5 manipulates the mean,
+by adjusting it in proportion to the Kalman gain \\(K\_{t}\\) and the deviation of the actual measurement, \\(z\_{t}\\), and the measurement predicted according to the measurement probability. The key concept here is the innovation, which
+is the difference between the actual measurement \\(z\_{t}\\) and the expected measurement \\(C\_{t} μ̄\_{t}\\) in line 5. Finally, the new covariance of the posterior belief is calculated in line 6, adjusting for the information gain resulting from the measurement.  
+The Kalman filter is computationally quite efficient. For today’s best algorithms, the complexity of matrix inversion is approximately \\(O(d\^{2.4})\\) for a matrix of size \\(d × d\\). Each iteration of the Kalman filter algorithm, as stated here, is lower bounded by (approximately) \\(O(k\^{2.4})\\), where \\(k\\) is the dimension of the measurement vector \\(z\_{t}\\). This (approximate) cubic complexity stems from the matrix inversion in line 4.
+In many applications—such as the robot mapping applications the measurement space is much lower dimensional than the
+state space, and the update is dominated by the \\(O(n\^{2})\\) operations.
 
 
-
-The extended Kalman filter
+**The extended Kalman filter**
 
 The assumptions that observations are linear functions of the state and that
 the next state is a linear function of the previous state are crucial for the cor-
