@@ -11,7 +11,7 @@ mathjax: true
 
 Bayes Filter consists of two steps:
 1. Prediction step. Calculates the beliefe distribution over the current state given previous state and executed control command.
-2. Update step. Calculated corrected beliefe distribution over the current state \\(Xt\\) by taking into account the sesnor's data. 
+2. Update step. Calculated corrected beliefe distribution over the current state \\(x\_{t}\\) by taking into account the sesnor's data. 
 
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/bf.png">
@@ -21,7 +21,7 @@ Bayes Filter consists of two steps:
  \\(\frac{\partial{f(x,y)}}{\partial{x}} ~ \frac{f(x+1, y) - f(x,y)}{1} = f(x+1, y) - f(x,y)\\)
 
 `Kalman Filter` is an implementation of the Bayes Filter. It works under restrictions:  
-1.The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1})\\) must be a linear function in its arguments with added Gaussian noise
+1. The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1})\\) must be a linear function in its arguments with added Gaussian noise
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/state_prediction.png">
 </div>
@@ -31,7 +31,7 @@ The posterior state probability:
 <img src="/assets/self-driving-cars/kf/kf_posterior_state.png">
 </div>
 
-2.The measurement probability \\(p(z\_{t} | x\_{t})\\) must also be linear in its arguments, with added Gaussian noise
+2. The measurement probability \\(p(z\_{t} | x\_{t})\\) must also be linear in its arguments, with added Gaussian noise
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/measurements_updata.png">
 </div>
@@ -41,7 +41,7 @@ The measurement probability:
 <img src="/assets/self-driving-cars/kf/kf_measurement_probability.png">
 </div>
 
-3.The initial belief \\(bel(x\_{0})\\) must be normally distributed.
+3. The initial belief \\(bel(x\_{0})\\) must be normally distributed.
 <div class="imgcap">
 <img src="/assets/self-driving-cars/kf/kf_initial_belief.png">
 </div>
