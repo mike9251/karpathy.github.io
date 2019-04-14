@@ -15,7 +15,7 @@ Bayes Filter consists of two steps:
 2. Update step. Calculated corrected beliefe distribution over the current state Xt by taking into account the sesnor's data. 
 
 <div class="imgcap">
-<img src="/assets/kf/bf.png">
+<img src="/assets/self-driving-cars/kf/bf.png">
 </div>
 
 \\(\mid \nabla_{x,y}{f} \mid = \sqrt {(G\_{x}^{2} + G\_{y}^{2})}\\)
@@ -24,34 +24,34 @@ Bayes Filter consists of two steps:
 `Kalman Filter` is an implementation of the Bayes Filter. It works under restrictions:
 1. The state transition probability \\(p(x\_{t} | u\_{t}, x\_{t−1}) \\) must be a linear function in its arguments with added Gaussian noise
 <div class="imgcap">
-<img src="/assets/kf/state_prediction.png">
+<img src="/assets/self-driving-cars/kf/state_prediction.png">
 </div>
 
 The posterior state probability:
 <div class="imgcap">
-<img src="/assets/kf/kf_posterior_state.png">
+<img src="/assets/self-driving-cars/kf/kf_posterior_state.png">
 </div>
 
 2. The measurement probability \\(p(z\_{t} | x\_{t}) \\) must also be linear in its arguments, with added Gaussian noise
 <div class="imgcap">
-<img src="/assets/kf/measurements_updata.png">
+<img src="/assets/self-driving-cars/kf/measurements_updata.png">
 </div>
 
 The measurement probability:
 <div class="imgcap">
-<img src="/assets/kf/kf_measurement_probability.png">
+<img src="/assets/self-driving-cars/kf/kf_measurement_probability.png">
 </div>
 
 3. The initial belief \\(bel(x\_{0}) \\) must be normally distributed.
 <div class="imgcap">
-<img src="/assets/kf/kf_initial_belief.png">
+<img src="/assets/self-driving-cars/kf/kf_initial_belief.png">
 </div>
 
 These three assumptions are sufficient to ensure that the posterior \\(bel(x\_{t}) \\) is always a Gaussian, for any point in time \\(t\\) (a linear transformation of Gaussian distribution is still Gaussian).
 
 **The Kalman filter algorithm:**
 <div class="imgcap">
-<img src="/assets/kf/kf.png">
+<img src="/assets/self-driving-cars/kf/kf.png">
 </div>
 
 Kalman filters represent the belief \\(bel(x\_{t}) \\) at time \\(t\\) by the mean \\(μ\_{t}) \\) and the covariance \\(Σ\_{t}\\). The input of the Kalman filter is the belief at time t − 1, represented by μ t−1 and Σ t−1 . To update these parameters, Kalman filters require the control u t and the measurement z t . The output is the belief at time t, represented by μ t and Σ t . In lines 2 and 3, the predicted belief μ̄ and Σ̄ is calculated representing
