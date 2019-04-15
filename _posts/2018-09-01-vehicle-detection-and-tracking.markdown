@@ -101,7 +101,7 @@ In function `draw_segment` we interpret the heat map and draw the final detectio
 
 Final video (Classical Approach):
 <div class="imgcap">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TrMAK6ckAqc?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/330461014" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
 **Deep Learning approach**  
@@ -111,7 +111,7 @@ Code is available <a href="https://github.com/mike9251/yolov3">here</a>.
 
 Final video (YOLOv3):
 <div class="imgcap">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jo234ZH5_po?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/330456665" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>  
 
 **Summary**
