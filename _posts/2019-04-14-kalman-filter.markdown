@@ -230,5 +230,5 @@ The asymptotic complexity of the UKF algorithm is the same as for the EKF. In pr
 Another advantage of the UKF is the fact that it does not require the computation of Jacobians, which are difficult to determine in some domains. The UKF is thus often referred to as a derivative-free filter.
 
 Material:  
-1. Probabilistic Robotics by Sebastian Thrun, Wolfram Burgard and Dieter Fox  
-2. Online lections: <a href="https://www.youtube.com/watch?v=U6vr3iNrwRA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN">SLAM course by Cyrill Stachniss</a>
+1. Online lections: <a href="https://www.youtube.com/watch?v=U6vr3iNrwRA&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN">SLAM course by Cyrill Stachniss</a>  
+2. Probabilistic Robotics by Sebastian Thrun, Wolfram Burgard and Dieter Fox
