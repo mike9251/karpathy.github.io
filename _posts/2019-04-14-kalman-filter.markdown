@@ -16,7 +16,7 @@ Results UKF:
 <iframe src="https://player.vimeo.com/video/330729474" width="640" height="474" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 
-Theory part**  
+**Theory part**  
 
 `Bayes Filter` is a recursive algorithm for calculating the belief distribution from measurements and control data (a belief reflects the robot’s internal knowledge about the state of the environment).
 
