@@ -14,10 +14,10 @@ Results EKF (<a href="https://github.com/mike9251/CarND-Extended-Kalman-Filter-P
 <iframe src="https://player.vimeo.com/video/330729442" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
-Results UKF:  
+Results UKF (<a href="https://github.com/mike9251/CarND-Unscented-Kalman-Filter-Project">github</a>):
+<div class="imgcap">
 <iframe src="https://player.vimeo.com/video/330729474" width="640" height="474" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<a href="https://github.com/mike9251/CarND-Unscented-Kalman-Filter-Project">github</a><br>
-
+</div>
 
 **Theory part**  
 
