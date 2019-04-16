@@ -12,7 +12,9 @@ Overview
 
 The goals of this project is to write a software pipeline to identify the lane boundaries in a video using more advanced algorithms (comparing to the simple one <a href="https://mike9251.github.io/2018/05/26/lane-line-detector/">Udacity Self-Driving Car Project #1</a>).<br>
 Final video:
+<div class="imgcap">
 <iframe src="https://player.vimeo.com/video/330456210" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
 
 **Code is <a href="https://github.com/mike9251/SDC/tree/master/CarND-Advanced-Lane-Lines-P4">here</a>.**<br>
 **Usage:** *python preprocess.py project_video.mp4*
