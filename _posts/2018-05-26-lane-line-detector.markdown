@@ -15,7 +15,9 @@ When we drive, we use our eyes to decide where to go.  The lines on the road tha
 In this project I will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.
 
 Final result on the Challenge video:
+<div class="imgcap">
 <iframe src="https://player.vimeo.com/video/330455583" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+ </div>
 
 According to the results the preprocessing stage is very important for more accurate lane line detection.
 
@@ -29,7 +31,7 @@ The first task of the Self-Driving Car course is to create a simple lane line de
 *1. Pipeline*
 
  - load an image
- 
+
  <div class="imgcap">
  <img src="/assets/self-driving-cars/input_img.JPG" width="480" alt="Combined Image" />
  </div>
