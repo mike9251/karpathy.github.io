@@ -7,6 +7,17 @@ date:   2019-04-14 13:00:00
 mathjax: true
 ---
 
+Both EKF and UKF works well with noisy measurements. However, UKF produces more accurate result wrt minimum of the RMSE. And the results are expected because UKF uses UT instead of linearizing non-linear state/measurement prediction functions (here non-linearity is introduced by radar measurements).
+
+Results EKF:
+<iframe src="https://player.vimeo.com/video/330729442" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+Results UKF:
+<iframe src="https://player.vimeo.com/video/330729474" width="640" height="474" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+
+Theory part**  
+
 `Bayes Filter` is a recursive algorithm for calculating the belief distribution from measurements and control data (a belief reflects the robot’s internal knowledge about the state of the environment).
 
 Bayes Filter consists of two steps:
