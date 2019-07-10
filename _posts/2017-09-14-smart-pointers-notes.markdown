@@ -176,7 +176,7 @@ std::cout << *auto_p; //error
 {% endhighlight %}
 Trying to dereference the auto_p will cause program crash because when `some_func(auto_p) ` is called the copy constructor of `std::auto_ptr` will move pointer that auto_p holds to the `some_func` parameter - auto_p is empty. Fix it with:
 {% highlight c++ %}
-void some_func(std::auto_ptr<int> auto_pp)
+void some_func(std::auto_ptr<int> &auto_pp)
 {
 }
 {% endhighlight %}
