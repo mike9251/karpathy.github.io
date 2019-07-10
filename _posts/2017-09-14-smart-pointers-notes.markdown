@@ -93,10 +93,11 @@ MyClass *obj = new MyClass();
 std::shared_ptr<MyClass> ptr1(obj);
 std::weak_ptr<MyClass> wptr1(ptr1); // number of references doesn't change
 {% endhighlight %}
-To get acces to the object `weak_ptr` should be transformed into `shared_ptr`:
+To get acces to the object the `weak_ptr` should be transformed into `shared_ptr`:
 {% highlight c++ %}
 std::shared_ptr<MyClass> ptr2 = wptr1.lock() or auto ptr2 = wptr1.lock()
 {% endhighlight %}
+
 
 Fix `Circular dependency issues`:
 {% highlight c++ %}
@@ -133,6 +134,28 @@ Smart pointer implementation, which solely holds a raw pointer of an object!
 {% highlight c++ %}
 std::unique_ptr<int> uptr1(new int(13));
 std::cout << "uptr1 = " << *uptr1 << std::endl;
+{% endhighlight %}
+In order to pass a pointer from one unique_ptr to another we need to use `std::move`:
+{% highlight c++ %}
+std::unique_ptr<Human> u_pp(new Human("Tom"));
+std::unique_ptr<Human> u_pp2;
+std::cout << ((static_cast<bool>(u_pp)) ? "\nu_pp is not NULL" : "\nu_pp is NULL\n");
+std::cout << (static_cast<bool>(u_pp2) ? "\nu_pp2 is not NULL" : "\nu_pp2 is NULL\n");
+
+u_pp2 = std::move(u_pp);
+
+std::cout << (static_cast<bool>(u_pp) ? "\nu_pp is not NULL" : "\nu_pp is NULL\n");
+std::cout << (static_cast<bool>(u_pp2) ? "\nu_pp2 is not NULL" : "\nu_pp2 is NULL\n");
+{% endhighlight %}
+{% highlight c++ %}
+Output:
+Tom is created!
+u_pp is not NULL
+u_pp2 is NULL
+
+u_pp is NULL
+u_pp2 is not NULL
+Tom is destroyed!
 {% endhighlight %}
 We can get a shared pointer from a unique one:
 {% highlight c++ %}
