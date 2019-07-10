@@ -85,50 +85,6 @@ Casey is created!
 
 In this case objects `tom` and `casey` will be created but they won't be destroyed, because reference counters will be = 2 and after leaving local space ref counters will not be set to 0. To avoid this issue we need to use `weak_ptr`.
 
-### weak_ptr
-Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances and it doesn't increment reference
-counter.
-{% highlight c++ %}
-MyClass *obj = new MyClass();
-std::shared_ptr<MyClass> ptr1(obj);
-std::weak_ptr<MyClass> wptr1(ptr1); // number of references doesn't change
-{% endhighlight %}
-To get acces to the object the `weak_ptr` should be transformed into `shared_ptr`:
-{% highlight c++ %}
-std::shared_ptr<MyClass> ptr2 = wptr1.lock() or auto ptr2 = wptr1.lock()
-{% endhighlight %}
-
-
-Fix `Circular dependency issues`:
-{% highlight c++ %}
-class Human
-{
-public:
-	Human(std::string const & name) {
-		m_name = name;
-		std::cout << m_name.c_str() << " is created!\n";
-	}
-	~Human()
-	{
-		std::cout << m_name.c_str() << " is destroyed!\n";
-	}
-	std::string m_name;
-	std::weak_ptr<Human> p_fiend;
-};
-std::shared_ptr<Human> tom(new Human("Tom"));
-std::shared_ptr<Human> casey(new Human("Casey"));
-
-tom->p_fiend = casey;
-casey->p_fiend = tom;
-{% endhighlight %}
-{% highlight c++ %}
-Output:
-Tom is created!
-Casey is created!
-Casey is destroyed!
-Tom is destroyed!
-{% endhighlight %}
-
 ### shared_ptr and multithreading
 Reference counter is atomic mechanism so in multithreaded environment the number of shared pointers holding an object will be correctly calculated. Thread safe operations on the object will work ok (e.g. reading a value). BUT if any object modifying operation is used we need to make them thread safe with mutex.
 
@@ -187,6 +143,50 @@ void read() {
 void write() {
      resetGlobal( new Widget );
 }
+{% endhighlight %}
+
+### weak_ptr
+Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances and it doesn't increment reference
+counter.
+{% highlight c++ %}
+MyClass *obj = new MyClass();
+std::shared_ptr<MyClass> ptr1(obj);
+std::weak_ptr<MyClass> wptr1(ptr1); // number of references doesn't change
+{% endhighlight %}
+To get acces to the object the `weak_ptr` should be transformed into `shared_ptr`:
+{% highlight c++ %}
+std::shared_ptr<MyClass> ptr2 = wptr1.lock() or auto ptr2 = wptr1.lock()
+{% endhighlight %}
+
+
+Fix `Circular dependency issues`:
+{% highlight c++ %}
+class Human
+{
+public:
+	Human(std::string const & name) {
+		m_name = name;
+		std::cout << m_name.c_str() << " is created!\n";
+	}
+	~Human()
+	{
+		std::cout << m_name.c_str() << " is destroyed!\n";
+	}
+	std::string m_name;
+	std::weak_ptr<Human> p_fiend;
+};
+std::shared_ptr<Human> tom(new Human("Tom"));
+std::shared_ptr<Human> casey(new Human("Casey"));
+
+tom->p_fiend = casey;
+casey->p_fiend = tom;
+{% endhighlight %}
+{% highlight c++ %}
+Output:
+Tom is created!
+Casey is created!
+Casey is destroyed!
+Tom is destroyed!
 {% endhighlight %}
 
 ### unique_ptr
