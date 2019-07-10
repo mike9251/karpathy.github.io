@@ -129,6 +129,66 @@ Casey is destroyed!
 Tom is destroyed!
 {% endhighlight %}
 
+### shared_ptr and multithreading
+Reference counter is atomic mechanism so in multithreaded environment the number of shared pointers holding an object will be correctly calculated. Thread safe operations on the object will work ok (e.g. reading a value). BUT if any object modifying operation is used we need to make them thread safe with mutex.
+
+Consider an example when we have a global shared_ptr and two functions:
+{% highlight c++ %}
+shared_ptr<Widget> globalSharedPtr(new Widget);
+
+void read() {
+    shared_ptr<Widget> x = globalSharedPtr;
+    // do something with x
+}
+
+void write() {
+     globalSharedPtr.reset( new Widget );
+}
+{% endhighlight %}
+
+Approximate impl of shared_ptr:
+{% highlight c++ %}
+shared_ptr::shared_ptr(const shared_ptr<T>& x) {
+A1:    pointer = x.pointer;
+A2:    counter = x.counter;
+A3:    atomic_increment( *counter );
+}
+
+shared_ptr<T>::reset(T* newObject) {
+B1:    if( atomic_decrement( *counter ) == 0 ) {
+B2:        delete pointer;
+B3:        delete counter;
+B4:    }
+B5:    pointer = newObject;
+B6:    counter = new Counter;
+}
+{% endhighlight %}
+If one thread starts copying globalSharedPtr (read) and another reseting (write), then it's possible to get race conditions over pointer/counter variables.
+
+{% highlight c++ %}
+shared_ptr<Widget> globalSharedPtr(new Widget);
+mutex_t globalSharedPtrMutex;
+
+void resetGlobal(Widget* x) {
+    write_lock_t l(globalSharedPtrMutex);
+    globalSharedPtr.reset( x );
+}
+
+shared_ptr<Widget> getGlobal() {
+    read_lock_t l(globalSharedPtrMutex);
+    return globalSharedPtr;
+}
+
+void read() {
+    shared_ptr<Widget> x = getGlobal();
+    // do something with x
+}
+
+void write() {
+     resetGlobal( new Widget );
+}
+{% endhighlight %}
+
 ### unique_ptr
 Smart pointer implementation, which solely holds a raw pointer of an object! It implements `move semantic` - 
 {% highlight c++ %}
