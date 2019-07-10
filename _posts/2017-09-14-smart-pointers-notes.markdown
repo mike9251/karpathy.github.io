@@ -21,10 +21,6 @@ or
 MyClass *obj = new MyClass();
 std::shared_ptr<MyClass> ptr1(obj);
 {% endhighlight %}
-or 
-{% highlight c++ %}
-std::shared_ptr<MyClass> ptr1 = std::make_shared(*obj);
-{% endhighlight %}
 
 But don't do that:
 {% highlight c++ %}
@@ -46,13 +42,48 @@ be holding it's address.
 
 Not safe method is to let several shared pointers hold object's adress through the raw pointer `obj`: 
 {% highlight c++ %}
-MyClass *obj = new MyClass();
-std::shared_ptr<MyClass> ptr1(obj);
-std::shared_ptr<MyClass> ptr2(obj);
+{
+    MyClass *obj = new MyClass();
+    std::shared_ptr<MyClass> ptr1(obj);
+    {
+        std::shared_ptr<MyClass> ptr2(obj);
+    } // (1)
+    ptr1->do_something(); // (2)
+}// (3)
 {% endhighlight %}
-In this case reference counters will be unique for each shared pointers and if one of the shared pointers leaves it's locas space
+In this case reference counters will be unique for each shared pointers and if one of the shared pointers leaves it's locas space (1)
 it will trigger dectructor for `obj` object. But the other pointer still thinks that it's holding adress of some object and any attempt
-to do something with it will cause a program crush.
+to do something with it (2) or leaving it's local space (3) will cause an exception.  
+
+In some cases use of shared_ptr can cause `Circular dependency issues`. Consider an example:
+{% highlight c++ %}
+class Human
+{
+public:
+	Human(std::string const & name) {
+		m_name = name;
+		std::cout << m_name.c_str() << " is created!\n";
+	}
+	~Human()
+	{
+		std::cout << m_name.c_str() << " is destroyed!\n";
+	}
+	std::string m_name;
+	std::shared_ptr<Human> p_fiend;
+};
+std::shared_ptr<Human> tom(new Human("Tom"));
+std::shared_ptr<Human> casey(new Human("Casey"));
+
+tom->p_fiend = casey;
+casey->p_fiend = tom;
+{% endhighlight %}
+{% highlight c++ %}
+Output:
+Tom is created!
+Casey is created!
+{% endhighlight %}
+
+In this case objects `tom` and `casey` will be created but they won't be destroyed, because reference counters will be = 2 and after leaving local space ref counters will not be set to 0. To avoid this issue we need to use `weak_ptr`.
 
 ### weak_ptr
 Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances and it doesn't increment reference
@@ -65,6 +96,36 @@ std::weak_ptr<MyClass> wptr1(ptr1); // number of references doesn't change
 To get acces to the object `weak_ptr` should be transformed into `shared_ptr`:
 {% highlight c++ %}
 std::shared_ptr<MyClass> ptr2 = wptr1.lock() or auto ptr2 = wptr1.lock()
+{% endhighlight %}
+
+Fix `Circular dependency issues`:
+{% highlight c++ %}
+class Human
+{
+public:
+	Human(std::string const & name) {
+		m_name = name;
+		std::cout << m_name.c_str() << " is created!\n";
+	}
+	~Human()
+	{
+		std::cout << m_name.c_str() << " is destroyed!\n";
+	}
+	std::string m_name;
+	std::weak_ptr<Human> p_fiend;
+};
+std::shared_ptr<Human> tom(new Human("Tom"));
+std::shared_ptr<Human> casey(new Human("Casey"));
+
+tom->p_fiend = casey;
+casey->p_fiend = tom;
+{% endhighlight %}
+{% highlight c++ %}
+Output:
+Tom is created!
+Casey is created!
+Casey is destroyed!
+Tom is destroyed!
 {% endhighlight %}
 
 ### unique_ptr
