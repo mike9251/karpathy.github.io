@@ -164,7 +164,7 @@ std::shared_ptr<int> shared = std::move(uptr1);
 After that `uptr1` will be empty and posession of the objects address went to `shared`.
 We can't get a `weak_ptr` from `unique_ptr` (because `weak_ptr` doesn't inform that it holds a pointer)!
 
-### auto_ptr
+### auto_ptr - is not recomended to use
 First attempt to standartize smart pointers released in C++98. It implements `move semantic` through copy constructor and redefined operator=. As a result it's very error prone. Example:
 {% highlight c++ %}
 void some_func(std::auto_ptr<int> auto_pp)
