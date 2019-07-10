@@ -130,7 +130,7 @@ Tom is destroyed!
 {% endhighlight %}
 
 ### unique_ptr
-Smart pointer implementation, which solely holds a raw pointer of an object!
+Smart pointer implementation, which solely holds a raw pointer of an object! It implements `move semantic` - 
 {% highlight c++ %}
 std::unique_ptr<int> uptr1(new int(13));
 std::cout << "uptr1 = " << *uptr1 << std::endl;
@@ -164,6 +164,22 @@ std::shared_ptr<int> shared = std::move(uptr1);
 After that `uptr1` will be empty and posession of the objects address went to `shared`.
 We can't get a `weak_ptr` from `unique_ptr` (because `weak_ptr` doesn't inform that it holds a pointer)!
 
+### auto_ptr
+First attempt to standartize smart pointers released in C++98. It implements `move semantic` through copy constructor and redefined operator=. As a result it's very error prone. Example:
+{% highlight c++ %}
+void some_func(std::auto_ptr<int> auto_pp)
+{
+}
+std::auto_ptr<int> auto_p(new int(10));
+some_func(auto_p);
+std::cout << *auto_p; //error
+{% endhighlight %}
+Trying to dereference the auto_p will cause program crash because when `some_func(auto_p) ` is called the copy constructor of `std::auto_ptr` will move pointer that auto_p holds to the `some_func` parameter - auto_p is empty. Fix it with:
+{% highlight c++ %}
+void some_func(std::auto_ptr<int> auto_pp)
+{
+}
+{% endhighlight %}
 One possible use case:
 {% highlight c++ %}
 int main(){
