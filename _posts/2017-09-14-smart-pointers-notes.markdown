@@ -179,6 +179,7 @@ Trying to dereference the auto_p will cause program crash because when `some_fun
 void some_func(std::auto_ptr<int> &auto_pp)
 {
 }
+Also `std::auto_ptr` incorrectly works with arrays - to free memory it always calls `delete` which will cause memory leaks when working with arrays.
 {% endhighlight %}
 One possible use case:
 {% highlight c++ %}
