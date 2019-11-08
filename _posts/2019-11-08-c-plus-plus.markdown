@@ -6,85 +6,198 @@ excerpt: "Brief overview of modern C++ features"
 date:   2019-11-08 20:00:00
 ---
 
-### shared_ptr
-Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances.
-{% highlight c++ %}
-std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>();
-{% endhighlight %}
-or
-{% highlight c++ %}
-std::shared_ptr<MyClass> ptr1;
-ptr1 = std::make_shared<MyClass>();
-{% endhighlight %}
-or 
-{% highlight c++ %}
-MyClass *obj = new MyClass();
-std::shared_ptr<MyClass> ptr1(obj);
-{% endhighlight %}
+### lvalue and rvalue references
+lvalue - anything that can be placed on the left side of an expression
+rvalue - literals (e.g. 5), temporary values (e.g. x+1), and anonymous objects (e.g. Fraction(5, 2)).
 
-But don't do that:
+Below we can see an example of the lvalue and rvalue references usage:
 {% highlight c++ %}
-MyClass obj;
-std::shared_ptr<MyClass> ptr1(&obj);
-{% endhighlight %}
-because in this case the object `obj` is allocated in stack and when `ptr1` pointer will be deleting this object the program will crush.
-The smart pointer expects that the object which pointer it holds is allocated in the heap.
+void printInt(int &a) { std::cout << "printInt with an lvalue reference" << std::endl; }
+void printInt(int &&a) { std::cout << "printInt with an rvalue reference" << std::endl; }
 
-If you want to share raw pointer, the safe method is:
-{% highlight c++ %}
-MyClass *obj = new MyClass();
-std::shared_ptr<MyClass> ptr1(obj);
-std::shared_ptr<MyClass> ptr2(ptr1);
-{% endhighlight %}
-In this case two smart pointers will be holding address of the object (ref count = 2). If one of the shared pointers exits it's local
-space it will be destroyied, reference counter will be decresed by 1, but the object `obj` will exist and the other shared pointer will
-be holding it's address.
-
-Not safe method is to let several shared pointers hold object's adress through the raw pointer `obj`: 
-{% highlight c++ %}
+int main()
 {
-    MyClass *obj = new MyClass();
-    std::shared_ptr<MyClass> ptr1(obj);
-    {
-        std::shared_ptr<MyClass> ptr2(obj);
-    } // (1)
-    ptr1->do_something(); // (2)
-}// (3)
+    int a = 5; // a - lvalue
+    int &b = a; // b - lvalue reference
+    int &&c = 5; // c - rvalue reference initialized with an rvalue 5
+    
+    printInt(a);// call printInt(int &a)
+    printInt(10);// call printInt(int &&a)
+    printInt(std::move(a));// call printInt(int &&a)
+    
+    return 0;
+}
 {% endhighlight %}
-In this case reference counters will be unique for each shared pointers and if one of the shared pointers leaves it's locas space (1)
-it will trigger dectructor for `obj` object. But the other pointer still thinks that it's holding adress of some object and any attempt
-to do something with it (2) or leaving it's local space (3) will cause an exception.  
 
-In some cases use of shared_ptr can cause `Circular dependency issues`. Consider an example:
+Rvalue reference usage:
+1. Move semantic
+2. Perfect forwarding
+
+
+### Move semantic
+When some complex objects are passed by value the copy constructor gets invoked to perform deep copy (doesn't happen when it is passed by reference). If the object is an `rvalue` then we will first create this rvalue object and then perform `copy constructor`, then call destructor for the rvalue object. Instead of those unnecessary steps we can just move the rvalue object with `move constructor`.
 {% highlight c++ %}
-class Human
+class myVector
 {
 public:
-	Human(std::string const & name) {
-		m_name = name;
-		std::cout << m_name.c_str() << " is created!\n";
-	}
-	~Human()
+    myVector(int size)
+    {
+    	std::cout << "constructor!\n";
+    	size_ = size;
+    	arr_ = new int[size];
+        for (int i = 0; i < size; i++)
+        {
+ 	    arr_[i] = i;
+        }
+    }
+
+    myVector(const myVector& rhs)
+    {
+	std::cout << "Copy constructor!\n";
+	size_ = rhs.size_;
+	arr_ = new int[size_];
+	for (int i = 0; i < size_; i++)
 	{
-		std::cout << m_name.c_str() << " is destroyed!\n";
+	    arr_[i] = rhs.arr_[i];
 	}
-	std::string m_name;
-	std::shared_ptr<Human> p_fiend;
+    }
+
+    myVector(myVector&& rhs)
+    {
+	std::cout << "Move constructor!\n";
+	size_ = rhs.size_;
+	arr_ = rhs.arr_;
+	rhs.size_ = 0;
+	rhs.arr_ = nullptr;
+    }
+    
+    ~myVector()
+    {
+	delete[] arr_;
+    }
+
+    int size_;
+    int *arr_;
 };
-std::shared_ptr<Human> tom(new Human("Tom"));
-std::shared_ptr<Human> casey(new Human("Casey"));
 
-tom->p_fiend = casey;
-casey->p_fiend = tom;
+myVector createMyVector()
+{
+    myVector vec(10);
+    return vec;
+}
+
+// recieves myVector object by value (copy constructor gets invoked when lvalue object passed
+// and move constructor gets invoked when rvalue object passed)
+void printMyVector(myVector vec)
+{
+    for (int i = 0; i < vec.size_; i++)
+    {
+    	std::cout << vec.arr_[i] << " ";
+    }
+}
+
+int main()
+{
+    // use move constructor
+    printMyVector( createMyVector() ); // createMyVector() - returns an rvalue, so no copy performed
+
+    //use copy construvtor
+    myVector myVec = myVector(10);
+    printMyVector(myVec); // myVec is an lvalue object, copy constructor is invoked to create a copy of myVec
+    
+    // use move constructor
+    printMyVector(std::move(myVec)); // std::move created an rvalue from an lvalue object.
+    //After move constructor call the myVec object will be empty
+    return 0;
+}
+
 {% endhighlight %}
+Move semantic is implemented for all STL containers.
+
+### Perfect forwarding
+We would like to perform argument forwarding without costly and unnecessary copy constructor and keeping rvalue as rvalue / lvalue as lvalue.
+
+### Reference collapsing rules:
+1. T& & ==> T&
+2. T& && ==> T&
+3. T&& & ==> T&
+4. T&& && ==> T&&
+
 {% highlight c++ %}
-Output:
-Tom is created!
-Casey is created!
+template <typename T>
+void relay(T&& arg)
+{
+    printMyVector(std::forward<T>(arg));
+}
+	
+int main()
+{
+    //use move construvtor
+    relay(myVector(10)); // pass to the relay an rvalue, printMyVector will be called with an rvalue
+    // T&& arg is initialized with an rvalue reference, T == myVector&& ==> T&& == myVector&& && ==> myVector&&
+    
+    //use copy constructor
+    myVector myVec = myVector(10);
+    relay(myVec); // pass to the relay an lvalue
+    // T&& arg is initialized with an lvalue reference, T == myVector& ==> T&& == myVector& && ==> myVector&
+    return 0;
+}
+
 {% endhighlight %}
 
-In this case objects `tom` and `casey` will be created but they won't be destroyed, because reference counters will be = 2 and after leaving local space ref counters will not be set to 0. To avoid this issue we need to use `weak_ptr`.
+So in the case above, when relay takes on an rvalue, after reference collapsing we get rvalue reference, otherwise an lvalue reference.
 
+T&& is a universal reference if:
+1. T is a template type.
+2. Reference collapsing happens to T.
+
+### User defined literals
+If we want to associate values with some metrics (m, cm, mm, ...) we can define corresponding literals.
+
+{% highlight c++ %}
+long double operator"" _cm(long double x) { return 10 * x; }
+long double operator"" _m(long double x) { return 100 * x; }
+long double operator"" _mm(long double x) { return x; }
+int main()
+{       //next values will be recalculated in run time
+	long double h = 5.2_cm;
+	long double h1 = 5.2_m;
+	long double h2 = 502.0_mm;
+	cout << h << " mm " << h1 << " mm " << h2 << " mm\n";
+	return 0;
+}
+{% endhighlight %}
+
+### Compiler Generated Functions
+
+### C++ 03
+1. Default constructor      (generated only if no constuctor is defined by user)
+2. Copy constructor         (generated only if no 5, 6 defined)
+3. Copy assignment operator (generated only if no 5, 6 defined)
+4. Destructor
+### C++11
+5. Move constructor         (generated only if no 2, 3, 4, 6 defined)
+6. Move assignment operator (generated only if no 2, 3, 4, 5 defined)
+
+So if we declare an empty class in fact we get a class with 6 compiler generated functions:
+{% highlight c++ %}
+class EmptyClass
+{}
+
+or 
+
+class EmptyClass
+{
+    //C++03
+    EmptyClass();
+    EmptyClass(const EmptyClass &rhs);
+    EmptyClass& operator=(const EmptyClass &rhs);
+    ~EmptyClass();
+    //C++11
+    EmptyClass(EmptyClass &&rhs);
+    EmptyClass& operator=(EmptyClass &&rhs);
+};
+{% endhighlight %}
 ### shared_ptr and multithreading
 Reference counter is atomic mechanism so in multithreaded environment the number of shared pointers holding an object will be correctly calculated. Thread safe operations on the object will work ok (e.g. reading a value). BUT if any object modifying operation is used we need to make them thread safe with mutex.
 
