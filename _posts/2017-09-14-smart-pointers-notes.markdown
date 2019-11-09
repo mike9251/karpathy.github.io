@@ -9,7 +9,11 @@ date:   2017-09-14 20:00:00
 ### shared_ptr
 Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances.
 {% highlight c++ %}
-std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>();
+std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>(); // fastest and exception safe method
+{% endhighlight %}
+or
+{% highlight c++ %}
+std::shared_ptr<MyClass> ptr1(new MyClass()); // not exception safe method
 {% endhighlight %}
 or
 {% highlight c++ %}
@@ -55,6 +59,16 @@ In this case reference counters will be unique for each shared pointers and if o
 it will trigger dectructor for `obj` object. But the other pointer still thinks that it's holding adress of some object and any attempt
 to do something with it (2) or leaving it's local space (3) will cause an exception.  
 
+Shared pointers created with the `make_shared` call use default deleter - the class destructor to destroy allocated object when the ref counter is 0. However, we can pass a custom deleter to the shared pointer constructor:
+{% highlight c++ %}
+shared_ptr<MyClass> ptr_custom_deleter = shared_ptr<MyClass>(new MyClass(), [](MyClass* ptr) { delete ptr; cout << Object is custom deleted\n"; });
+{% endhighlight %}
+This may be helpfull if we allocate an array of of objects and pass it to the shared pointer. Before C++17 shared pointers that own a pointer to an array by default will call `delete` not `delete[]`.
+{% highlight c++ %}
+shared_ptr<MyClass> p_arr = shared_ptr<MyClass>(new MyClass[5], [](MyClass* ptr) {delete[] ptr; }); // free memory for 5 elements
+shared_ptr<Dog[]> p_arr(new Dog[3]); // free memory for 5 elements, delete[] will be called. C++17 feature.
+shared_ptr<MyClass> p_arr2(new MyClass[5]); // when ref counter == 0 only first object will be deleted and the rest 4 objects will be memleaked - it will cause an exception
+{% endhighlight %}
 In some cases use of shared_ptr can cause `Circular dependency issues`. Consider an example:
 {% highlight c++ %}
 class Human
@@ -159,7 +173,7 @@ std::shared_ptr<MyClass> ptr2 = wptr1.lock() or auto ptr2 = wptr1.lock()
 {% endhighlight %}
 
 
-Fix `Circular dependency issues`:
+Main use is to fix `Circular dependency issues`:
 {% highlight c++ %}
 class Human
 {
@@ -223,6 +237,11 @@ std::shared_ptr<int> shared = std::move(uptr1);
 {% endhighlight %}
 After that `uptr1` will be empty and posession of the objects address went to `shared`.
 We can't get a `weak_ptr` from `unique_ptr` (because `weak_ptr` doesn't inform that it holds a pointer)!
+	
+In contrust to the `shared_ptr` unique pointers correctly work by default with pointers to arrays starting from C++11:
+{% highlight c++ %}
+unique_ptr<MyClass[]> p_arr(new MyClass[3]); // free memory for 5 elements, delete[] will be called. C++11 feature.
+{% endhighlight %}
 
 ### auto_ptr - is not recomended to use
 First attempt to standartize smart pointers released in C++98. It implements `move semantic` through copy constructor and redefined operator=. As a result it's very error prone. Example:
