@@ -8,7 +8,8 @@ date:   2017-09-14 20:00:00
 
 ### shared_ptr
 Smart pointer implementation, which allows sharing a raw pointer among other shared_ptr's instances.
-When a shared pointer (sPtr) is created the block of memory (T) is allocated and a control block (ctrlBlock) is also created, which holds `use_count` and `weak_count` parameters. The sPtr contains two pointers: to the T and to the ctrlBlock. When `use_count` == 0 the T is freed as no shared pointers own it. When `weak_count` == 0 the ctrlBlock is destroyed as there is no point in keeping it alive. `use_count = # of shared pointers` and `weak_count = # of weak pointers + 1 if use_count > 0`.In case when `use_count` == 0 and `weak_count` > 0 the memory block T is freed but there is still at least one weak pointer to the T, so in order to correctly handle the dangling pointer access we keep the ctrlBlock alive. 
+When a shared pointer (sPtr) is created the block of memory (T) is allocated and a control block (ctrlBlock) is also created, which holds `use_count` and `weak_count` parameters. The sPtr contains two pointers: to the T and to the ctrlBlock. When `use_count` == 0 the T is freed as no shared pointers own it. When `weak_count` == 0 the ctrlBlock is destroyed as there is no point in keeping it alive. `use_count = # of shared pointers` and `weak_count = # of weak pointers + 1 if use_count > 0`.In case when `use_count` == 0 and `weak_count` > 0 the memory block T is freed but there is still at least one weak pointer to the T, so in order to correctly handle the dangling pointer access we keep the ctrlBlock alive.
+Use of `make_shared` allows allocate a continious block of memory for T and ctrlBlock in one call - that is why it's fast.
 {% highlight c++ %}
 std::shared_ptr<MyClass> ptr1 = std::make_shared<MyClass>(); // fastest and exception safe method
 {% endhighlight %}
