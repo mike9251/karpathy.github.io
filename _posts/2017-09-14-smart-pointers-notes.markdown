@@ -61,12 +61,12 @@ to do something with it (2) or leaving it's local space (3) will cause an except
 
 Shared pointers created with the `make_shared` call use default deleter - the class destructor to destroy allocated object when the ref counter is 0. However, we can pass a custom deleter to the shared pointer constructor:
 {% highlight c++ %}
-shared_ptr<MyClass> ptr_custom_deleter = shared_ptr<MyClass>(new MyClass(), [](MyClass* ptr) { delete ptr; cout << Object is custom deleted\n"; });
+shared_ptr<MyClass> ptr_custom_deleter = shared_ptr<MyClass>(new MyClass(), [](MyClass* ptr) { delete ptr; cout << "Object is custom deleted\n"; });
 {% endhighlight %}
 This may be helpfull if we allocate an array of of objects and pass it to the shared pointer. Before C++17 shared pointers that own a pointer to an array by default will call `delete` not `delete[]`.
 {% highlight c++ %}
 shared_ptr<MyClass> p_arr = shared_ptr<MyClass>(new MyClass[5], [](MyClass* ptr) {delete[] ptr; }); // free memory for 5 elements
-shared_ptr<Dog[]> p_arr(new Dog[3]); // free memory for 5 elements, delete[] will be called. C++17 feature.
+shared_ptr<Dog[]> p_arr(new Dog[5]); // free memory for 5 elements, delete[] will be called. C++17 feature.
 shared_ptr<MyClass> p_arr2(new MyClass[5]); // when ref counter == 0 only first object will be deleted and the rest 4 objects will be memleaked - it will cause an exception
 {% endhighlight %}
 In some cases use of shared_ptr can cause `Circular dependency issues`. Consider an example:
