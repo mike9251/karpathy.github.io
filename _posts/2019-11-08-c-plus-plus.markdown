@@ -204,7 +204,7 @@ class EmptyClass
 
 ### Const
 
-`const` before `*` - pointer to a constant, can't dereference the pointer and change it's value but can change the pointer itself.
+`const` before `*` - pointer to a constant data, can't dereference the pointer and change it's value but can change the pointer itself.
 `const` after `*` - constant pointer, can dereference the pointer and change the value it points to but can't change the address it points to.
 {% highlight c++ %}
 const int a = 10;
@@ -223,8 +223,14 @@ const int a = 10;
 const_cast<int&>(a) = 11; // ok
 {% endhighlight %}
 
+{% highlight c++ %}
+const int * const func(const int * const &arg);
+//1. return value is a const pointer to a const data
+//2. the argument is a reference to a const pointer to a const data
+{% endhighlight %}
+
 ## Const function
-Doesn't modify any values, can call only const functions, otherwise compiler error.
+A member function which doesn't modify any member variable, can call only const functions, otherwise compiler error.
 {% highlight c++ %}
 void func() const;
 {% endhighlight %}
