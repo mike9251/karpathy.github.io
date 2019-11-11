@@ -129,7 +129,7 @@ O(1) - at any place.
 Search: O(1).  
 Values in sets and keys in maps can not be modified.  
 
-Hash collision can degrade O(1) performance as several keys can go into one bucket and in order to keep it we need to insert it at the end of the linked list.
+Hash collision can degrade O(1) performance as several keys can go into one bucket and in order to keep it we need to insert it at the end of the linked list. The worse case when all elements go into one bucket:
 <div class="imgcap">
 <img src="/assets/c-plus-plus-stl/unordered_containers_degrade.jpg">
 </div>
