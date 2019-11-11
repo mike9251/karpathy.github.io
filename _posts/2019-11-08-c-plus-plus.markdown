@@ -202,6 +202,32 @@ class EmptyClass
 <img src="/assets/compiler_generated_functions.png">
 </div>
 
+### Disallow Compiler Generated Functions
+In C++11 we can dissalow Compiler Generated Functions with `delete` modifier:
+{% highlight c++ %}
+class SomeClass
+{
+public:
+    //C++03
+    SomeClass(int a = 0) {m_a = a;};                   // define default constructor
+    SomeClass(const SomeClass &rhs) = delete;          // forbid compiler to generate copy constructor
+private:
+    int m_a;
+};
+{% endhighlight %}
+In C++03 just declare unwanted functions into private section without definition:
+{% highlight c++ %}
+class SomeClass
+{
+public:
+    //C++03
+    SomeClass(int a = 0) {m_a = a;};           // define default constructor
+private:
+    SomeClass(const SomeClass &rhs);          // forbid compiler to generate copy constructor
+};
+{% endhighlight %}
+
+If we define destructor in private section, in order to destruct the object we need a helper function to do so. In this case we need to create the class object on heap. Creating an object on stack evantually will try to call the destructor - so this case won't compile. 
 ### Const
 
 `const` before `*` - pointer to a constant data, can't dereference the pointer and change it's value but can change the pointer itself.
