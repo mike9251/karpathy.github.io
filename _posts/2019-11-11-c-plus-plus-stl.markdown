@@ -13,8 +13,8 @@ STL is a combination of `algorithms` and `containers`. Algorithms access contain
 </div>
 
 ### Containers
-## Sequence containers - emplemented as array of linked list.
-1. Vector is a dynamically allocated contiguous array in memory. Can grow only in one side.  
+### Sequence containers - emplemented as array of linked list.
+1. ### Vector ### is a dynamically allocated contiguous array in memory. Can grow only in one side.  
 Insert/Remove:  
 O(1) - at the end.  
 O(n) - at the begining/middle, because we need to shift the rest of the elements.  
@@ -40,7 +40,7 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 
 5. Array. Its size can not be changed.  
 
-## Associative containers - binary tree (elements are sorted).  
+### Associative containers - binary tree (elements are sorted).  
 They called `Associative` because elements consist of a `key` and a `value` associated with the `key`.  
 1. Map - key, value pairs. No duplicated keys. Sorted by key.  
 Insert/Remove:  
@@ -78,7 +78,7 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 
 
 
-## Unordered containers (Unordered set/multiset, Unordered map/multimap) - hash table.
+### Unordered containers (Unordered set/multiset, Unordered map/multimap) - hash table.
 
 
 Below we can see an example of the lvalue and rvalue references usage:
