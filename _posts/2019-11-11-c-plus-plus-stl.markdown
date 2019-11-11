@@ -9,7 +9,7 @@ date:   2019-11-11 20:00:00
 ### Standard Library
 STL is a combination of `algorithms` and `containers`. Algorithms access containers through `iterators`.
 <div class="imgcap">
-<img src="/assets/c-plus-pluc-stl/stl.jpg">
+<img src="/assets/c-plus-plus-stl/stl.jpg">
 </div>
 
 ### Containers
@@ -78,7 +78,7 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 
 ### Unordered containers - implemented as hash table.
 <div class="imgcap">
-<img src="/assets/c-plus-pluc-stl/unordered_containers.jpg">
+<img src="/assets/c-plus-plus-stl/unordered_containers.jpg">
 </div>
 
 1. Unordered set - no duplicates, no `[]`; multiset - allows to contain duplicate elements, no `[]`.
@@ -91,7 +91,7 @@ Values in sets and keys in maps can not be modified.
 
 Hash collision can degrade O(1) performance as several keys can go into one bucket and in order to keep it we need to insert it at the end of the linked list.
 <div class="imgcap">
-<img src="/assets/c-plus-pluc-stl/unordered_containers_degrade.jpg">
+<img src="/assets/c-plus-plus-stl/unordered_containers_degrade.jpg">
 </div>
 
 ### Associative arrays - can be implemented as a map/unordered_map.
@@ -101,22 +101,4 @@ cout << arr['M'] << endl;
 cout << arr.at('S') << endl;  // perform boundary check, exception is thrown if no such key in the map
 arr['F'] = string("Friday"); // add new element
 {% endhighlight %}
-`[]` operator returns a reference with write rights. `Multimap/unordered_multimap` can't be used to implement associative array because  they don't have `[]` operator.  
-Below we can see an example of the lvalue and rvalue references usage:
-{% highlight c++ %}
-void printInt(int &a) { std::cout << "printInt with an lvalue reference" << std::endl; }
-void printInt(int &&a) { std::cout << "printInt with an rvalue reference" << std::endl; }
-
-int main()
-{
-    int a = 5; // a - lvalue
-    int &b = a; // b - lvalue reference
-    int &&c = 5; // c - rvalue reference initialized with an rvalue 5
-    
-    printInt(a);// call printInt(int &a)
-    printInt(10);// call printInt(int &&a)
-    printInt(std::move(a));// call printInt(int &&a)
-    
-    return 0;
-}
-{% endhighlight %}
+`[]` operator returns a reference with write rights. `Multimap/unordered_multimap` can't be used to implement associative array because  they don't have `[]` operator.
