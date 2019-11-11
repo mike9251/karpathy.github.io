@@ -52,7 +52,10 @@ Search: O(log(n)).
 Random access: Yes.  Operator `[]` is implemented. Use `[key]` or `auto it = map_.find(key)` to get needed element.   
 Keys can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
-
+{% highlight c++ %}
+map<char, string> map_ = { {'M', "Monday"}, {'S', "Sunday"} };
+cout << map_['M'] << endl;
+{% endhighlight %}
 2. `Multimap` - map which can contain duplicated keys.  
 Insert/Remove:  
 O(log(n)) - at any place.  
@@ -60,7 +63,14 @@ Search: O(log(n)).
 Random access: No. Operator `[]` is not implemented. Use `auto it = map_.find(key)` to get needed element.   
 Keys can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
-
+{% highlight c++ %}
+multimap<char, string> mmap_ = { {'M', "Monday"}, {'S', "Sunday"}, {'M', "Monday2"}, {'T', "Thursday"} };
+cout << mmap_.find('M')->second << endl; // returns the first 'M' entry
+cout << mmap_.count('M') << endl;        // returns 2
+auto iters = mmap_.equal_range('M');     // returns 2 iterators, first - to all elements with 'M' key, second - next after 'M' key
+for (auto it = iters.first; it != iters.second; it++) // iterate over the first iterator to get all value with 'M' key
+    cout << it->second << endl;
+{% endhighlight %}
 `Set/Multiset` are special cases of Map/Multimap when key=value.  
 
 3. `Set` - no duplicated items.  
@@ -70,7 +80,10 @@ Search: O(log(n)).
 No. Operator `[]` is not implemented. Use `auto it = set_.find(value)` to get needed element.   
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
-
+{% highlight c++ %}
+set<char> set_ = { 'M', 'F', 'S' };
+cout << *set_.find('F') << endl;
+{% endhighlight %}
 4. `Multiset` - set which can contain duplicated items.  
 Insert/Remove:  
 O(log(n)) - at any place.  
@@ -78,15 +91,39 @@ Search: O(log(n)).
 Random access: No. Operator `[]` is not implemented. Use `auto it = set_.find(value)` to get needed element.   
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
-
+{% highlight c++ %}
+multiset<char> mset_ = { 'M', 'F', 'S', 'M' };
+cout << *mset_.find('S') << endl;
+auto iters_set = mset_.equal_range('M');
+for (auto it = iters_set.first; it != iters_set.second; it++)
+    cout << *it << endl;
+{% endhighlight %}
 ### Unordered containers - implemented as hash table.
 <div class="imgcap">
 <img src="/assets/c-plus-plus-stl/unordered_containers.jpg">
 </div>
 
 1. Unordered set - no duplicates, no `[]`; multiset - allows to contain duplicate elements, no `[]`.
+{% highlight c++ %}
+// unordered_set
+unordered_set<string> s = { "red", "yellow", "blue" };
+cout << *s.find("red") << endl;
+  
+//unordered_multiset
+unordered_multiset<string> mset = { "Monday", "Sunday" };
+cout << *(mset.find("Monday")) << endl;
+{% endhighlight %}
 2. Unordered map - no duplicates, `[]`; multimap - allows to contain duplicate keys, no `[]`.
+{% highlight c++ %}
+// unordered_map
+unordered_map<char, string> unmap_ = { {'M', "Monday"}, {'S', "Sunday"} };
+cout << unmap_['S'] << endl;
 
+// unordered_multimap
+unordered_multimap<char, string> mmap = { {'M', "Monday"}, {'S', "Sunday"} };
+auto mmap_it = mmap.find('M');
+cout << mmap_it->second << endl;
+{% endhighlight %}
 Insert/Remove:  
 O(1) - at any place.  
 Search: O(1).  
