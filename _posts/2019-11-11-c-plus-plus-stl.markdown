@@ -14,7 +14,10 @@ STL is a combination of `algorithms` and `containers`. Algorithms access contain
 
 ### Containers
 ### Sequence containers - emplemented as array or linked list.
-1. `Vector` is a dynamically allocated contiguous array in memory. Can grow only in one side.  
+1. `Vector` is a dynamically allocated contiguous array in memory. Can grow only in one side.
+<div class="imgcap">
+<img src="/assets/c-plus-plus-stl/stl_vector_container.jpg">
+</div>
 Insert/Remove:  
 O(1) - at the end.  
 O(n) - at the begining/middle, because we need to shift the rest of the elements.  
