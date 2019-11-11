@@ -13,7 +13,7 @@ STL is a combination of `algorithms` and `containers`. Algorithms access contain
 </div>
 
 ### Containers
-### Sequence containers - emplemented as array of linked list.
+### Sequence containers - emplemented as array or linked list.
 1. `Vector` is a dynamically allocated contiguous array in memory. Can grow only in one side.  
 Insert/Remove:  
 O(1) - at the end.  
@@ -76,9 +76,32 @@ Random access: No.
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
-### Unordered containers (Unordered set/multiset, Unordered map/multimap) - hash table.
+### Unordered containers - implemented as hash table.
+<div class="imgcap">
+<img src="/assets/c-plus-pluc-stl/unordered_containers.jpg">
+</div>
 
+1. Unordered set - no duplicates, multiset - allows to contain duplicate elements.
+2. Unordered map - no duplicates, multimap - allows to contain duplicate keys.
 
+Insert/Remove:  
+O(1) - at any place.  
+Search: O(1).  
+Values in sets and keys in maps can not be modified.  
+
+Hash collision can degrade O(1) performance as several keys can go into one bucket and in order to keep it we need to insert it at the end of the linked list.
+<div class="imgcap">
+<img src="/assets/c-plus-pluc-stl/unordered_containers_degrade.jpg">
+</div>
+
+### Associative arrays - can be implemented as a map/unordered_map.
+{% highlight c++ %}
+unordered_map<char, string> arr = { {'M', "Monday"}, {'S', "Sunday"} };
+cout << arr['M'] << endl;
+cout << arr.at('S') << endl;  // perform boundary check, exception is thrown if no such key in the map
+arr['F'] = string("Friday"); // add new element
+{% endhighlight %}
+`[]` operator returns a reference with write rights. `Multimap/unordered_multimap` can't be used to implement associative array because  they don't have `[]` operator.  
 Below we can see an example of the lvalue and rvalue references usage:
 {% highlight c++ %}
 void printInt(int &a) { std::cout << "printInt with an lvalue reference" << std::endl; }
