@@ -202,3 +202,71 @@ class EmptyClass
 <div class="imgcap">
 <img src="/assets/compiler_generated_functions.png">
 </div>
+
+### Const
+
+`const` before `*` - pointer to a constant, can't dereference the pointer and change it's value but can change the pointer itself.
+`const` after `*` - constant pointer, can dereference the pointer and change the value it points to but can't change the address it points to.
+{% highlight c++ %}
+const int a = 10;
+const int *p  = &a;
+*p = 7; // doesn't compile
+p++; // ok
+
+int b = 11;
+int * const q = &b;
+*q = 12; //b = 12
+{% endhighlight %}
+
+Hacky way to change a constant value:
+{% highlight c++ %}
+const int a = 10;
+const_cast<int&>(a) = 11; // ok
+{% endhighlight %}
+
+## Const function
+Doesn't modify any values, can call only const functions, otherwise compiler error.
+{% highlight c++ %}
+void func() const;
+{% endhighlight %}
+
+Const modifier can be used to overload functions:
+{% highlight c++ %}
+class Test
+{
+public:
+    void func() const; //(1)
+    void func();       //(2)
+};
+
+int main()
+{
+    Test obj;
+    obj.func(); // (1)
+    
+    const Test obj2;
+    obj2.func(); // (2)
+    
+    return 0;
+}
+{% endhighlight %}
+
+When used as argument type modifier and arguments are passed by value can't be used to overload functions - the case below won't compile:
+{% highlight c++ %}
+void func(int a);
+void func(const int a);
+{% endhighlight %}
+When used as argument type modifier and arguments are passed by reference can be used to overload functions:
+{% highlight c++ %}
+void func(int &a);         //(1) - receives lvalue reference
+void func(const int &a);   //(2) - receives rvalue reference
+
+int main()
+{
+    int a = 10;
+    func(a);               //(1)
+    func(5);               //(2)
+    func(std::move(a));    //(2)
+    return 0;
+}
+{% endhighlight %}
