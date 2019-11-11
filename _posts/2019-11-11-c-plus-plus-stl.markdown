@@ -21,14 +21,14 @@ O(n) - at the begining/middle, because we need to shift the rest of the elements
 Search: O(n).  
 Random access: Yes.  
 
-2. Deque is a dynamically allocated array (not contiguous) in memory, can grow in both sides.  
+2. `Deque` is a dynamically allocated array (not contiguous) in memory, can grow in both sides.  
 Insert/Remove:  
 O(1) - at the begining and end.  
 O(n) - at the middle, because we need to shift the rest of the elements.  
 Search: O(n).  
 Random access: Yes.  
 
-3. List is a doubly linked list. It consists of not contiguous memory blocks. Consumes more memory as each element holds two pointers.   
+3. `List` is a doubly linked list. It consists of not contiguous memory blocks. Consumes more memory as each element holds two pointers.   
 Insert/Remove:  
 O(1) - at any place (but if the position is not at the begining of end first we need to find it = O(n)).   
 Search: O(n).  
@@ -36,13 +36,13 @@ Random access: No.
 Provides efficient function - splice O(1).  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
-4. Forward list is a linked list.  
+4. `Forward list` is a linked list.  
 
-5. Array. Its size can not be changed.  
+5. `Array`. Its size can not be changed.  
 
 ### Associative containers - binary tree (elements are sorted).  
 They called `Associative` because elements consist of a `key` and a `value` associated with the `key`.  
-1. Map - key, value pairs. No duplicated keys. Sorted by key.  
+1. `Map` - key, value pairs. No duplicated keys. Sorted by key.  
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
@@ -50,7 +50,7 @@ Random access: No.
 Keys can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
-2. Multimap - map which can contain duplicated keys.  
+2. `Multimap` - map which can contain duplicated keys.  
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
@@ -58,9 +58,9 @@ Random access: No.
 Keys can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
-Set/Multiset are special cases of Map/Multimap when key=value.  
+`Set/Multiset` are special cases of Map/Multimap when key=value.  
 
-3. Set - no duplicated items.  
+3. `Set` - no duplicated items.  
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
@@ -68,15 +68,13 @@ Random access: No.
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
-4. Multiset - set which can contain duplicated items.  
+4. `Multiset` - set which can contain duplicated items.  
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
 Random access: No.  
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
-
-
 
 ### Unordered containers (Unordered set/multiset, Unordered map/multimap) - hash table.
 
