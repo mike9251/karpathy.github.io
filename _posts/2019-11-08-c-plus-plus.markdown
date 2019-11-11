@@ -175,6 +175,7 @@ C++ 03
 2. Copy constructor         (generated only if no 5, 6 defined)
 3. Copy assignment operator (generated only if no 5, 6 defined)
 4. Destructor
+<br>
 C++11
 5. Move constructor         (generated only if no 2, 3, 4, 6 defined)
 6. Move assignment operator (generated only if no 2, 3, 4, 5 defined)
