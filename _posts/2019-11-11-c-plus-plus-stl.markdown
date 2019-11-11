@@ -71,7 +71,7 @@ auto iters = mmap_.equal_range('M');     // returns 2 iterators, first - to all 
 for (auto it = iters.first; it != iters.second; it++) // iterate over the first iterator to get all value with 'M' key
     cout << it->second << endl;
 {% endhighlight %}
-`Set/Multiset` are special cases of Map/Multimap when key=value.  
+`Set/Multiset` are special cases of `Map/Multimap` when `key=value`.  
 
 3.`Set` - no duplicated items.  
 Insert/Remove:  
