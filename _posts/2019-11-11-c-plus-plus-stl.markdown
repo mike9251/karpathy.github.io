@@ -46,7 +46,7 @@ They called `Associative` because elements consist of a `key` and a `value` asso
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
-Random access: No.  
+Random access: Yes.  Operator `[]` is implemented. Use `[key]` or `auto it = map_.find(key)` to get needed element.   
 Keys can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
@@ -54,7 +54,7 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
-Random access: No.  
+Random access: No. Operator `[]` is not implemented. Use `auto it = map_.find(key)` to get needed element.   
 Keys can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
@@ -64,7 +64,7 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
-Random access: No.  
+No. Operator `[]` is not implemented. Use `auto it = set_.find(value)` to get needed element.   
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
@@ -72,7 +72,7 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 Insert/Remove:  
 O(log(n)) - at any place.  
 Search: O(log(n)).  
-Random access: No.  
+Random access: No. Operator `[]` is not implemented. Use `auto it = set_.find(value)` to get needed element.   
 Values can not be modified.  
 Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
 
@@ -81,8 +81,8 @@ Traversing is slow comparing to vectors or deques. Because of more frequent cach
 <img src="/assets/c-plus-pluc-stl/unordered_containers.jpg">
 </div>
 
-1. Unordered set - no duplicates, multiset - allows to contain duplicate elements.
-2. Unordered map - no duplicates, multimap - allows to contain duplicate keys.
+1. Unordered set - no duplicates, no `[]`; multiset - allows to contain duplicate elements, no `[]`.
+2. Unordered map - no duplicates, `[]`; multimap - allows to contain duplicate keys, no `[]`.
 
 Insert/Remove:  
 O(1) - at any place.  
