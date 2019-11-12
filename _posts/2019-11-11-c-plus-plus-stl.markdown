@@ -169,7 +169,7 @@ forward_list<int>::iterator flist_it = flist_.begin();
 flist_it++;
 {% endhighlight %}
 
-Unordered containers provide at least forward iterators. Depends on the STL implementation it can provide Bidirectional iterators.
+Unordered containers provide at least forward iterators. Depends on the STL implementation it can provide Bidirectional iterators.  
 Every container provides iterators and const iterators. Const iterators provide read-only rights to the container elements.
 {% highlight c++ %}
 vector<int> vec = { 1,112,3,4,0,5,6,7 };
@@ -186,44 +186,37 @@ distance(it1, it2);
 ### Iterator adoptors:
 1.Insert iterator
 {% highlight c++ %}
-{
-	vector<int> vec1 = { 1,2 };
-	vector<int> vec2 = { 12,45,20,78,100 };
-	vector<int>::iterator it = find(vec2.begin(), vec2.end(), 20);
-	insert_iterator<vector<int>> i_it(vec2, it);
-	copy(vec1.begin(), vec1.end(), i_it);
-	for_each(vec2.begin(), vec2.end(), [](int x) {cout << x << " "; });
-    // 12 45 1 2 20 78 100
-	}
+vector<int> vec1 = { 1,2 };
+vector<int> vec2 = { 12,45,20,78,100 };
+vector<int>::iterator it = find(vec2.begin(), vec2.end(), 20);
+insert_iterator<vector<int>> i_it(vec2, it);
+copy(vec1.begin(), vec1.end(), i_it);
+for_each(vec2.begin(), vec2.end(), [](int x) {cout << x << " "; }); // 12 45 1 2 20 78 100
 {% endhighlight %}
 2.Stream iterator
 {% highlight c++ %}
-{
-	vector<string> str_vec;
-	copy(istream_iterator<string>(cin), istream_iterator<string>(), back_inserter(str_vec));
-	copy(str_vec.begin(), str_vec.end(), ostream_iterator<string>(cout, " "));
-    //or
-	copy(istream_iterator<string>(cin), istream_iterator<string>(), ostream_iterator<string>(cout, " "));
-}
+vector<string> str_vec;
+copy(istream_iterator<string>(cin), istream_iterator<string>(), back_inserter(str_vec));
+copy(str_vec.begin(), str_vec.end(), ostream_iterator<string>(cout, " "));
+//or
+copy(istream_iterator<string>(cin), istream_iterator<string>(), ostream_iterator<string>(cout, " "));
 {% endhighlight %}
 3.Reverse iterator
 {% highlight c++ %}
+vector<int> vec = { 1,2,3,4,5 };
+vector<int>::reverse_iterator r_it = vec.rbegin();
+for (auto r_iter = vec.rbegin(); r_iter != vec.rend(); r_iter++) // auto
 {
-	vector<int> vec = { 1,2,3,4,5 };
-	vector<int>::reverse_iterator r_it = vec.rbegin();
-	for (auto r_iter = vec.rbegin(); r_iter != vec.rend(); r_iter++) // auto
-	{
-		cout << *r_iter << " ";
-	}
-    //or
-	cout << endl;
-	for_each(vec.rbegin(), vec.rend(), [](int x) {cout << x << " "; });
+    cout << *r_iter << " ";
 }
+//or
+cout << endl;
+for_each(vec.rbegin(), vec.rend(), [](int x) {cout << x << " "; });
 {% endhighlight %}
 
 ## Algorithms
 ### Non-modifying Algorithms  
-Almost all algorithms have generalized version - take one more argument - predicate.  
+Almost all algorithms have generalized version - take one more argument - predicate.    
 1.Counting algorithms
 {% highlight c++ %}
 vector<int> vec = { 10, 0, 2, 10, 10, 9, 120, 121, 89, 11, 1, 5,11,10,9,120,6,7,8,88 };
