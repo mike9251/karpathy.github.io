@@ -345,7 +345,7 @@ for_each(vec3.begin(), vec3.end(), [](int x) { cout << x << " "; });
 //vec3: 2 4 6 8 0 0
 {% endhighlight %}
 
-3.Swap - two-way copying
+4.Swap - two-way copying
 {% highlight c++ %}
 vector<int> vec  = { 1, 2, 3, 4 }; // 4
 vector<int> vec2 = { 2, 4, 6, 8, 0, 0 }; // 6
@@ -356,7 +356,7 @@ for_each(vec.begin(), vec.end(), [](int x) { cout << x << " "; });
 // vec:  2 4 6 8
 {% endhighlight %}
 
-4.Fill
+5.Fill
 {% highlight c++ %}
 vector<int> vec(10);
 fill(vec.begin(), vec.end(), 5);
@@ -377,7 +377,7 @@ for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
 // vec: 5705 28145 23281 16827 9961 5 5 5 5 5
 {% endhighlight %}
 
-5.Replace
+6.Replace
 {% highlight c++ %}
 vector<string> vec = { "Red", "Black", "Blue", "White" };
 replace(vec.begin(), vec.end(), string("Blue"), string("Orange"));
@@ -397,7 +397,7 @@ for_each(vec2.begin(), vec2.end(), [](string &x) {cout << x << " "; });
 // vec2: Gold Black Orange Green
 {% endhighlight %}
 
-6.Remove. Only _copy algorithms work. Don't know why.
+7.Remove. Only _copy algorithms work. Don't know why.
 {% highlight c++ %}
 vector<int> vec = { 1, 1, 2, 3, 4 };
 vector<int> vec2(5, 0);
@@ -410,7 +410,7 @@ for (auto &i : vec2)
     cout << i << " "; // vec2: 1 2 3 4 0
 {% endhighlight %}
 
-7.Reverse
+8.Reverse
 {% highlight c++ %}
 vector<int> vec = { 1, 1, 2, 3, 4 };
 vector<int> vec2(5, 0);
@@ -424,7 +424,7 @@ for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
 // vec: 4 3 2 1 1
 {% endhighlight %}
 
-7.Rotate
+9.Rotate
 {% highlight c++ %}
 vector<int> vec = { 1, 1, 2, 3, 4 };
 vector<int> vec2(5, 0);
@@ -438,7 +438,7 @@ for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
 // vec: 3 4 1 1 2
 {% endhighlight %}
 
-7.Shuffle. Include <random> for default_random_engine.
+10.Shuffle. Include <random> for default_random_engine.
 {% highlight c++ %}
 vector<int> vec = { 1, 1, 2, 3, 4 };
 
@@ -446,3 +446,9 @@ shuffle(vec.begin(), vec.end(), default_random_engine(1));
 for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
 // vec: 3 1 2 4 1
 {% endhighlight %}
+
+## String
+## Stream
+C++ Input/Output library.  
+Stream is a serial IO interface to external devices (file, stdin/stdout, network, etc.).  
+
