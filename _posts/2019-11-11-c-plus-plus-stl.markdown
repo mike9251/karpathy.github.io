@@ -276,3 +276,173 @@ cout << pred << endl; // 1 - True, at least one element > 0
 pred = none_of(vec.begin(), vec.end(), [](int x) {return x == -1; });
 cout << pred << endl; // 1 - True, no elements == -1
 {% endhighlight %}
+
+### Modifying Algorithms  
+1.Copy
+{% highlight c++ %}
+vector<int> vec = { 10,0,2,10,10,9,120,121,89,11,1,5,11,10,9,120,6,7,8,88 }; // 20
+vector<int> vec2(22, 0);                                                     // 22
+
+copy(vec.begin() + 3, vec.end() - 5, vec2.begin());
+for_each(vec2.begin(), vec2.end(), [](int x) {if (x) cout << x << " "; });
+// 10 10 9 120 121 89 11 1 5 11 10 9
+cout << endl;
+
+fill(vec2.begin(), vec2.end(), 0);
+copy_backward(vec.begin(), vec.end(), vec2.end());
+for_each(vec2.begin(), vec2.end(), [](int x) { cout << x << " "; });
+// vec2: 0,0,10,0,2,10,10,9,120,121,89,11,1,5,11,10,9,120,6,7,8,88
+cout << endl;
+// or
+fill(vec2.begin(), vec2.end(), 0);
+copy(vec.begin(), vec.end(), vec2.begin() + 2); // need to be shure that vec2 has enough space to store vec
+for_each(vec2.begin(), vec2.end(), [](int x) { cout << x << " "; });
+// vec2: 0,0,10,0,2,10,10,9,120,121,89,11,1,5,11,10,9,120,6,7,8,88
+cout << endl;
+
+fill(vec2.begin(), vec2.end(), 0);
+copy_if(vec.begin(), vec.end(), vec2.begin(), [](int x) { return x > 10; }); // need to be shure that vec2 has enough space to store vec
+for_each(vec2.begin(), vec2.end(), [](int x) { cout << x << " "; });
+// vec2: 120 121 89 11 11 120 88 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cout << endl;
+
+fill(vec2.begin(), vec2.end(), 0);
+copy_n(vec.begin() + 2, 5, vec2.begin()); // need to be shure that vec2 has enough space to store vec
+for_each(vec2.begin(), vec2.end(), [](int x) { cout << x << " "; });
+// vec2: 2 10 10 9 120 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cout << endl;
+{% endhighlight %}
+2.Move  
+If a container holds objects of a class with `Move constructor` the `move` algorithm works using move semantic otherwise `copy` is performed.
+{% highlight c++ %}
+vector<string> vec = { "Red", "White", "Black", "Yellow" }; // 4
+vector<string> vec2(6, "");                                 // 6
+
+move(vec.begin(), vec.end(), vec2.begin());
+for_each(vec2.begin(), vec2.end(), [](string &x) {cout << x << " "; });
+// vec2: Red White Black Yellow
+// vec: "" "" "" "" - empty
+
+move_backward(vec.begin(), vec.end(), vec2.end());
+for_each(vec2.begin(), vec2.end(), [](string &x) {cout << x << " "; });
+// "" ""  "Red" "White" "Black" "Yellow"
+{% endhighlight %}
+3.Transform
+{% highlight c++ %}
+vector<int> vec  = { 1, 2, 3, 4 };
+vector<int> vec2 = { 1, 2, 3, 4 };
+vector<int> vec3(6, 0);
+
+transform(vec.begin(), vec.end(), vec3.begin(), [](int x) {return x + 1; });
+for_each(vec3.begin(), vec3.end(), [](int x) { cout << x << " "; });
+// vec3: 2 3 4 5 0 0
+
+transform(vec.begin(), vec.end(),                           // src1
+			vec2.begin(),                       // src2
+			vec3.begin(),                       //dst
+			[](int x, int y) {return x + y; }); //operation
+for_each(vec3.begin(), vec3.end(), [](int x) { cout << x << " "; });
+//vec3: 2 4 6 8 0 0
+{% endhighlight %}
+
+3.Swap - two-way copying
+{% highlight c++ %}
+vector<int> vec  = { 1, 2, 3, 4 }; // 4
+vector<int> vec2 = { 2, 4, 6, 8, 0, 0 }; // 6
+swap_ranges(vec.begin(), vec.end(), vec2.begin());
+for_each(vec2.begin(), vec2.end(), [](int x) { cout << x << " "; });
+for_each(vec.begin(), vec.end(), [](int x) { cout << x << " "; });
+// vec2: 1 2 3 4 0 0
+// vec:  2 4 6 8
+{% endhighlight %}
+
+4.Fill
+{% highlight c++ %}
+vector<int> vec(10);
+fill(vec.begin(), vec.end(), 5);
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 5 5 5 5 5 5 5 5 5 5
+
+fill_n(vec.begin() + 2, 3, 23);
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 5 5 23 23 23 5 5 5 5 5
+
+generate(vec.begin(), vec.end(), rand);
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 41 18467 6334 26500 19169 15724 11478 29358 26962 24464 - random
+
+fill(vec.begin(), vec.end(), 5);
+generate_n(vec.begin(), 5, rand);
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 5705 28145 23281 16827 9961 5 5 5 5 5
+{% endhighlight %}
+
+5.Replace
+{% highlight c++ %}
+vector<string> vec = { "Red", "Black", "Blue", "White" };
+replace(vec.begin(), vec.end(), string("Blue"), string("Orange"));
+for_each(vec.begin(), vec.end(), [](string &x) {cout << x << " "; });
+// vec: Red Black Orange White
+
+replace_if(vec.begin(), vec.end(), [](string &x) {return x.size() == 3; }, string("Gold"));
+for_each(vec.begin(), vec.end(), [](string &x) {cout << x << " "; });
+// vec: Gold Black Orange White
+
+vector<string> vec2(4, "");
+replace_copy(vec.begin(), vec.end(),  //src
+	vec2.begin(),                 //dst
+	string("White"),              //old value
+	string("Green"));             //new value
+for_each(vec2.begin(), vec2.end(), [](string &x) {cout << x << " "; });
+// vec2: Gold Black Orange Green
+{% endhighlight %}
+
+6.Remove. Only _copy algorithms work. Don't know why.
+{% highlight c++ %}
+vector<int> vec = { 1, 1, 2, 3, 4 };
+vector<int> vec2(5, 0);
+remove_copy_if(vec.begin(), vec.end(), vec2.begin(), [](int x) {return x > 2; });
+for (auto &i : vec2)
+    cout << i << " "; // vec2: 1 1 2 0 0
+
+unique_copy(vec.begin(), vec.end(), vec2.begin());
+for (auto &i : vec2)
+    cout << i << " "; // vec2: 1 2 3 4 0
+{% endhighlight %}
+
+7.Reverse
+{% highlight c++ %}
+vector<int> vec = { 1, 1, 2, 3, 4 };
+vector<int> vec2(5, 0);
+
+reverse_copy(vec.begin(), vec.end(), vec2.begin());
+for_each(vec2.begin(), vec2.end(), [](int x) {cout << x << " "; });
+// vec2: 4 3 2 1 1
+
+reverse(vec.begin(), vec.end());
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 4 3 2 1 1
+{% endhighlight %}
+
+7.Rotate
+{% highlight c++ %}
+vector<int> vec = { 1, 1, 2, 3, 4 };
+vector<int> vec2(5, 0);
+
+rotate_copy(vec.begin(), vec.begin() + 3, vec.end(), vec2.begin());
+for_each(vec2.begin(), vec2.end(), [](int x) {cout << x << " "; });
+// vec2: 3 4 1 1 2
+
+rotate(vec.begin(), vec.begin() + 3, vec.end());
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 3 4 1 1 2
+{% endhighlight %}
+
+7.Shuffle. Include <random> for default_random_engine.
+{% highlight c++ %}
+vector<int> vec = { 1, 1, 2, 3, 4 };
+
+shuffle(vec.begin(), vec.end(), default_random_engine(1));
+for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
+// vec: 3 1 2 4 1
+{% endhighlight %}
