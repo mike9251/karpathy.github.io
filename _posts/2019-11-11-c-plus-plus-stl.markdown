@@ -451,4 +451,119 @@ for_each(vec.begin(), vec.end(), [](int x) {cout << x << " "; });
 ## Stream
 C++ Input/Output library.  
 Stream is a serial IO interface to external devices (file, stdin/stdout, network, etc.).  
+File system stream:
+{% highlight c++ %}
+`#include <fstream>`
+int main()
+{
+    {
+        ofstream f("MyFile.txt");  // open and clean an existing file or create a new file.
+        f << "12345";
+	f.flush();                 // writes all data in ofstream into file
+    }
+    //MyFile.txt : 12345
+    
+    {
+        ofstream f("MyFile.txt");  // open and clean an existing file or create a new file.
+        f << "12345" << endl;      // endl puts the \0 symbol and calls flash() method.         
+    }
+    //MyFile.txt : 12345\0
+    
+    {
+        ofstream f("MyFile.txt", ofstream::app);  // open an existing file or create a new file. Existing content will be saved and new 						  // data will be added at the end of the file 
+        f << "1234567890";
+	f.flush();                 // writes all data in ofstream into file
+    }
+    //MyFile.txt : 12345\0
+    //             1234567890
+    
+    {
+        ofstream f("MyFile.txt", ofstream::in | ofstream::out); // allow to find a place to start writing
+	f.seekp(3, ofstream::beg);                              // writing position = 3 symbols from the begining
+	f << "000000";                                          // starting at position [3] write 000000, replacing existing symbols
+	f.flush();
+    }
+    //MyFile.txt : 12300000034567890
 
+    return 0;
+}
+
+Formatted input - read a file and treat its data with respect to variable type.
+{% highlight c++ %}
+`#include <fstream>`
+int main()
+{
+    ifstream f("E:\\MyFile.txt");
+    int i;
+    f >> i;
+    if (f.good()) // if first element is some number in int range
+    {
+	cout << "OK\n";
+    }
+    else if (f.bad())
+    {
+ 	cout << "Failed! Recovery is impossible\n";
+    }
+    else if (f.fail())
+    {
+        cout << "Failed! Recovery is possible\n";
+    }
+    else if (f.eof())
+    {
+ 	cout << "EOF\n";
+    }
+    
+    f.clear(); // clear error bit
+
+    return 0;
+}
+{% endhighlight %}
+
+Formatting:
+{% highlight c++ %}
+cout << 34 << endl; // 34
+cout.setf(ios::hex, ios::basefield);
+cout << 34 << endl; // 0x22
+
+cout.setf(ios::dec, ios::basefield);
+cout.setf(ios::oct, ios::basefield);
+
+cout.unsetf(ios::showbase);
+{% endhighlight %}
+
+Unformatted IO - tread all data as text, read/write char symbols.
+{% highlight c++ %}
+ifstream f("MyFile.txt");
+char buf[80];
+//input
+f.get(buf, 80);     // reads up to 80 characters
+f.getline(buf, 80); // reads up to 80 characters or until the \n encountered
+
+//output
+ofstream of("MyFileOut.txt");
+of.put('c');
+of.write(buf, 6); // writes 6 first symbols of buf
+of.flush();       // flush the data into output file
+{% endhighlight %}
+
+### std::endl
+{% highlight c++ %}
+ostream& endl(ostream &osm)
+{
+    osm.put('\n');
+    osm.flush();
+    return osm;
+}
+{% endhighlight %}
+
+### Stream buffer
+We can create custom IO streams (override). Example, redirecting:
+{% highlight c++ %}
+ofstream f("E:\\MyFile.txt");  // create ofstream
+streambuf *buf = f.rdbuf();    // get ofstream buffer, where data is written before flush
+streambuf *orig_cout_stream_buffer = cout.rdbuf(); // in order to recover cout
+cout.rdbuf(buf);               // set custom stream buffer to the cout
+cout << "12345" << endl;       // write data into stream buffer and flush it into file
+
+cout.rdbuf(orig_cout_stream_buffer); // restore default cout
+{% endhighlight %}
