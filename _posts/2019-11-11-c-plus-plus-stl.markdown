@@ -487,7 +487,7 @@ int main()
 
     return 0;
 }
-
+{% endhighlight %}
 Formatted input - read a file and treat its data with respect to variable type.
 {% highlight c++ %}
 `#include <fstream>`
