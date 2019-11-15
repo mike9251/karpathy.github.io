@@ -453,7 +453,7 @@ C++ Input/Output library.
 Stream is a serial IO interface to external devices (file, stdin/stdout, network, etc.).  
 File system stream:
 {% highlight c++ %}
-`#include <fstream>`
+#include <fstream>
 int main()
 {
     {
@@ -490,7 +490,7 @@ int main()
 {% endhighlight %}
 Formatted input - read a file and treat its data with respect to variable type.
 {% highlight c++ %}
-`#include <fstream>`
+#include <fstream>
 int main()
 {
     ifstream f("E:\\MyFile.txt");
