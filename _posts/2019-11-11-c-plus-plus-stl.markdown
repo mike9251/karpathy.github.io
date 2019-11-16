@@ -622,7 +622,11 @@ cout << *rit << endl; //6 - it moved one element to the left
 When we convert a revese iterator to an iterator (`base() member function`), the result iterator will be the reverse iterator moved one element to the right. When we convert an iterator to a reverse iterator (`vector<int>::revers_iterator(it)`), the result reverse iterator will be the iterator moved one element to the left.
 
 ### Remove operation
-We can remove elements from a container using algorithms or member functions. Vectors don't have remove member function:
+We can remove elements from a container using algorithms or member functions.
+<div class="imgcap">
+<img src="/assets/c-plus-plus-stl/stl-list-remove.png">
+</div>
+Vectors don't have remove member function:
 {% highlight c++ %}
 vector<int> vec = {1, 2, 3, 6, 4, 5, 6, 7, 8, 9, 0};
 cout << "Capacity: " << vec.capacity() << endl; // 11
