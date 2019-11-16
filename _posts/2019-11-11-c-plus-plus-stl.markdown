@@ -98,6 +98,7 @@ auto iters_set = mset_.equal_range('M');
 for (auto it = iters_set.first; it != iters_set.second; it++)
     cout << *it << endl;
 {% endhighlight %}
+	
 ### Unordered containers - implemented as hash table.
 <div class="imgcap">
 <img src="/assets/c-plus-plus-stl/unordered_containers.jpg">
@@ -567,3 +568,92 @@ cout << "12345" << endl;       // write data into stream buffer and flush it int
 
 cout.rdbuf(orig_cout_stream_buffer); // restore default cout
 {% endhighlight %}
+
+### Member functions vs Algorithms
+In most cases member functions are preferable over algorithms, because they know about underlaying data structure and can take advantage of it. Examples:  
+Find  
+{% highlight c++ %}
+unordered_set<int> unset = { 1,8,3,6 };     // hash table
+// Member function
+auto it = unset.find(3);                    // O(1)
+// Algorithm
+it = find(unset.begin(), unset.end(), 3);   // O(n)
+{% endhighlight %}
+{% highlight c++ %}
+unordered_set<int> unset = { 1,8,3,6 };     // hash table
+auto it = unset.find(3);                    // O(1)
+it = find(unset.begin(), unset.end(), 3);   // O(n)
+{% endhighlight %}
+Remove  
+{% highlight c++ %}
+list<int> list_ = { 3, 1, 5, 7, 0, 4 };
+list_.remove(7);              // O(n): O(n) to find the element, O(1) actual removind and relinking
+// list_: 3 1 5 0 4
+// Algorithm
+auto it = remove(list_.begin(), list_.end(), 7);  // O(n): removes by copying - it can be very expensive if elements are complex
+// list_: 3 1 5 0 4 4
+list_.erase(it);
+// list_: 3 1 5 0 4
+{% endhighlight %}
+	
+### Reverse iterators
+We can get a reverse iterator from a standard iterator:
+{% highlight c++ %}
+vector<int> vec = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+vector<int>::iterator it;
+vector<int>::reverse_iterator rit;
+
+it = find(vec.begin(), vec.end(), 6);
+cout << *it << endl; // 6
+
+rit = find(vec.rbegin(), vec.rend(), 6);
+cout << *rit << endl; // 6
+
+it = rit.base();
+cout << *it << endl;  // 7 - rit moved one element to the right
+
+rit = vector<int>::reverse_iterator(it);
+cout << *rit << endl; //6 - it moved one element to the left
+	
+{% endhighlight %}
+<div class="imgcap">
+<img src="/assets/c-plus-plus-stl/reverse-iterator.png">
+</div>
+When we convert a revese iterator to an iterator (`base() member function`), the result iterator will be the reverse iterator moved one element to the right. When we convert an iterator to a reverse iterator (`vector<int>::revers_iterator(it)`), the result reverse iterator will be the iterator moved one element to the left.
+
+### Remove operation
+We can remove elements from a container using algorithms or member functions. Vectors don't have remove member function:
+{% highlight c++ %}
+vector<int> vec = {1, 2, 3, 6, 4, 5, 6, 7, 8, 9, 0};
+cout << "Capacity: " << vec.capacity() << endl; // 11
+vector<int>::iterator it = remove(vec.begin(), vec.end(), 6); // remove by copying
+// vec: 1, 2, 3, 4, 5, 7, 8, 9, 0, 0 (it), 0
+vec.erase(it, vec.end());   // capacity is still 11
+// vec: 1, 2, 3, 4, 5, 7, 8, 9, 0
+vector<int>(vec).swap(vec);   // capacity 9
+//or
+vec.shrink_to_fit(); // C++11
+{% endhighlight %}
+
+Lists have an efficient `remove` member function, O(n) to find elements and O(1) to relink elements:
+{% highlight c++ %}
+list<int> list_ = { 1,2,3,6,4,5,6,7 };
+list_.remove(6);
+// list_: 1,2,3,4,5,7
+
+//or
+auto iter = remove(list_.begin(), list_.end(), 6);
+list_.erase(iter, list_.end());
+// list_: 1,2,3,4,5,7 but it removes by copying - not so efficient
+{% endhighlight %}
+
+Removing elements from ordered associative containers (map/multimap, set/multiset) can be done in O(log(n)) by using `erase` member function (instead of O(n) using `remove` algorithm):
+{% highlight c++ %}
+map<int, string> map_ = { {1, "one"}, {2, "two"}, {5, "five"} };
+map_.erase(2);
+// map_: {1, "one"}, {5, "five"}
+{% endhighlight %}
+
+1. Vector od Deque: `remove` algorithm + `erase` member function to remove redundant elements.
+2. List: member function `remove`.
+3. Associative containers (ordered/unordered): member function `erase`.
