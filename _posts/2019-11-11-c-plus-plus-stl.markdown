@@ -23,13 +23,24 @@ O(1) - at the end.
 O(n) - at the begining/middle, because we need to shift the rest of the elements.  
 Search: O(n).  
 Random access: Yes.  
+When there is no space to push_back a new element the vector is reallocated (usually x2 or x1.5), old elements get copyed and the new element is added.
 
-2.`Deque` is a dynamically allocated array (not contiguous) in memory, can grow in both sides.  
+2.`Deque` is a dynamically allocated array (not contiguous) in memory, can grow in both sides. It can be implemented as array of arrays - the outter array contains pointers to inner arrays which hold data. When we want to push_back or push_front an element and there is no space in the current inner vector we do not reallocate old vectors but allocate new contiguous blocks of memory (arrays) and put its pointer in the outter vector (at the front/back of the deque) and place the new element.
 Insert/Remove:  
 O(1) - at the begining and end.  
 O(n) - at the middle, because we need to shift the rest of the elements.  
 Search: O(n).  
 Random access: Yes.  
+Data is not contiguous - slightly slower then vectors. But if data type is complex - probably managing objects of such data type is more consumming, in this case `Deque` is preferable (no copying needed).  
+
+Recomendation:  
+1. Frequent `push_front` - deque
+2. Build-in data type - vector
+3. Not build-in data type - deque
+4. Unpredictable growth - deque
+5. Frequently passed to C functions - vector (as we can get access to elements of the vector by int *p = &vec[0]
+
+### Vector vs Deque
 
 3.`List` is a doubly linked list. It consists of not contiguous memory blocks. Consumes more memory as each element holds two pointers.   
 Insert/Remove:  
@@ -37,7 +48,7 @@ O(1) - at any place (but if the position is not at the begining of end first we 
 Search: O(n).  
 Random access: No.  
 Provides efficient function - splice O(1).  
-Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses.  
+Traversing is slow comparing to vectors or deques. Because of more frequent cache-misses (data is not contiguous).  
 
 4.`Forward list` is a linked list.  
 
