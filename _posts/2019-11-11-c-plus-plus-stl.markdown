@@ -505,7 +505,7 @@ Formatted input - read a file and treat its data with respect to variable type.
 #include <fstream>
 int main()
 {
-    ifstream f("E:\\MyFile.txt");
+    ifstream f("MyFile.txt");
     int i;
     f >> i;
     if (f.good()) // if first element is some number in int range
@@ -628,14 +628,14 @@ cout << *rit << endl; //6 - it moved one element to the left
 	
 {% endhighlight %}
 <div class="imgcap">
-<img src="/assets/c-plus-plus-stl/reverse-iterator.png">
+<img src="/assets/c-plus-plus-stl/reverse-iterator.PNG">
 </div>
 When we convert a revese iterator to an iterator (`base() member function`), the result iterator will be the reverse iterator moved one element to the right. When we convert an iterator to a reverse iterator (`vector<int>::revers_iterator(it)`), the result reverse iterator will be the iterator moved one element to the left.
 
 ### Remove operation
 We can remove elements from a container using algorithms or member functions.
 <div class="imgcap">
-<img src="/assets/c-plus-plus-stl/stl-list-remove.png">
+<img src="/assets/c-plus-plus-stl/stl-list-remove.PNG">
 </div>
 Vectors don't have remove member function:
 {% highlight c++ %}
