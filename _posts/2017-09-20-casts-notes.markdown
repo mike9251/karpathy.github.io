@@ -75,8 +75,7 @@ a = 000000E77974F664
 b = 000000E77974F665  
 
 ### static_cast
-Valid only if type_name can be converted implicitly to the same type that expression has, or vise versa. Otherwise, the type cast is an error. It can be used to force implicit conversions such as `non-const` object to `const`, `int` to `double`. It can be also be used to perform the reverse of many conversions such as `void*` pointers to typed pointers, base pointers to derived pointers. But it cannot cast from `const` to `non-const` object.
-
+Valid only for related objects(base, derived). Can be used for upcasting (child->base) for objects/pointers. Downcasting for objects won't compile as it is incorrect, but for pointers it will but child's members will contain garbage.
 {% highlight c++ %}
 class Base { 
 public: 
@@ -96,15 +95,18 @@ int main(){
     Base base;
     Derived derived;
 
-    // valid upcast
+    // valid upcast with pointers
     Base *pBase = static_cast<Base *>(&derived);
     cout << "pBase->a = " << pBase->a << endl;
     //cout << "pBase->b = " << pBase->b << endl;
 
-    // valid downcast
+    // valid downcast with pointers
     Derived *pDerived = static_cast<Derived *> (&base);
     cout << "pDerived->a = " << pDerived->a << endl; // output 7
     cout << "pDerived->b = " << pDerived->b << endl; // output some garbage, Base doesn't contain b
+    
+    // invalid downcast - won't compile
+    Derived derived2 = static_cast<Derived> (base);
 
     // invalid, between unrelated classes
     //UnrelatedClass *pUnrelated= static_cast<UnrelatedClass *> (&derived);
