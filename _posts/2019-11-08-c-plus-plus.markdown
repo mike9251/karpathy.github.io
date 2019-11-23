@@ -301,3 +301,103 @@ int main()
     return 0;
 }
 {% endhighlight %}
+
+## Virtual destructor
+{% highlight c++ %}
+class Cat
+{
+public:
+    ~Cat() { std::cout << "Cat is destroyed\n"; }
+};
+
+class WhiteCat : public Cat
+{
+public:
+    ~WhiteCat() { std::cout << "WhiteCat is destroyed\n"; }
+};
+
+int main()
+{
+    Cat *cat = new WhiteCat;
+    delete cat; // prints Cat is destroyed
+    return 0;
+}
+{% endhighlight %}
+Only part of the WhiteCat object is destroyed (base part). To fix this issue we need to declare the destructor of a base class as `virtual`.
+{% highlight c++ %}
+class Cat
+{
+public:
+    virtual ~Cat() { std::cout << "Cat is destroyed\n"; }
+};
+
+class WhiteCat : public Cat
+{
+public:
+    ~WhiteCat() { std::cout << "WhiteCat is destroyed\n"; }
+};
+
+int main()
+{
+    Cat *cat = new WhiteCat;
+    delete cat; // prints WhiteCat is destroyed
+                          Cat is destroyed
+    return 0;
+}
+{% endhighlight %}
+When at least one function in the base class is vurtual the `virtual functions table, vftable` is created for the class. Each object of such class will hold a pointer to this table - `__vfptr` (only a pointer not the copy of the table). So two objects will hold `__vfptr`s to the same table. When we derive a child class from a base class with virtual functions the `vftable` is copied from the base class and each object of the derived class will hold the `__vfptr` to this new table. This table will hold pointers to the functions in the base class. So, if we don't override virtual functions of the base class inside the child class, calling them from a child class will first invoke looking at the `vftable` of the child class and call the corresponding function (which is base class function). If we override vurtual functions in child class then we replace vurtual functions (their addresses) in the `vftable` of the child class with the addresses of overriding functions in child class. This mechanism allows `dynamic polymorphism`.  
+So in the example above, when `delete cat` is called, as the cat hold a pointer to the WhiteCat object (which has a pointer to its own vftable), we first need to decide which destrucctor to invoke - look at the WhiteCat's vftable and find the destructor address (which is the WhiteCat's destructor). After that destructor of the Cat is also invoked.
+{% highlight c++ %}
+class Cat
+{
+public:
+    virtual ~Cat() { std::cout << "Cat is destroyed\n"; }
+    virtual void func() { std::cout << "Some function\n"; }
+};
+
+class WhiteCat : public Cat
+{
+public:
+    ~WhiteCat() { std::cout << "WhiteCat is destroyed\n"; }
+};
+
+int main()
+{
+    Cat *cat1 = new Cat;
+    Cat *cat3 = new Cat;
+    Cat *cat2 = new WhiteCat;
+    delete cat1;
+    delete cat2;
+    delete cat3;
+    return 0;
+}
+{% endhighlight %}
+The `cat1` and `cat2` objects hold `vfptr`s to the same `vftable` - address is `0x00007ff7155cb858`.
+Inside this table there are addresses of two functions - destructor `0x00007ff71555d48d` and func() `0x00007ff71555ec11`.
+The `cat3` object holds a `vfptr` to a different `vftable` - address is `0x00007ff7155cb8a8`.
+Inside this table there are addresses of two functions - destructor `0x00007ff71555f030` and func() `0x00007ff71555ec11`. Destructor address is different from the `cat1/2`s objects as it is overriden with the `WhiteCat`s destructor. The address of the func() function is the same because it's left untouched in the `WhiteCat` class.
+<div class="imgcap">
+<img src="/assets/virt_tables.PNG">
+</div>
+
+Another solution to correct object destruction is to use `shared_ptr`s:
+{% highlight c++ %}
+class Cat
+{
+public:
+    ~Cat() { std::cout << "Cat is destroyed\n"; }
+};
+
+class WhiteCat : public Cat
+{
+public:
+    ~WhiteCat() { std::cout << "WhiteCat is destroyed\n"; }
+};
+
+int main()
+{
+    shared_ptr<Cat> cat = make_shared<WhiteCat>();
+    return 0;  // prints WhiteCat is destroyed
+                         Cat is destroyed
+}
+{% endhighlight %}
