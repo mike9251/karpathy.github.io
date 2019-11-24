@@ -302,7 +302,7 @@ int main()
 }
 {% endhighlight %}
 
-## Virtual destructor
+### Virtual destructor
 {% highlight c++ %}
 class Cat
 {
@@ -400,4 +400,99 @@ int main()
     return 0;  // prints WhiteCat is destroyed
                //        Cat is destroyed
 }
+{% endhighlight %}
+	
+### Static polymorphism
+Dynamic polymorphism suffers from some runtime overhead. We can eliminate it by staticly resolving which method to invoke.  
+We have some inheritance structure (Base->Derrived) (1), base class defines some generic algorithm which is used by derrived class (2) and derrived class customizes this generic algorithm (3).
+{% highlight c++ %}
+template <typename T>
+class Base
+{
+public:
+    Base(std::string name) : name_(name) {};
+	
+    void process() // generic algorithm
+    {
+	static_cast<T*>(this)->do_special_op();
+    }
+
+    const std::string & getName()
+    {
+	return name_;
+    }
+    
+    void do_special_op()
+    {
+	std::cout << "Special ops in Base on " << name_ << std::endl;
+    }
+private:
+    std::string name_;	
+};
+
+class Derrived : public Base<Derrived> // derived is inhereted from template of Base
+{
+public:
+    Derrived(std::string name) : Base(name) {};
+
+    void do_special_op() // customize the generic algorithm
+    {
+	std::cout << "Special ops in Derrived on " << getName() << std::endl;
+    }
+};
+
+int main()
+{
+    Derrived obj("123");
+    obj.process(); // prints Special ops in Derrived on 123
+    return 0; 
+}
+{% endhighlight %}
+
+### Public, Protected and Private inheritance
+Suppose we have `Base` class and `Derrived_pub`, `Derrived_prot`, `Derrived_priv` which are childs of the `Base` with public, protected and private inheritance.  
+`Derrived_pub` inherets public and protected members as public and protected, has no access to the private members of `Base`. Outside the class we still can access public interface of `Base` through `Derrived_pub` object.  
+`Derrived_prot` inherets public and protected members as protected, has no access to the private members of `Base`. Outside the class we can't access public interface of `Base` through `Derrived_prot` object (but Childs of this class can).   
+`Derrived_priv` inherets public and protected members as private, has no access to the private members of `Base`. Outside the class we can't access public interface of `Base` through `Derrived_priv` object (Childs of this class also don't have access).
+{% highlight c++ %}
+class B
+{
+public:
+	void func_pub() { std::cout << "func_pub\n"; }
+protected:
+	void func_prot() { std::cout << "func_prot\n"; }
+private:
+	void func_priv() { std::cout << "func_priv\n"; }
+};
+
+class D_pub: public B
+{
+public:
+	void func()
+	{
+		func_pub();
+		func_prot();
+		//func_priv(); // inaccessible
+	}
+};
+class D_prot : protected B
+{
+public:
+	void func()
+	{
+		func_pub();
+		func_prot();
+		//func_priv(); // inaccessible
+	}
+};
+class D_priv : private B
+{
+public:
+	void func()
+	{
+		func_pub();
+		func_prot();
+		//func_priv(); // inaccessible
+	}
+};
 {% endhighlight %}
