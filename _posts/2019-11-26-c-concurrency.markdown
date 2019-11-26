@@ -12,12 +12,14 @@ Threads live inside a process and communicate with each other through some share
 <div class="imgcap">
 <img src="/assets/c-plus-plus-concurrency/multiprocessing.JPG">
 </div>
+
 <div class="imgcap">
 <img src="/assets/c-plus-plus-concurrency/multithreading.JPG">
 </div>
 
 Threads start with executing a function they were passed during creation. Next we can `join()` new thread with main thread (main thread waits untill new thread finishes its function) or `detach()` new thread (main thread doesn't wait for child threads completion and continues its execution). If thread is detached then it bacomes a `deamon` thread and will be managed by C++ runtime (it can't be joined anymore).  
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -42,6 +44,7 @@ int main()
 
 We can pass parameters into a function. Parameters are passed by value:
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -67,8 +70,10 @@ int main()
 	return 0;
 }
 {% endhighlight %}
+
 Parameters passed by reference:
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -97,9 +102,9 @@ int main()
 {% endhighlight %}
 
 We also can pass functors into threads:
-{% endhighlight %}
-Parameters passed by reference:
+
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -135,12 +140,15 @@ int main()
 	return 0;
 }
 {% endhighlight %}
+
 `std::thread::hardware_concurrency()` - returns the number of threads supported on the hardware. Having too many threads (`oversubscription`) can harm performance because of context switching.  
 `std::this_thread::get_id()` - returns id of the current thread.  
 `t1.get_id()` - return id of the t1 thread.  
 After `t1.join()` t1 thread is finished and its id = 0.  
 Also we can pass parameters into a thread as rvalue reference, using move semantic (std::move) to reduce unnecessary copies.
+
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -181,31 +189,36 @@ Threads can't be copied but can be modev with `std::move`.
 
 ### Race condition and Mutex
 Exmple with race condition over std::cout:
+
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <thread>
 
 void thread_func(string &&msg, int t_id)
 {
-	for (int i = 0; i < 1000; i++)
-	{
-			std::cout << "thread " << t_id << msg << endl;
-	}
+    for (int i = 0; i < 1000; i++)
+    {
+ 	std::cout << "thread " << t_id << msg << endl;
+    }
 }
 
 int main()
 {
-	std::thread t1(thread_func, std::string("Hello world!"), 1);
-	std::thread t2(thread_func, std::string("Another message!"), 2);
+    std::thread t1(thread_func, std::string("Hello world!"), 1);
+    std::thread t2(thread_func, std::string("Another message!"), 2);
 
-	t1.join();
-	t2.join();
-	return 0;
+    t1.join();
+    t2.join();
+    return 0;
 }
+
 {% endhighlight %}
 Output is messy because two threads write at the cout simultaneously. To fix this we can use mutex to syncrhonize threads. So we need to "bind" cout with mutex.
+
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -214,39 +227,42 @@ Output is messy because two threads write at the cout simultaneously. To fix thi
 
 void shared_cout(string &&msg, int t_id)
 {
-	mu.lock();
-	cout << "thread " << t_id << " msg: " << msg << endl;
-	mu.unlock();
+    mu.lock();
+    cout << "thread " << t_id << " msg: " << msg << endl;
+    mu.unlock();
 }
 
 void thread_func(string &&msg, int t_id)
 {
-	for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 1000; i++)
+    {
+	try
 	{
-		try
-		{
-			shared_cout(std::move(msg), t_id);
-		}
-		catch (exception &ex)
-		{
-			cout << "Exception is caught: " << ex.what() << endl;
-		}
+		shared_cout(std::move(msg), t_id);
 	}
-
+	catch (exception &ex)
+	{
+   	    cout << "Exception is caught: " << ex.what() << endl;
+	}
+    }
 }
 
 int main()
 {
-	std::thread t1(thread_func, std::string("Hello world!"), 1);
-	std::thread t2(thread_func, std::string("Another message!"), 2);
+    std::thread t1(thread_func, std::string("Hello world!"), 1);
+    std::thread t2(thread_func, std::string("Another message!"), 2);
 
-	t1.join();
-	t2.join();
-	return 0;
+    t1.join();
+    t2.join();
+    return 0;
 }
+
 {% endhighlight %}
+
 This will work but it is still not safe - if an exception occures during cout (after the mutex was locked) the mutex will remain locked and no one will be able to use shared_cout function. We can use RAII semantic - create a mutex wrapper on stack which will take and lock a mutex when created and unlock when we go out of its scope (`std::lock_guard`).
+
 {% highlight c++ %}
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -255,36 +271,37 @@ This will work but it is still not safe - if an exception occures during cout (a
 
 void shared_cout(string &&msg, int t_id)
 {
-	std::lock_guard<std::mutex> locker(mu);
-	cout << "thread " << t_id << " msg: " << msg << endl;
+    std::lock_guard<std::mutex> locker(mu);
+    cout << "thread " << t_id << " msg: " << msg << endl;
 }
 
 void thread_func(string &&msg, int t_id)
 {
-	for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 1000; i++)
+    {
+	try
 	{
-		try
-		{
-			shared_cout(std::move(msg), t_id);
-		}
-		catch (exception &ex)
-		{
-			cout << "Exception is caught: " << ex.what() << endl;
-		}
+	    shared_cout(std::move(msg), t_id);
 	}
-
+	catch (exception &ex)
+	{
+	    cout << "Exception is caught: " << ex.what() << endl;
+	}
+    }
 }
 
 int main()
 {
-	std::thread t1(thread_func, std::string("Hello world!"), 1);
-	std::thread t2(thread_func, std::string("Another message!"), 2);
+    std::thread t1(thread_func, std::string("Hello world!"), 1);
+    std::thread t2(thread_func, std::string("Another message!"), 2);
 
-	t1.join();
-	t2.join();
-	return 0;
+    t1.join();
+    t2.join();
+    return 0;
 }
+
 {% endhighlight %}
+
 Using this synchronization method makes std::cout thread safe when using through `shared_cout()`.  
 
 Avoid data race:
@@ -391,8 +408,10 @@ int main()
 {% endhighlight %}
 
 ### Conditional variables
-Suppose we have two worker threads, one of which supplies some data and the other does something with this data. The second thread needs to loop and check if there is data available or sleep. Pooling causes wasted processor's time and for sleep we don't know how much time we need to wait. A better solution is to use `Conditional variables`.  
+Suppose we have two worker threads, one of which supplies some data and the other does something with this data. The second thread needs to loop and check if there is data available or sleep. Pooling causes wasted processor's time and for sleep we don't know how much time we need to wait. A better solution is to use `Conditional variables`.
+
 {% highlight c++ %}
+
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -445,5 +464,7 @@ int main()
     
     return 0;
 }
+
 {% endhighlight %}
+
 The thread `t2` locks the mutex (if it is not locked by the other thread) and starts waiting on the `cv`. At this moment the mutex is unlocked (so other threads can access the shared resource while this thread waits for a notification). When thread `t1` notifies the thread `t2` through the `cv` the `t2` locks the mutex and accesses the shared resource. When waiting on a conditional variable thread can spontaneously wake up, to put him back to sleep we use a predicat (lambda in cv.wait()).
