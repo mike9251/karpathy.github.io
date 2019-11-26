@@ -189,7 +189,7 @@ int main()
 Threads can't be copied but can be modev with `std::move`.
 
 ### Race condition and Mutex
-Exmple with race condition over std::cout:
+Example with race condition over std::cout:
 
 {% highlight c++ %}
 
