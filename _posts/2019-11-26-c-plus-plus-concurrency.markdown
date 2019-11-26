@@ -311,7 +311,7 @@ std::lock_guard<std::mutex> locker2(mu2, std::adopt_lock);
 {% endhighlight %}
 
 ### Unique_lock
-Gives more flexebilities than `lock_guard`. With `unique_lock` we can lock, unlock mutex, deffer locking.
+Gives more flexebilities than `lock_guard`. With `unique_lock` we can lock, unlock mutex, deffer locking. It also can be moved (with `std::move`) in contrust to `std::lock_guard`.
 {% highlight c++ %}
 std::unique_lock<std::mutex> ulocker(mu);
 ...
