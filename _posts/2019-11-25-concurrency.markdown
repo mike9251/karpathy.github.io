@@ -389,3 +389,61 @@ int main()
     return 0;
 }
 {% endhighlight %}
+
+### Conditional variables
+Suppose we have two worker threads, one of which supplies some data and the other does something with this data. The second thread needs to loop and check if there is data available or sleep. Pooling causes wasted processor's time and for sleep we don't know how much time we need to wait. A better solution is to use `Conditional variables`.  
+{% highlight c++ %}
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <deque>
+
+using namespace std;
+
+std::deque<int> deq; // shared resource
+
+std::mutex mu;
+std::condition_variable cv;
+
+void func1()
+{
+    int size = 100;
+    while (size > 0)
+    {
+	std::unique_lock<std::mutex> locker(mu);   // lock the mutex
+	cout << "t1: Push value " << size << endl;
+	deq.push_back(size);
+	locker.unlock(); // unlock the mutex after using the shared resource
+	cv.notify_one(); // notify one thread waiting on this conditional variable
+
+        size--;
+     }
+}
+
+void func2()
+{
+    int size = 100;
+    while (size > 0)
+    {
+ 	std::unique_lock<std::mutex> locker(mu);       // lock the mutex
+	cv.wait(locker, []() {return !deq.empty(); }); // wait until some other thread notifies about data readiness
+	int val = deq.front();
+	deq.pop_front();
+	cout << "t2: Pop value " << val << endl;
+	locker.unlock();                              // unlock the mutex after using the shared resource
+	size--;
+    }
+}
+
+int main()
+{
+    std::thread t1(func1);
+    std::thread t2(func2);
+    t1.join();
+    t2.join();
+    
+    return 0;
+}
+{% endhighlight %}
+The thread `t2` locks the mutex (if it is not locked by the other thread) and starts waiting on the `cv`. At this moment the mutex is unlocked (so other threads can access the shared resource while this thread waits for a notification). When thread `t1` notifies the thread `t2` through the `cv` the `t2` locks the mutex and accesses the shared resource. When waiting on a conditional variable thread can spontaneously wake up, to put him back to sleep we use a predicat (lambda in cv.wait()).
