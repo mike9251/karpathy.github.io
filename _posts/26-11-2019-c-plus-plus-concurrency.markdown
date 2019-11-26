@@ -10,10 +10,10 @@ date:   2019-11-26 20:00:00
 Process owns some memory and contains at least one working thread. Processes communicate with each other through `Interproces Communication` channels such as: file, pipe, message queue, ...  
 Threads live inside a process and communicate with each other through some shared memory.
 <div class="imgcap">
-<img src="/assets/c-plus-plus-concurrency/multiprocessing.jpg">
+<img src="/assets/c-plus-plus-concurrency/multiprocessing.JPG">
 </div>
 <div class="imgcap">
-<img src="/assets/c-plus-plus-concurrency/multithreading.jpg">
+<img src="/assets/c-plus-plus-concurrency/multithreading.JPG">
 </div>
 
 Threads start with executing a function they were passed during creation. Next we can `join()` new thread with main thread (main thread waits untill new thread finishes its function) or `detach()` new thread (main thread doesn't wait for child threads completion and continues its execution). If thread is detached then it bacomes a `deamon` thread and will be managed by C++ runtime (it can't be joined anymore).  
