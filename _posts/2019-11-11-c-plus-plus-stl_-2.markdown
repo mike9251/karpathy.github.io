@@ -1,9 +1,9 @@
 ---
 layout: post
 comments: true
-title:  "C++ Concurrency"
-excerpt: "Brief overview of concurrency in C++"
-date:   2019-11-25 20:00:00
+title:  "C++ STL 2"
+excerpt: "Brief overview of STL"
+date:   2019-11-11 20:00:00
 ---
 
 ### Process vs Thread
