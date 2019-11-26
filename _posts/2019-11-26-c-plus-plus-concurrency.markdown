@@ -177,6 +177,8 @@ int main()
 }
 {% endhighlight %}
 
+Threads can't be copied but can be modev with `std::move`.
+
 ### Race condition and Mutex
 Exmple with race condition over std::cout:
 {% highlight c++ %}
@@ -306,4 +308,84 @@ std::lock(mu1, mu2);
 // We need to say the lock_guard not to lock mutexes again but just take ownership of mutexes
 std::lock_guard<std::mutex> locker1(mu1, std::adopt_lock);
 std::lock_guard<std::mutex> locker2(mu2, std::adopt_lock);
+{% endhighlight %}
+
+### Unique_lock
+Gives more flexebilities than `lock_guard`. With `unique_lock` we can lock, unlock mutex, deffer locking.
+{% highlight c++ %}
+std::unique_lock<std::mutex> ulocker(mu);
+...
+ulocker.unlock();
+...
+ulocker.lock();
+
+//or
+std::unique_lock<std::mutex> ulocker(mu, std::defer_lock);
+...
+ulocker.lock();
+...
+ulocker.unlock();
+
+//or
+
+std::unique_lock<std::mutex> locker(mu, std::adopt_lock);
+...
+ulocker.unlock();
+...
+ulocker.lock();
+{% endhighlight %}
+`unique_lock` is a little havier then `lock_guard`.
+
+### Once flag
+If we need to perform a function only once an in thread safe manner we can use `std::once_flag` flag and `std::call_once` function. In the example below the `shared_cout_2` will be called only once.
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <thread>
+#include <mutex>
+
+using namespace std;
+
+std::mutex mu;
+std::once_flag flag;
+
+void shared_cout(string &&msg, int t_id)
+{
+    std::lock_guard<std::mutex> locker(mu);
+    cout << "thread " << t_id << " msg: " << msg << endl;
+}
+
+void shared_cout_2(string &&msg, int t_id)
+{
+    std::unique_lock<std::mutex> ulocker(mu);
+    cout << "thread " << t_id << " msg: " << msg << endl;
+}
+
+void thread_func(string &&msg, int t_id)
+{
+    for (int i = 0; i < 1000; i++)
+    {
+ 	try
+	{
+            if (t_id == 2)
+		std::call_once(flag, [&]() {shared_cout_2(std::move(msg), t_id); });
+	    else
+		shared_cout(std::move(msg), t_id);
+	}
+	catch (exception &ex)
+	{
+	    cout << "Exception is caught: " << ex.what() << endl;
+	}
+    }
+}
+
+int main()
+{
+    std::thread t1(thread_func, std::string("Hello world!"), 1);
+    std::thread t2(thread_func, std::string("Another message!"), 2);
+
+    t1.join();
+    t2.join();
+    return 0;
+}
 {% endhighlight %}
