@@ -28,17 +28,17 @@ using namespace std;
 
 void func_1()
 {
-	cout << "func_1" << endl;
+    cout << "func_1" << endl;
 }
 
 int main()
 {
-	thread t1(func_1);
-	t1.join();
+    thread t1(func_1);
+    t1.join();
 
-	if (t1.joinable())
-		t1.join();
-	return 0;
+    if (t1.joinable())
+	t1.join();
+    return 0;
 }
 {% endhighlight %}
 
@@ -53,21 +53,21 @@ using namespace std;
 
 void func_1(string msg)
 {
-	cout << "func_1: " << msg << endl; // Some message
+    cout << "func_1: " << msg << endl; // Some message
 }
 
 int main()
 {
-	string s = "Some message";
+    string s = "Some message";
 
-	thread t1(func_1, s);
+    thread t1(func_1, s);
+    t1.join();
+
+    cout << "main: " << s << endl; // Some message
+    
+    if (t1.joinable())
 	t1.join();
-
-	cout << "main: " << s << endl; // Some message
-
-	if (t1.joinable())
-		t1.join();
-	return 0;
+    return 0;
 }
 {% endhighlight %}
 
@@ -82,22 +82,22 @@ using namespace std;
 
 void func_1(string &msg)
 {
-	cout << "func_1: " << msg << endl; // Some message
-  msg = "New message";
+    cout << "func_1: " << msg << endl; // Some message
+    msg = "New message";
 }
 
 int main()
 {
-	string s = "Some message";
+    string s = "Some message";
 
-	thread t1(func_1, std::ref(s));
+    thread t1(func_1, std::ref(s));
+    t1.join();
+
+    cout << "main: " << s << endl; // New message
+
+    if (t1.joinable())
 	t1.join();
-
-	cout << "main: " << s << endl; // New message
-
-	if (t1.joinable())
-		t1.join();
-	return 0;
+    return 0;
 }
 {% endhighlight %}
 
@@ -114,30 +114,31 @@ using namespace std;
 class Functor
 {
 public:
-	void operator()(string &msg)
-	{
-		cout << "Functor Thread ID: " << this_thread::get_id() << endl;   // Functor Thread ID: 9228
-		cout << "Functor: " << msg << endl;
-		msg = "New message";
-	};
+    void operator()(string &msg)
+    {
+ 	cout << "Functor Thread ID: " << this_thread::get_id() << endl;   // Functor Thread ID: 9228
+	cout << "Functor: " << msg << endl;
+	msg = "New message";
+    };
 };
 
 int main()
 {
-	cout << "Thread capacity: " << thread::hardware_concurrency() << endl;
-	cout << "Main Thread ID: " << this_thread::get_id() << endl;
+    cout << "Thread capacity: " << thread::hardware_concurrency() << endl;
+    cout << "Main Thread ID: " << this_thread::get_id() << endl;
   
-	string s = "Some message";
-	Functor fnctr;
-	thread t1(fnctr, std::ref(s));
-  cout << "t1 id: " << t1.get_id() << endl;    // t1 id: 9228. thread id is the same as in Functor() 
-	t1.join();
+    string s = "Some message";
+    Functor fnctr;
+    thread t1(fnctr, std::ref(s));
+    
+    cout << "t1 id: " << t1.get_id() << endl;    // t1 id: 9228. thread id is the same as in Functor() 
+    t1.join();
   
-  cout << "main: " << s << endl;
+    cout << "main: " << s << endl;
 
-	if (t1.joinable())
-		t1.join();
-	return 0;
+    if (t1.joinable())
+	t1.join();
+    return 0;
 }
 {% endhighlight %}
 
@@ -158,30 +159,30 @@ using namespace std;
 class Functor
 {
 public:
-	void operator()(string &&msg)
-	{
-		cout << "Functor Thread ID: " << this_thread::get_id() << endl;
-		cout << "Functor: " << msg << endl;    // Some message
-		msg = "New message";
-	};
+    void operator()(string &&msg)
+    {
+	cout << "Functor Thread ID: " << this_thread::get_id() << endl;
+	cout << "Functor: " << msg << endl;    // Some message
+	msg = "New message";
+    };
 };
 
 int main()
 {
-	cout << "Thread capacity: " << thread::hardware_concurrency() << endl;
-	cout << "Main Thread ID: " << this_thread::get_id() << endl;
+    cout << "Thread capacity: " << thread::hardware_concurrency() << endl;
+    cout << "Main Thread ID: " << this_thread::get_id() << endl;
   
-	string s = "Some message";
-	Functor fnctr;
-	thread t1(fnctr, std::move(s));
-  cout << "t1 id: " << t1.get_id() << endl;    // t1 id: 9228. thread id is the same as in Functor() 
-	t1.join();
+    string s = "Some message";
+    Functor fnctr;
+    thread t1(fnctr, std::move(s));
+    cout << "t1 id: " << t1.get_id() << endl;    // t1 id: 9228. thread id is the same as in Functor() 
+    t1.join();
   
-  cout << "main: " << s << endl;   // nothing as s is empty
+    cout << "main: " << s << endl;   // nothing as s is empty
 
-	if (t1.joinable())
-		t1.join();
-	return 0;
+    if (t1.joinable())
+        t1.join();
+    return 0;
 }
 {% endhighlight %}
 
@@ -238,7 +239,7 @@ void thread_func(string &&msg, int t_id)
     {
 	try
 	{
-		shared_cout(std::move(msg), t_id);
+	    shared_cout(std::move(msg), t_id);
 	}
 	catch (exception &ex)
 	{
