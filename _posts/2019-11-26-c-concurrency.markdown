@@ -216,7 +216,7 @@ int main()
 }
 
 {% endhighlight %}
-Output is messy because two threads write at the cout simultaneously. To fix this we can use mutex to syncrhonize threads. So we need to "bind" cout with mutex.
+Output is messy because two threads write at the cout simultaneously. To fix this we can use `std::mutex` to syncrhonize threads. So we need to "bind" cout with mutex.
 
 {% highlight c++ %}
 
@@ -260,7 +260,7 @@ int main()
 
 {% endhighlight %}
 
-This will work but it is still not safe - if an exception occures during cout (after the mutex was locked) the mutex will remain locked and no one will be able to use shared_cout function. We can use RAII semantic - create a mutex wrapper on stack which will take and lock a mutex when created and unlock when we go out of its scope (`std::lock_guard`).
+This will work but it is still not safe - if an exception occures during cout (after the mutex was locked) the mutex will remain locked and no one will be able to use shared_cout function. So it's not recomended practise to use mutex directly. Instead we can use RAII semantic - create a mutex wrapper on stack which will take and lock a mutex when created and unlock when we go out of its scope (`std::lock_guard`).
 
 {% highlight c++ %}
 
