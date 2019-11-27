@@ -17,7 +17,7 @@ Threads live inside a process and communicate with each other through some share
 <img src="/assets/c-plus-plus-concurrency/multithreading.JPG">
 </div>
 
-Threads start with executing a function they were passed during creation. Next we can `join()` new thread with main thread (main thread waits untill new thread finishes its function) or `detach()` new thread (main thread doesn't wait for child threads completion and continues its execution). If thread is detached then it bacomes a `deamon` thread and will be managed by C++ runtime (it can't be joined anymore).  
+`std::thread` defines a thread object which is accossiated with a launched thread of execution. Threads start with executing a function they were passed during creation. Next we can `join()` new thread with main thread (main thread waits untill new thread finishes its function) or `detach()` new thread (main thread doesn't wait for child threads completion and continues its execution). If thread is detached then it bacomes a `deamon` thread and will be managed by C++ runtime (it can't be joined anymore). After calling the `detach()` the corresponding `std::thread` object is not associated with the thread of execution. After calling the `join()` and successfully waiting for the thread's completion the corresponding `std::thread` object is not associated with the thread of execution.  
 {% highlight c++ %}
 
 #include <iostream>
@@ -42,7 +42,7 @@ int main()
 }
 {% endhighlight %}
 
-We can pass parameters into a function. Parameters are passed by value:
+We can pass parameters into a function. When we pass function arguments into a thread they are passed by value. They are copied into thread's internal block from which passed as rvalues into function the thread is going to execute.
 {% highlight c++ %}
 
 #include <iostream>
@@ -71,7 +71,7 @@ int main()
 }
 {% endhighlight %}
 
-Parameters passed by reference:
+To pass parameters by reference we can use `std::ref`:
 {% highlight c++ %}
 
 #include <iostream>
